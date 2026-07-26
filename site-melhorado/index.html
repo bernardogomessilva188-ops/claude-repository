@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central Imports — Eletrônicos importados originais com garantia e rastreio</title>
+<meta name="description" content="iPhone, fones, smartwatches e acessórios importados originais, lacrados, com garantia de 90 dias, pagamento seguro e rastreio do pedido até a sua porta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS — estética "manifesto de carga" ============ */
+  :root{
+    --papel:#F2F4F7;        /* nevoeiro de pista */
+    --branco:#FFFFFF;
+    --tinta:#0B1B2B;        /* azul manifesto */
+    --tinta-2:#415264;      /* tinta secundária */
+    --carga:#FF5C1A;        /* laranja de carga aérea (CTA) */
+    --carga-escuro:#E04A0D;
+    --ok:#0E9F6E;           /* verde "liberado" */
+    --linha:#D9DFE7;
+    --raio:14px;
+    --display:"Archivo",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sombra:0 10px 30px rgba(11,27,43,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{
+    font-family:var(--display);
+    font-variation-settings:"wdth" 100;
+    color:var(--tinta);
+    background:var(--papel);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .container{max-width:1120px;margin:0 auto;padding:0 20px}
+  .mono{font-family:var(--mono)}
+
+  /* faixa de código de barras decorativa (tema carga) */
+  .barcode{
+    height:8px;
+    background:repeating-linear-gradient(90deg,var(--tinta) 0 2px,transparent 2px 5px,var(--tinta) 5px 6px,transparent 6px 11px,var(--tinta) 11px 14px,transparent 14px 18px);
+    opacity:.18;
+  }
+
+  /* ============ BARRA DE AVISO ============ */
+  .aviso{
+    background:var(--tinta);color:#fff;
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;
+    text-align:center;padding:9px 16px;
+  }
+  .aviso strong{color:#FFB48F;font-weight:600}
+
+  /* ============ HEADER ============ */
+  header.topo{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--linha);
+  }
+  .topo-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+  .logo{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+  .logo .nome{font-weight:900;font-size:21px;letter-spacing:-.02em;font-variation-settings:"wdth" 112}
+  .logo .tag{font-family:var(--mono);font-size:10px;color:var(--carga);letter-spacing:.14em;text-transform:uppercase}
+  nav.menu{display:flex;gap:26px;font-size:14.5px;font-weight:600}
+  nav.menu a{text-decoration:none;color:var(--tinta-2)}
+  nav.menu a:hover{color:var(--tinta)}
+  .btn{
+    display:inline-block;text-decoration:none;font-weight:700;
+    border-radius:999px;padding:13px 26px;font-size:15px;
+    transition:transform .15s ease,background .15s ease;
+    text-align:center;
+  }
+  .btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--carga);outline-offset:2px}
+  .btn-carga{background:var(--carga);color:#fff}
+  .btn-carga:hover{background:var(--carga-escuro);transform:translateY(-1px)}
+  .btn-tinta{background:var(--tinta);color:#fff}
+  .btn-tinta:hover{background:#12293f}
+  .btn-vazado{border:2px solid var(--tinta);color:var(--tinta)}
+  .btn-vazado:hover{background:var(--tinta);color:#fff}
+  .btn-zap{background:#25D366;color:#083b1f}
+  .btn-zap:hover{background:#1fc25a}
+  .topo .btn{padding:10px 20px;font-size:14px}
+
+  /* ============ HERO ============ */
+  .hero{padding:64px 0 56px;background:linear-gradient(180deg,#fff 0%,var(--papel) 100%)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--carga);font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--carga)}
+  h1{
+    font-size:clamp(34px,4.6vw,54px);line-height:1.06;letter-spacing:-.025em;
+    font-weight:900;font-variation-settings:"wdth" 108;margin-bottom:20px;
+  }
+  h1 em{font-style:normal;color:var(--carga)}
+  .hero p.sub{font-size:18px;color:var(--tinta-2);max-width:34em;margin-bottom:28px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{
+    font-family:var(--mono);font-size:12px;font-weight:500;
+    border:1px solid var(--linha);background:#fff;border-radius:999px;
+    padding:7px 14px;color:var(--tinta-2);display:inline-flex;align-items:center;gap:7px;
+  }
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+
+  /* cartão-manifesto do hero (assinatura visual) */
+  .manifesto{
+    background:#fff;border:1px solid var(--linha);border-radius:var(--raio);
+    box-shadow:var(--sombra);overflow:hidden;transform:rotate(1.2deg);
+  }
+  .manifesto-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 20px;border-bottom:1px dashed var(--linha);
+    font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  }
+  .manifesto-head .num{color:var(--tinta-2)}
+  .selo{
+    font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;
+    color:var(--ok);border:1.5px solid var(--ok);border-radius:6px;padding:3px 9px;
+    transform:rotate(-3deg);text-transform:uppercase;
+  }
+  .m-produto{display:flex;gap:16px;align-items:center;padding:18px 20px;border-bottom:1px dashed var(--linha)}
+  .m-foto{
+    width:74px;height:74px;flex:none;border-radius:10px;
+    background:linear-gradient(135deg,#E8EDF3,#CBD6E2);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:9px;color:var(--tinta-2);text-align:center;letter-spacing:.05em;
+  }
+  .m-produto h3{font-size:16px;font-weight:800;letter-spacing:-.01em}
+  .m-produto p{font-family:var(--mono);font-size:12px;color:var(--tinta-2)}
+  .rastreio{list-style:none;padding:18px 20px 6px}
+  .rastreio li{
+    display:flex;gap:14px;padding-bottom:16px;position:relative;
+    font-size:13.5px;
+  }
+  .rastreio li::before{
+    content:"";position:absolute;left:7px;top:20px;bottom:-2px;width:2px;
+    background:var(--linha);
+  }
+  .rastreio li:last-child::before{display:none}
+  .rastreio .ponto{
+    width:16px;height:16px;border-radius:50%;flex:none;margin-top:3px;
+    border:3px solid var(--ok);background:#fff;z-index:1;
+  }
+  .rastreio li.pendente .ponto{border-color:var(--linha)}
+  .rastreio li.pendente{color:var(--tinta-2)}
+  .rastreio .quando{font-family:var(--mono);font-size:11px;color:var(--tinta-2);display:block}
+  .manifesto-foot{
+    padding:12px 20px 16px;font-family:var(--mono);font-size:11px;color:var(--tinta-2);
+    border-top:1px dashed var(--linha);display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+
+  /* ============ SEÇÕES ============ */
+  section{padding:72px 0}
+  .sec-head{max-width:640px;margin-bottom:42px}
+  .sec-head.centro{margin-left:auto;margin-right:auto;text-align:center}
+  h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;letter-spacing:-.02em;font-weight:900;font-variation-settings:"wdth" 108;margin:14px 0 12px}
+  .sec-head p{color:var(--tinta-2);font-size:16.5px}
+
+  /* barra de confiança */
+  .confianca{background:var(--tinta);color:#fff;padding:34px 0}
+  .conf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+  .conf-item{display:flex;gap:14px;align-items:flex-start}
+  .conf-item .ico{
+    width:40px;height:40px;flex:none;border-radius:10px;background:rgba(255,92,26,.16);
+    color:#FFB48F;display:flex;align-items:center;justify-content:center;font-size:19px;
+  }
+  .conf-item strong{display:block;font-size:14.5px;margin-bottom:2px}
+  .conf-item span{font-size:12.5px;color:#B8C4D2;line-height:1.45;display:block}
+
+  /* categorias */
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .cat{
+    background:#fff;border:1px solid var(--linha);border-radius:var(--raio);
+    padding:26px 22px;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease;
+    display:block;
+  }
+  .cat:hover{transform:translateY(-3px);box-shadow:var(--sombra)}
+  .cat .cod{font-family:var(--mono);font-size:11px;color:var(--carga);letter-spacing:.12em}
+  .cat h3{font-size:18px;font-weight:800;margin:8px 0 4px;letter-spacing:-.01em}
+  .cat p{font-size:13.5px;color:var(--tinta-2)}
+
+  /* produtos */
+  .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{
+    background:#fff;border:1px solid var(--linha);border-radius:var(--raio);
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:transform .15s ease,box-shadow .15s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--sombra)}
+  .card-foto{
+    aspect-ratio:1/1;background:linear-gradient(135deg,#E8EDF3,#CBD6E2);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:10px;color:var(--tinta-2);letter-spacing:.06em;
+    text-align:center;padding:10px;position:relative;
+  }
+  .card-foto .estoque{
+    position:absolute;top:12px;left:12px;
+    font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;
+    background:#fff;border:1px solid var(--linha);border-radius:6px;padding:3px 8px;
+    color:var(--ok);
+  }
+  .card-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .card h3{font-size:15.5px;font-weight:800;letter-spacing:-.01em;line-height:1.3}
+  .card .beneficio{font-size:13px;color:var(--tinta-2);flex:1}
+  .card .preco{font-family:var(--mono)}
+  .card .preco .de{font-size:12px;color:var(--tinta-2);text-decoration:line-through;display:block}
+  .card .preco .por{font-size:20px;font-weight:600;color:var(--tinta)}
+  .card .preco .parc{font-size:11.5px;color:var(--tinta-2);display:block}
+  .card .btn{margin-top:6px;padding:11px 16px;font-size:14px}
+  .ver-todos{text-align:center;margin-top:34px}
+
+  /* como funciona — linha de rastreio horizontal (assinatura) */
+  .rota{background:#fff;border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .rota-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:8px}
+  .rota-grid::before{
+    content:"";position:absolute;top:27px;left:12%;right:12%;height:2px;
+    background:repeating-linear-gradient(90deg,var(--linha) 0 8px,transparent 8px 15px);
+  }
+  .passo{padding:0 18px;text-align:center;position:relative}
+  .passo .ponto{
+    width:54px;height:54px;border-radius:50%;margin:0 auto 16px;
+    background:var(--papel);border:2px solid var(--tinta);
+    display:flex;align-items:center;justify-content:center;font-size:22px;position:relative;z-index:1;
+  }
+  .passo:last-child .ponto{background:var(--carga);border-color:var(--carga)}
+  .passo .cod{font-family:var(--mono);font-size:11px;color:var(--carga);letter-spacing:.12em;display:block;margin-bottom:6px}
+  .passo h3{font-size:16.5px;font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
+  .passo p{font-size:13.5px;color:var(--tinta-2)}
+
+  /* depoimentos */
+  .depo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .depo{
+    background:#fff;border:1px solid var(--linha);border-radius:var(--raio);
+    padding:26px;display:flex;flex-direction:column;gap:14px;
+  }
+  .estrelas{color:var(--carga);letter-spacing:2px;font-size:14px}
+  .depo blockquote{font-size:15px;line-height:1.65;flex:1}
+  .depo footer{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--linha);padding-top:14px}
+  .depo .quem strong{font-size:14px;display:block}
+  .depo .quem span{font-family:var(--mono);font-size:11px;color:var(--tinta-2)}
+  .verificado{
+    font-family:var(--mono);font-size:10px;font-weight:600;color:var(--ok);
+    border:1px solid var(--ok);border-radius:6px;padding:3px 8px;letter-spacing:.08em;
+  }
+
+  /* garantia */
+  .garantia-wrap{
+    background:var(--tinta);color:#fff;border-radius:calc(var(--raio) + 6px);
+    padding:52px;display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:center;
+  }
+  .garantia-wrap h2{color:#fff}
+  .garantia-wrap .sec-head{margin-bottom:0}
+  .garantia-wrap .sec-head p{color:#B8C4D2}
+  .garantia-lista{list-style:none;display:flex;flex-direction:column;gap:16px}
+  .garantia-lista li{display:flex;gap:12px;font-size:15px;align-items:flex-start}
+  .garantia-lista .ok{color:var(--ok);font-weight:800;flex:none;font-size:17px;line-height:1.4}
+  .garantia-lista strong{color:#fff}
+  .garantia-lista span{color:#B8C4D2}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto}
+  .faq details{
+    background:#fff;border:1px solid var(--linha);border-radius:var(--raio);
+    margin-bottom:12px;overflow:hidden;
+  }
+  .faq summary{
+    cursor:pointer;padding:20px 24px;font-weight:700;font-size:15.5px;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  }
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-family:var(--mono);font-size:20px;color:var(--carga);flex:none;transition:transform .2s ease}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq .resp{padding:0 24px 20px;color:var(--tinta-2);font-size:14.5px}
+
+  /* CTA final */
+  .cta-final{text-align:center;padding:84px 0}
+  .cta-final .hero-ctas{justify-content:center}
+
+  /* footer */
+  footer.rodape{background:var(--tinta);color:#B8C4D2;padding:56px 0 96px;font-size:13.5px}
+  .rodape-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+  .rodape h4{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;font-family:var(--mono);font-weight:600}
+  .rodape ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .rodape a{text-decoration:none}
+  .rodape a:hover{color:#fff}
+  .rodape .legal{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;font-family:var(--mono);font-size:11.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* CTA fixo mobile */
+  .cta-fixo{
+    display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;
+    background:#fff;border-top:1px solid var(--linha);padding:10px 14px;
+    gap:10px;box-shadow:0 -6px 20px rgba(11,27,43,.1);
+  }
+  .cta-fixo .btn{flex:1;padding:13px 10px;font-size:14px}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+  .reveal.visivel{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+  /* ============ RESPONSIVO ============ */
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .conf-grid,.cat-grid,.prod-grid{grid-template-columns:repeat(2,1fr)}
+    .depo-grid{grid-template-columns:1fr}
+    .rota-grid{grid-template-columns:repeat(2,1fr);row-gap:36px}
+    .rota-grid::before{display:none}
+    .garantia-wrap{grid-template-columns:1fr;padding:36px 26px}
+    .rodape-grid{grid-template-columns:repeat(2,1fr)}
+    nav.menu{display:none}
+  }
+  @media (max-width:600px){
+    section{padding:56px 0}
+    .hero{padding:44px 0}
+    .conf-grid,.cat-grid,.prod-grid{grid-template-columns:1fr}
+    .rota-grid{grid-template-columns:1fr}
+    .hero-ctas .btn{width:100%}
+    .cta-fixo{display:flex}
+    .topo .btn{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ BARRA DE AVISO ══════════ -->
+<div class="aviso">
+  FRETE GRÁTIS acima de R$ 299* &nbsp;·&nbsp; <strong>ATÉ 12X NO CARTÃO</strong> &nbsp;·&nbsp; envio com código de rastreio
+  <!-- [EDITAR] Ajuste o valor mínimo do frete grátis e as condições de parcelamento reais da loja -->
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="topo">
+  <div class="container topo-inner">
+    <a class="logo" href="#">
+      <span class="nome">CENTRAL IMPORTS</span>
+      <span class="tag">Originais importados</span>
+    </a>
+    <nav class="menu" aria-label="Navegação principal">
+      <a href="#categorias">Categorias</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#faq">Dúvidas</a>
+    </nav>
+    <!-- [EDITAR] Troque o link abaixo pelo WhatsApp real: https://wa.me/55DDDNUMERO -->
+    <a class="btn btn-zap" href="https://wa.me/5500000000000">Falar no WhatsApp</a>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">Importados originais · lacrados · com nota</p>
+      <h1>Eletrônicos importados originais, <em>sem pagar o preço do Brasil</em>.</h1>
+      <p class="sub">iPhone, fones, smartwatches e acessórios — todos originais e lacrados, com garantia de 90 dias, pagamento seguro e código de rastreio do pedido até a sua porta.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-carga" href="#ofertas">Ver ofertas da semana</a>
+        <a class="btn btn-vazado" href="#como-funciona">Como a compra funciona</a>
+      </div>
+      <div class="chips">
+        <span class="chip"><span class="dot"></span>Garantia de 90 dias</span>
+        <span class="chip"><span class="dot"></span>Envio com rastreio</span>
+        <span class="chip"><span class="dot"></span>Pagamento seguro</span>
+      </div>
+    </div>
+
+    <!-- Cartão-manifesto: mostra o RESULTADO da compra (pedido chegando), não só o produto -->
+    <div class="manifesto" aria-label="Exemplo de pedido rastreado">
+      <div class="manifesto-head">
+        <span class="num">PEDIDO Nº BR-2481-CI</span>
+        <span class="selo">Entregue</span>
+      </div>
+      <div class="m-produto">
+        <div class="m-foto">FOTO DO<br>PRODUTO<br>[EDITAR]</div>
+        <div>
+          <h3>Fone Bluetooth Pro — Original</h3>
+          <p>1 un. · lacrado · garantia 90 dias</p>
+        </div>
+      </div>
+      <ul class="rastreio">
+        <li>
+          <span class="ponto"></span>
+          <div>Pedido confirmado e pagamento aprovado <span class="quando">seg · 09h14</span></div>
+        </li>
+        <li>
+          <span class="ponto"></span>
+          <div>Produto conferido, lacrado e postado <span class="quando">seg · 16h02 · código de rastreio enviado</span></div>
+        </li>
+        <li>
+          <span class="ponto"></span>
+          <div>Em trânsito para o seu estado <span class="quando">qua · 11h37</span></div>
+        </li>
+        <li>
+          <span class="ponto"></span>
+          <div><strong>Entregue na sua porta</strong> <span class="quando">sex · 14h20 · assinado pelo destinatário</span></div>
+        </li>
+      </ul>
+      <div class="manifesto-foot">
+        <span>RASTREIO: NL7402BR·SP</span>
+        <span>CONFERÊNCIA OK ✓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ BARRA DE CONFIANÇA ══════════ -->
+<div class="confianca">
+  <div class="container conf-grid">
+    <div class="conf-item">
+      <div class="ico" aria-hidden="true">✓</div>
+      <div><strong>Produtos originais</strong><span>Lacrados de fábrica e conferidos antes do envio. Nada de réplica.</span></div>
+    </div>
+    <div class="conf-item">
+      <div class="ico" aria-hidden="true">🛡</div>
+      <div><strong>Garantia de 90 dias</strong><span>Deu defeito? Trocamos ou devolvemos o seu dinheiro.</span></div>
+    </div>
+    <div class="conf-item">
+      <div class="ico" aria-hidden="true">📦</div>
+      <div><strong>Rastreio em tempo real</strong><span>Código enviado no dia da postagem. Você acompanha tudo.</span></div>
+    </div>
+    <div class="conf-item">
+      <div class="ico" aria-hidden="true">🔒</div>
+      <div><strong>Pagamento seguro</strong><span>Pix, boleto ou cartão em até 12x, em ambiente criptografado.</span></div>
+    </div>
+  </div>
+</div>
+<div class="barcode" aria-hidden="true"></div>
+
+<!-- ══════════ CATEGORIAS ══════════ -->
+<section id="categorias">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Catálogo</p>
+      <h2>O que você procura hoje?</h2>
+      <p>Navegue direto para a categoria — todos os produtos são originais e saem daqui já conferidos.</p>
+    </div>
+    <div class="cat-grid">
+      <!-- [EDITAR] Aponte cada card para a categoria real da sua loja Nuvemshop -->
+      <a class="cat reveal" href="#ofertas">
+        <span class="cod">CAT·01</span>
+        <h3>Smartphones</h3>
+        <p>iPhone e Android, lacrados e com garantia.</p>
+      </a>
+      <a class="cat reveal" href="#ofertas">
+        <span class="cod">CAT·02</span>
+        <h3>Fones &amp; áudio</h3>
+        <p>Fones Bluetooth, caixas de som e acessórios.</p>
+      </a>
+      <a class="cat reveal" href="#ofertas">
+        <span class="cod">CAT·03</span>
+        <h3>Smartwatches</h3>
+        <p>Relógios inteligentes com todas as funções.</p>
+      </a>
+      <a class="cat reveal" href="#ofertas">
+        <span class="cod">CAT·04</span>
+        <h3>Acessórios</h3>
+        <p>Capas, películas, carregadores e cabos.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ OFERTAS ══════════ -->
+<section id="ofertas" style="padding-top:0">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Ofertas da semana</p>
+      <h2>Os mais pedidos, com preço de importado.</h2>
+      <p>Estoque conferido hoje. Quando acabar, o preço da reposição pode mudar com o dólar.</p>
+    </div>
+    <!-- [EDITAR] Substitua os 4 produtos abaixo pelos seus produtos, fotos e preços REAIS.
+         Os nomes e valores aqui são apenas exemplos de estrutura de copy. -->
+    <div class="prod-grid">
+      <article class="card reveal">
+        <div class="card-foto"><span class="estoque">EM ESTOQUE</span>FOTO DO PRODUTO<br>[EDITAR]</div>
+        <div class="card-body">
+          <h3>Fone Bluetooth Pro 2ª Geração</h3>
+          <p class="beneficio">Cancelamento de ruído real e 24h de bateria com o estojo.</p>
+          <p class="preco"><span class="de">De R$ 000</span><span class="por">R$ 000</span><span class="parc">ou 12x de R$ 00 no cartão</span></p>
+          <a class="btn btn-carga" href="#">Garantir o meu</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-foto"><span class="estoque">EM ESTOQUE</span>FOTO DO PRODUTO<br>[EDITAR]</div>
+        <div class="card-body">
+          <h3>Smartwatch Série Premium</h3>
+          <p class="beneficio">Notificações, saúde e treinos — direto no seu pulso.</p>
+          <p class="preco"><span class="de">De R$ 000</span><span class="por">R$ 000</span><span class="parc">ou 12x de R$ 00 no cartão</span></p>
+          <a class="btn btn-carga" href="#">Garantir o meu</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-foto"><span class="estoque">EM ESTOQUE</span>FOTO DO PRODUTO<br>[EDITAR]</div>
+        <div class="card-body">
+          <h3>Caixa de Som Bluetooth à Prova d'Água</h3>
+          <p class="beneficio">Som alto e limpo para levar para qualquer lugar.</p>
+          <p class="preco"><span class="de">De R$ 000</span><span class="por">R$ 000</span><span class="parc">ou 12x de R$ 00 no cartão</span></p>
+          <a class="btn btn-carga" href="#">Garantir o meu</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-foto"><span class="estoque">EM ESTOQUE</span>FOTO DO PRODUTO<br>[EDITAR]</div>
+        <div class="card-body">
+          <h3>Kit Carregador Turbo + Cabo Reforçado</h3>
+          <p class="beneficio">Carga completa em menos tempo, sem esquentar o aparelho.</p>
+          <p class="preco"><span class="de">De R$ 000</span><span class="por">R$ 000</span><span class="parc">ou 12x de R$ 00 no cartão</span></p>
+          <a class="btn btn-carga" href="#">Garantir o meu</a>
+        </div>
+      </article>
+    </div>
+    <div class="ver-todos reveal">
+      <a class="btn btn-tinta" href="#">Ver todos os produtos</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ COMO FUNCIONA (assinatura da página) ══════════ -->
+<section id="como-funciona" class="rota">
+  <div class="container">
+    <div class="sec-head centro reveal">
+      <p class="eyebrow" style="justify-content:center">Do estoque à sua porta</p>
+      <h2>Você acompanha cada passo do seu pedido.</h2>
+      <p>Comprar importado dá medo quando você não sabe onde o produto está. Aqui, você sabe — sempre.</p>
+    </div>
+    <div class="rota-grid">
+      <div class="passo reveal">
+        <div class="ponto" aria-hidden="true">🛒</div>
+        <span class="cod">ETAPA·01</span>
+        <h3>Você faz o pedido</h3>
+        <p>Escolhe o produto e paga com Pix, boleto ou cartão em até 12x, em ambiente seguro.</p>
+      </div>
+      <div class="passo reveal">
+        <div class="ponto" aria-hidden="true">🔍</div>
+        <span class="cod">ETAPA·02</span>
+        <h3>Conferimos e lacramos</h3>
+        <p>Cada produto é testado e conferido antes de sair do estoque. Original ou não é enviado.</p>
+      </div>
+      <div class="passo reveal">
+        <div class="ponto" aria-hidden="true">📦</div>
+        <span class="cod">ETAPA·03</span>
+        <h3>Postamos com rastreio</h3>
+        <p>Você recebe o código de rastreio no dia da postagem e acompanha o trajeto em tempo real.</p>
+      </div>
+      <div class="passo reveal">
+        <div class="ponto" aria-hidden="true">🏠</div>
+        <span class="cod">ETAPA·04</span>
+        <h3>Chega na sua porta</h3>
+        <p>Produto entregue com garantia de 90 dias. Qualquer problema, é só chamar no WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DEPOIMENTOS ══════════ -->
+<section id="depoimentos">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Quem já comprou</p>
+      <h2>A primeira compra é a que dá medo. Depois vira costume.</h2>
+      <p>Depoimentos de clientes com compra verificada na loja.</p>
+    </div>
+    <!-- [EDITAR] Substitua pelos depoimentos REAIS dos seus clientes (WhatsApp, Instagram, avaliações
+         da Nuvemshop). Nunca publique depoimento inventado — os textos abaixo são apenas modelo
+         de formato: específicos, com produto citado e cidade. -->
+    <div class="depo-grid">
+      <article class="depo reveal">
+        <div class="estrelas" aria-label="5 de 5 estrelas">★★★★★</div>
+        <blockquote>"Confesso que comprei com um pé atrás, mas o rastreio me deixou tranquila. Chegou em 4 dias, lacrado, exatamente como no anúncio."</blockquote>
+        <footer>
+          <div class="quem"><strong>[Nome da cliente]</strong><span>[Cidade/UF] · [produto comprado]</span></div>
+          <span class="verificado">COMPRA VERIFICADA</span>
+        </footer>
+      </article>
+      <article class="depo reveal">
+        <div class="estrelas" aria-label="5 de 5 estrelas">★★★★★</div>
+        <blockquote>"Tirei todas as dúvidas no WhatsApp antes de pagar. Atendimento respondeu rápido e o produto é original mesmo — já testei tudo."</blockquote>
+        <footer>
+          <div class="quem"><strong>[Nome do cliente]</strong><span>[Cidade/UF] · [produto comprado]</span></div>
+          <span class="verificado">COMPRA VERIFICADA</span>
+        </footer>
+      </article>
+      <article class="depo reveal">
+        <div class="estrelas" aria-label="5 de 5 estrelas">★★★★★</div>
+        <blockquote>"Segunda compra na loja. Na primeira veio com a película errada e trocaram sem burocracia nenhuma. Isso pra mim vale mais que o desconto."</blockquote>
+        <footer>
+          <div class="quem"><strong>[Nome do cliente]</strong><span>[Cidade/UF] · [produto comprado]</span></div>
+          <span class="verificado">COMPRA VERIFICADA</span>
+        </footer>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ GARANTIA ══════════ -->
+<section id="garantia" style="padding-top:0">
+  <div class="container">
+    <div class="garantia-wrap reveal">
+      <div class="sec-head">
+        <p class="eyebrow">Risco zero</p>
+        <h2>Se não for original, o prejuízo é nosso — não seu.</h2>
+        <p>Loja de importado boa não pede confiança: ela assume o risco por você. É assim que trabalhamos.</p>
+      </div>
+      <ul class="garantia-lista">
+        <li><span class="ok" aria-hidden="true">✓</span><div><strong>Garantia de 90 dias</strong> — <span>defeito de fábrica? Trocamos o produto ou devolvemos o valor.</span></div></li>
+        <li><span class="ok" aria-hidden="true">✓</span><div><strong>7 dias de arrependimento</strong> — <span>não gostou? Devolva conforme o Código de Defesa do Consumidor.</span></div></li>
+        <li><span class="ok" aria-hidden="true">✓</span><div><strong>Suporte por WhatsApp</strong> — <span>gente de verdade respondendo antes, durante e depois da compra.</span></div></li>
+        <li><span class="ok" aria-hidden="true">✓</span><div><strong>Loja com CNPJ ativo</strong> — <span>empresa registrada, com endereço e canais oficiais no rodapé.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section id="faq" style="padding-top:0">
+  <div class="container">
+    <div class="sec-head centro reveal">
+      <p class="eyebrow" style="justify-content:center">Dúvidas frequentes</p>
+      <h2>O que todo mundo pergunta antes de comprar.</h2>
+    </div>
+    <div class="faq reveal">
+      <details>
+        <summary>Os produtos são originais mesmo?</summary>
+        <p class="resp">Sim. Trabalhamos apenas com produtos originais, lacrados de fábrica. Cada item é conferido antes do envio e, se não for original, a garantia cobre: você recebe outro produto ou o dinheiro de volta.</p>
+      </details>
+      <details>
+        <summary>Quanto tempo demora para chegar?</summary>
+        <p class="resp">O prazo aparece no checkout de acordo com o seu CEP. A postagem é feita em até 2 dias úteis após a confirmação do pagamento, e você recebe o código de rastreio no mesmo dia da postagem. <!-- [EDITAR] Ajuste o prazo de postagem real da loja --></p>
+      </details>
+      <details>
+        <summary>E se o produto chegar com defeito?</summary>
+        <p class="resp">Você aciona a garantia de 90 dias pelo WhatsApp, envia fotos ou vídeo do problema e nós trocamos o produto ou devolvemos o valor. Sem formulário infinito, sem empurra-empurra.</p>
+      </details>
+      <details>
+        <summary>Posso devolver se eu não gostar?</summary>
+        <p class="resp">Pode. Você tem 7 dias corridos após o recebimento para se arrepender da compra, conforme o Código de Defesa do Consumidor. O produto deve estar sem uso e na embalagem original.</p>
+      </details>
+      <details>
+        <summary>Quais formas de pagamento vocês aceitam?</summary>
+        <p class="resp">Pix (com aprovação na hora), boleto e cartão de crédito em até 12x. Todo o pagamento acontece em ambiente criptografado — nós não temos acesso aos dados do seu cartão. <!-- [EDITAR] Confirme as condições reais de parcelamento --></p>
+      </details>
+      <details>
+        <summary>Como falo com vocês se precisar?</summary>
+        <p class="resp">Pelo WhatsApp, no botão que aparece no topo e no fim da página. Respondemos antes, durante e depois da compra — inclusive para acompanhar o rastreio junto com você.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA FINAL ══════════ -->
+<section class="cta-final" style="padding-top:8px">
+  <div class="container reveal">
+    <p class="eyebrow" style="justify-content:center">Pronto para economizar?</p>
+    <h2>Original, com garantia e rastreio.<br>Só falta você escolher o seu.</h2>
+    <p style="color:var(--tinta-2);max-width:34em;margin:12px auto 30px">As ofertas da semana valem enquanto durar o estoque conferido. Qualquer dúvida, o WhatsApp responde antes de você pagar.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-carga" href="#ofertas">Ver ofertas da semana</a>
+      <!-- [EDITAR] Link real do WhatsApp -->
+      <a class="btn btn-zap" href="https://wa.me/5500000000000">Tirar dúvida no WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<div class="barcode" aria-hidden="true"></div>
+
+<!-- ══════════ RODAPÉ ══════════ -->
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape-grid">
+      <div>
+        <h4>Central Imports</h4>
+        <p style="max-width:28em">Eletrônicos e acessórios importados originais, com garantia de 90 dias, pagamento seguro e envio rastreado para todo o Brasil.</p>
+      </div>
+      <div>
+        <h4>Loja</h4>
+        <ul>
+          <li><a href="#categorias">Categorias</a></li>
+          <li><a href="#ofertas">Ofertas da semana</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ajuda</h4>
+        <ul>
+          <li><a href="#faq">Dúvidas frequentes</a></li>
+          <li><a href="#garantia">Garantia e trocas</a></li>
+          <!-- [EDITAR] Aponte para as páginas reais de política da loja -->
+          <li><a href="#">Política de privacidade</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Atendimento</h4>
+        <ul>
+          <!-- [EDITAR] Contatos reais -->
+          <li><a href="https://wa.me/5500000000000">WhatsApp</a></li>
+          <li><a href="mailto:contato@centralimports.com.br">contato@centralimports.com.br</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <!-- [EDITAR] CNPJ e razão social reais — obrigatório para passar confiança -->
+      <span>CENTRAL IMPORTS · CNPJ 00.000.000/0001-00 · [Cidade/UF]</span>
+      <span>© 2026 · Todos os direitos reservados</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ CTA FIXO MOBILE ══════════ -->
+<div class="cta-fixo">
+  <a class="btn btn-carga" href="#ofertas">Ver ofertas</a>
+  <!-- [EDITAR] Link real do WhatsApp -->
+  <a class="btn btn-zap" href="https://wa.me/5500000000000">WhatsApp</a>
+</div>
+
+<script>
+  // Revela seções ao rolar (desativado automaticamente se o usuário prefere menos movimento)
+  const podeAnimar = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (podeAnimar && "IntersectionObserver" in window) {
+    const obs = new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("visivel"); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+  } else {
+    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visivel"));
+  }
+</script>
+</body>
+</html>
