@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homem de Valor — O Método Completo de Imagem e Presença Masculina</title>
+<meta name="description" content="Skincare, barba, cabelo, estilo e postura em um sistema passo a passo. 10 módulos, 100+ técnicas aplicáveis, acesso vitalício. Garantia incondicional de 7 dias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0A08;          /* fundo principal — preto quente */
+    --ink-2:#12100C;        /* painéis */
+    --ink-3:#1A1712;        /* cards */
+    --line:rgba(201,162,75,.22);
+    --gold:#C9A24B;         /* ouro champanhe */
+    --gold-2:#E8D5A3;       /* ouro claro / highlights */
+    --bone:#F2EDE3;         /* texto principal */
+    --stone:#A79E90;        /* texto secundário */
+    --display:'Fraunces','Playfair Display',Georgia,serif;
+    --body:'Manrope',-apple-system,'Segoe UI',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{
+    background:var(--ink);color:var(--bone);
+    font-family:var(--body);font-size:16px;line-height:1.7;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  ::selection{background:var(--gold);color:var(--ink)}
+  img{max-width:100%}
+  a{color:inherit}
+
+  /* ---------- utilitários ---------- */
+  .wrap{width:min(1120px,100% - 3rem);margin-inline:auto}
+  .eyebrow{
+    font-family:var(--body);font-size:.72rem;font-weight:700;
+    letter-spacing:.28em;text-transform:uppercase;color:var(--gold);
+  }
+  .rule{display:flex;align-items:center;gap:1rem}
+  .rule::before,.rule::after{content:"";height:1px;flex:0 0 2.5rem;background:linear-gradient(90deg,transparent,var(--gold))}
+  .rule::after{background:linear-gradient(90deg,var(--gold),transparent)}
+  h2{
+    font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,4.5vw,3rem);
+    line-height:1.12;letter-spacing:-.01em;margin:1rem 0 1.25rem;
+  }
+  h2 em{font-style:italic;color:var(--gold-2)}
+  section{padding:clamp(4.5rem,9vw,7.5rem) 0;position:relative}
+  .lead{color:var(--stone);font-size:1.06rem;max-width:38rem}
+  .center{text-align:center}
+  .center .lead{margin-inline:auto}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.on{opacity:1;transform:none}
+
+  /* ---------- botões ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+    font-family:var(--body);font-weight:800;font-size:.95rem;letter-spacing:.06em;
+    text-transform:uppercase;text-decoration:none;cursor:pointer;
+    padding:1.05rem 2.2rem;border-radius:.4rem;border:1px solid transparent;white-space:nowrap;
+    transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+  }
+  .btn-gold{
+    background:linear-gradient(135deg,#E8D5A3 0%,#C9A24B 55%,#A9832F 100%);
+    color:#141005;box-shadow:0 8px 30px rgba(201,162,75,.28);
+  }
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(201,162,75,.4)}
+  .btn-ghost{
+    background:transparent;color:var(--bone);border-color:rgba(242,237,227,.25);
+    font-weight:600;text-transform:none;letter-spacing:0;font-size:1rem;
+  }
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold-2)}
+  .btn-note{margin-top:.9rem;font-size:.8rem;color:var(--stone);letter-spacing:.02em}
+  .btn-note strong{color:var(--gold-2);font-weight:600}
+  :is(a,button,summary):focus-visible{outline:2px solid var(--gold-2);outline-offset:3px;border-radius:.3rem}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;inset:0 0 auto;z-index:50;
+    background:rgba(11,10,8,.82);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(201,162,75,.14);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+  .logo-mark{
+    width:34px;height:34px;border:1px solid var(--gold);border-radius:2px;
+    display:grid;place-items:center;font-family:var(--display);font-size:.95rem;
+    color:var(--gold-2);transform:rotate(45deg);
+  }
+  .logo-mark span{transform:rotate(-45deg)}
+  .logo-name{font-family:var(--display);font-size:1.02rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+  @media(max-width:420px){
+    .logo-name{font-size:.82rem;letter-spacing:.1em}
+    .logo-mark{width:28px;height:28px;font-size:.8rem}
+    .nav .btn{padding:.55rem .9rem;font-size:.7rem}
+    .hero .btn-gold{font-size:.85rem;padding:1rem 1.5rem}
+  }
+  .logo-name b{color:var(--gold);font-weight:400}
+  .nav .btn{padding:.6rem 1.2rem;font-size:.78rem}
+  .nav .btn-ghost-sm{display:none}
+  @media(min-width:720px){
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:600;color:var(--stone);text-decoration:none;transition:color .2s}
+    .nav-links a:hover{color:var(--gold-2)}
+  }
+  @media(max-width:719px){.nav-links{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    text-align:center;padding:7.5rem 0 4rem;position:relative;isolation:isolate;
+  }
+  .hero::before{ /* halo dourado */
+    content:"";position:absolute;inset:0;z-index:-2;
+    background:
+      radial-gradient(60% 42% at 50% 0%,rgba(201,162,75,.16),transparent 70%),
+      radial-gradient(45% 32% at 82% 88%,rgba(201,162,75,.07),transparent 70%),
+      var(--ink);
+  }
+  .hero::after{ /* textura de grão */
+    content:"";position:absolute;inset:0;z-index:-1;opacity:.5;pointer-events:none;
+    background-image:radial-gradient(rgba(232,213,163,.14) .5px,transparent .5px);
+    background-size:26px 26px;
+    mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent);
+    -webkit-mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent);
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:.55rem;margin-inline:auto;
+    border:1px solid var(--line);border-radius:99px;padding:.5rem 1.15rem;
+    font-size:.7rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-2);
+    background:rgba(201,162,75,.06);
+  }
+  .hero-badge::before{content:"◆";font-size:.55rem;color:var(--gold)}
+  .hero h1{
+    font-family:var(--display);font-weight:350;
+    font-size:clamp(2.5rem,8.2vw,5.2rem);line-height:1.06;letter-spacing:-.015em;
+    margin:1.6rem auto 0;max-width:17ch;text-wrap:balance;
+  }
+  .hero h1 .pivot{
+    font-style:italic;font-weight:450;
+    background:linear-gradient(120deg,#E8D5A3,#C9A24B 60%,#E8D5A3);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-sub{
+    color:var(--stone);font-size:clamp(1rem,2.4vw,1.15rem);
+    max-width:42rem;margin:1.5rem auto 0;text-wrap:pretty;
+  }
+  .hero-sub strong{color:var(--bone);font-weight:600}
+  .hero-cta{display:flex;flex-direction:column;align-items:center;gap:.9rem;margin-top:2.4rem}
+  .hero-trust{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.6rem;
+    margin-top:2.6rem;font-size:.82rem;color:var(--stone);letter-spacing:.04em;
+  }
+  .hero-trust span{display:inline-flex;align-items:center;gap:.45rem}
+  .hero-trust span::before{content:"—";color:var(--gold)}
+  @media(min-width:640px){
+    .hero-cta{flex-direction:row;justify-content:center}
+    .hero .btn-gold{padding:1.15rem 2.6rem}
+  }
+
+  /* ---------- barra de prova ---------- */
+  .proof{border-block:1px solid var(--line);background:var(--ink-2);padding:0}
+  .proof-grid{display:grid;grid-template-columns:repeat(2,1fr)}
+  .proof-item{padding:1.9rem 1rem;text-align:center;border-right:1px solid var(--line)}
+  .proof-item:nth-child(2n){border-right:0}
+  .proof-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .proof-num{font-family:var(--display);font-size:clamp(1.9rem,4vw,2.6rem);color:var(--gold-2);line-height:1}
+  .proof-label{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:.5rem}
+  @media(min-width:720px){
+    .proof-grid{grid-template-columns:repeat(4,1fr)}
+    .proof-item{border-bottom:0!important}
+    .proof-item:nth-child(2n){border-right:1px solid var(--line)}
+    .proof-item:last-child{border-right:0}
+  }
+
+  /* ---------- problema ---------- */
+  .pain-list{display:grid;gap:.9rem;margin-top:2.2rem;max-width:44rem}
+  .pain{
+    display:flex;gap:1rem;align-items:flex-start;
+    background:var(--ink-3);border:1px solid rgba(201,162,75,.12);
+    border-left:2px solid var(--gold);border-radius:.4rem;padding:1.1rem 1.3rem;
+  }
+  .pain::before{content:"✕";color:var(--gold);font-weight:700;font-size:.8rem;margin-top:.25rem}
+  .pain p{color:var(--stone);font-size:.98rem}
+  .pain p strong{color:var(--bone);font-weight:600}
+  .pain-close{margin-top:2rem;font-family:var(--display);font-size:1.35rem;font-style:italic;color:var(--gold-2);max-width:34rem}
+
+  /* ---------- módulos ---------- */
+  .mods{background:var(--ink-2);border-block:1px solid var(--line)}
+  .mods-grid{display:grid;gap:1rem;margin-top:2.6rem}
+  .mod{
+    background:var(--ink-3);border:1px solid rgba(201,162,75,.12);border-radius:.5rem;
+    padding:1.6rem 1.5rem;position:relative;overflow:hidden;
+    transition:border-color .25s ease,transform .25s ease;
+  }
+  .mod:hover{border-color:rgba(201,162,75,.45);transform:translateY(-3px)}
+  .mod-num{
+    font-family:var(--display);font-style:italic;font-size:.9rem;color:var(--gold);
+    letter-spacing:.08em;
+  }
+  .mod h3{font-family:var(--display);font-weight:450;font-size:1.28rem;margin:.5rem 0 .5rem}
+  .mod p{color:var(--stone);font-size:.92rem;line-height:1.6}
+  .mod::after{
+    content:"";position:absolute;top:0;right:0;width:70px;height:70px;
+    background:radial-gradient(circle at top right,rgba(201,162,75,.12),transparent 70%);
+  }
+  @media(min-width:640px){.mods-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:980px){.mods-grid{grid-template-columns:repeat(3,1fr)}}
+
+  /* ---------- linha do tempo ---------- */
+  .timeline{margin-top:3rem;display:grid;gap:0;position:relative}
+  .tl-item{
+    display:grid;grid-template-columns:64px 1fr;gap:1.4rem;padding-bottom:2.6rem;position:relative;
+  }
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{
+    content:"";position:absolute;left:31px;top:64px;bottom:0;width:1px;
+    background:linear-gradient(var(--gold),rgba(201,162,75,.06));
+  }
+  .tl-item:last-child::before{display:none}
+  .tl-day{
+    width:64px;height:64px;border:1px solid var(--gold);border-radius:50%;
+    display:grid;place-items:center;flex-direction:column;background:var(--ink-2);
+    font-family:var(--display);color:var(--gold-2);font-size:1.25rem;line-height:1;
+    text-align:center;
+  }
+  .tl-day small{display:block;font-family:var(--body);font-size:.5rem;font-weight:700;letter-spacing:.14em;color:var(--stone)}
+  .tl-item h3{font-family:var(--display);font-weight:450;font-size:1.3rem;margin-bottom:.4rem;padding-top:.4rem}
+  .tl-item p{color:var(--stone);font-size:.95rem;max-width:34rem}
+
+  /* ---------- depoimentos ---------- */
+  .quotes{background:var(--ink-2);border-block:1px solid var(--line)}
+  .quotes-grid{display:grid;gap:1.2rem;margin-top:2.6rem}
+  .quote{
+    background:var(--ink-3);border:1px solid rgba(201,162,75,.12);border-radius:.5rem;
+    padding:1.8rem 1.6rem;display:flex;flex-direction:column;gap:1.1rem;
+  }
+  .quote-stars{color:var(--gold);letter-spacing:.2em;font-size:.85rem}
+  .quote p{font-family:var(--display);font-style:italic;font-size:1.08rem;line-height:1.55;color:var(--bone)}
+  .quote footer{font-size:.85rem;color:var(--stone)}
+  .quote footer b{color:var(--gold-2);font-weight:600;display:block;font-style:normal}
+  @media(min-width:900px){.quotes-grid{grid-template-columns:repeat(3,1fr)}}
+
+  /* ---------- oferta ---------- */
+  .offer-card{
+    max-width:34rem;margin:2.8rem auto 0;background:var(--ink-2);
+    border:1px solid var(--gold);border-radius:.7rem;overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 60px rgba(201,162,75,.08);
+  }
+  .offer-head{
+    background:linear-gradient(135deg,rgba(201,162,75,.16),rgba(201,162,75,.04));
+    border-bottom:1px solid var(--line);padding:1.4rem;text-align:center;
+  }
+  .offer-head .eyebrow{color:var(--gold-2)}
+  .offer-body{padding:1.8rem 1.6rem}
+  .offer-list{list-style:none;display:grid;gap:.8rem}
+  .offer-list li{display:flex;gap:.8rem;align-items:flex-start;font-size:.95rem;color:var(--stone)}
+  .offer-list li::before{content:"◆";color:var(--gold);font-size:.6rem;margin-top:.45rem}
+  .offer-list li strong{color:var(--bone);font-weight:600}
+  .offer-list .bonus strong{color:var(--gold-2)}
+  .offer-price{text-align:center;margin-top:1.8rem;padding-top:1.6rem;border-top:1px dashed var(--line)}
+  .price-old{color:var(--stone);text-decoration:line-through;font-size:.95rem}
+  .price-now{font-family:var(--display);font-size:3rem;color:var(--gold-2);line-height:1.1}
+  .price-now sup{font-size:1.1rem;top:-1.2em}
+  .price-terms{font-size:.85rem;color:var(--stone);margin-top:.3rem}
+  .offer-body .btn-gold{width:100%;margin-top:1.5rem}
+
+  /* ---------- garantia ---------- */
+  .guarantee{display:grid;gap:2rem;align-items:center;max-width:52rem;margin-inline:auto}
+  .g-seal{
+    width:120px;height:120px;border-radius:50%;border:1px solid var(--gold);margin-inline:auto;
+    display:grid;place-items:center;text-align:center;position:relative;background:var(--ink-2);
+  }
+  .g-seal::before{content:"";position:absolute;inset:7px;border:1px dashed rgba(201,162,75,.5);border-radius:50%}
+  .g-seal .g-num{font-family:var(--display);font-size:2.2rem;color:var(--gold-2);line-height:1}
+  .g-seal .g-lab{font-size:.52rem;font-weight:800;letter-spacing:.2em;color:var(--stone);text-transform:uppercase}
+  @media(min-width:720px){.guarantee{grid-template-columns:150px 1fr;text-align:left}.g-seal{margin:0}}
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--ink-2);border-block:1px solid var(--line)}
+  .faq-list{max-width:44rem;margin:2.4rem auto 0;display:grid;gap:.7rem}
+  details{
+    background:var(--ink-3);border:1px solid rgba(201,162,75,.12);border-radius:.5rem;
+    transition:border-color .25s;
+  }
+  details[open]{border-color:rgba(201,162,75,.4)}
+  summary{
+    cursor:pointer;list-style:none;padding:1.15rem 1.3rem;font-weight:600;font-size:.98rem;
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--display);font-size:1.4rem;color:var(--gold);transition:transform .25s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details .a{padding:0 1.3rem 1.25rem;color:var(--stone);font-size:.93rem}
+
+  /* ---------- CTA final ---------- */
+  .final{
+    text-align:center;position:relative;isolation:isolate;
+    padding-bottom:clamp(6rem,12vw,9rem);
+  }
+  .final::before{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(55% 55% at 50% 100%,rgba(201,162,75,.14),transparent 75%);
+  }
+  .final h2{max-width:22ch;margin-inline:auto}
+  .final .lead{margin:0 auto 2.2rem}
+
+  /* ---------- footer ---------- */
+  footer.site{
+    border-top:1px solid var(--line);padding:2.2rem 0 6.5rem;text-align:center;
+    color:var(--stone);font-size:.8rem;
+  }
+  footer.site .logo{justify-content:center;margin-bottom:.9rem}
+  @media(min-width:720px){footer.site{padding-bottom:2.2rem}}
+
+  /* ---------- CTA fixa mobile ---------- */
+  .sticky-cta{
+    position:fixed;inset:auto 0 0;z-index:60;padding:.8rem 1rem calc(.8rem + env(safe-area-inset-bottom));
+    background:rgba(11,10,8,.9);backdrop-filter:blur(10px);border-top:1px solid var(--line);
+    transform:translateY(110%);transition:transform .35s ease;
+  }
+  .sticky-cta.show{transform:none}
+  .sticky-cta .btn{width:100%;padding:.95rem}
+  @media(min-width:720px){.sticky-cta{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#topo" aria-label="Homem de Valor — início">
+      <span class="logo-mark" aria-hidden="true"><span>HV</span></span>
+      <span class="logo-name">Homem <b>de Valor</b></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#metodo">O Método</a></li>
+      <li><a href="#modulos">Módulos</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#faq">Dúvidas</a></li>
+    </ul>
+    <a class="btn btn-gold" href="#oferta">Começar agora</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="topo">
+  <div class="wrap">
+    <span class="hero-badge">O método completo de imagem masculina</span>
+    <h1>Sua aparência fala antes de você.<br>Faça ela dizer <span class="pivot">respeito.</span></h1>
+    <p class="hero-sub">
+      Skincare, barba, cabelo, estilo e postura em <strong>um sistema passo a passo</strong> —
+      do homem que se arruma de qualquer jeito ao homem que entra na sala e é notado.
+      Sem produtos caros. Sem complicação.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#oferta" id="cta-hero">Quero o método completo →</a>
+      <a class="btn btn-ghost" href="#metodo">Ver o que está incluso ↓</a>
+    </div>
+    <p class="btn-note">Acesso imediato e vitalício · <strong>Garantia incondicional de 7 dias</strong></p>
+    <div class="hero-trust">
+      <span>10 módulos completos</span>
+      <span>100+ técnicas aplicáveis</span>
+      <span>1 transformação definitiva</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROVA ============ -->
+<div class="proof">
+  <div class="wrap proof-grid">
+    <div class="proof-item"><div class="proof-num">10</div><div class="proof-label">Módulos</div></div>
+    <div class="proof-item"><div class="proof-num">100+</div><div class="proof-label">Técnicas práticas</div></div>
+    <div class="proof-item"><div class="proof-num">∞</div><div class="proof-label">Acesso vitalício</div></div>
+    <div class="proof-item"><div class="proof-num">7</div><div class="proof-label">Dias de garantia</div></div>
+  </div>
+</div>
+
+<!-- ============ PROBLEMA ============ -->
+<section id="problema">
+  <div class="wrap reveal">
+    <span class="eyebrow rule">A verdade que ninguém te conta</span>
+    <h2>O mundo julga sua aparência<br>em <em>7 segundos.</em> Você está<br>perdendo esse julgamento.</h2>
+    <div class="pain-list">
+      <div class="pain"><p><strong>A pele oleosa e marcada</strong> que você finge não ver no espelho — mas repara em toda foto.</p></div>
+      <div class="pain"><p><strong>A barba sem contorno</strong> que transforma "estilo despojado" em "desleixo".</p></div>
+      <div class="pain"><p><strong>O cabelo que nunca tem forma</strong>, porque ninguém te ensinou o corte certo para o seu rosto.</p></div>
+      <div class="pain"><p><strong>O guarda-roupa cheio</strong> — e a sensação de que nada combina com nada.</p></div>
+      <div class="pain"><p><strong>A postura encolhida</strong> de quem entra na sala pedindo licença, não marcando presença.</p></div>
+    </div>
+    <p class="pain-close">Não é falta de genética. É falta de método. E método se aprende.</p>
+  </div>
+</section>
+
+<!-- ============ MÓDULOS ============ -->
+<section class="mods" id="modulos">
+  <div class="wrap reveal">
+    <div class="center">
+      <span class="eyebrow rule" style="justify-content:center">O que está incluso</span>
+      <h2>10 módulos. Um arsenal <em>completo.</em></h2>
+      <p class="lead">Cada módulo resolve uma frente da sua imagem — na ordem certa, do fundamento ao avançado.</p>
+    </div>
+    <div class="mods-grid" id="metodo">
+      <article class="mod"><span class="mod-num">Módulo I</span><h3>Pele de Alto Padrão</h3><p>A rotina de skincare masculina em 4 passos: limpar, tratar, proteger — sem prateleira de 15 produtos.</p></article>
+      <article class="mod"><span class="mod-num">Módulo II</span><h3>Barba com Arquitetura</h3><p>Contorno, densidade e manutenção: o desenho de barba certo para o formato do seu rosto.</p></article>
+      <article class="mod"><span class="mod-num">Módulo III</span><h3>Cabelo Estratégico</h3><p>Como escolher (e pedir) o corte ideal, finalizar em 3 minutos e nunca mais sair errado da barbearia.</p></article>
+      <article class="mod"><span class="mod-num">Módulo IV</span><h3>Estilo Sem Uniforme</h3><p>O guarda-roupa cápsula masculino: menos peças, mais combinações, zero "não tenho o que vestir".</p></article>
+      <article class="mod"><span class="mod-num">Módulo V</span><h3>Postura &amp; Presença</h3><p>Linguagem corporal, aperto de mão, contato visual: como ocupar espaço sem dizer uma palavra.</p></article>
+      <article class="mod"><span class="mod-num">Módulo VI</span><h3>Grooming Invisível</h3><p>Sobrancelha, unhas, pelos e perfume: os detalhes que ninguém nota — até faltarem.</p></article>
+      <article class="mod"><span class="mod-num">Módulo VII</span><h3>Corpo em Ordem</h3><p>Fundamentos de treino e sono para sustentar a imagem: energia e caimento de roupa mudam junto.</p></article>
+      <article class="mod"><span class="mod-num">Módulo VIII</span><h3>Autoestima Blindada</h3><p>A mentalidade por trás da aparência: disciplina, autorrespeito e o fim da autossabotagem.</p></article>
+      <article class="mod"><span class="mod-num">Módulos IX–X</span><h3>Rotina &amp; Manutenção</h3><p>Seu protocolo diário de 15 minutos + o calendário de manutenção para nunca mais regredir.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LINHA DO TEMPO ============ -->
+<section id="resultados">
+  <div class="wrap reveal">
+    <span class="eyebrow rule">O que esperar</span>
+    <h2>A transformação tem <em>cronograma.</em></h2>
+    <p class="lead">Aplicando o método como ensinado, esta é a progressão que você deve cobrar de si mesmo:</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-day">7<small>DIAS</small></div>
+        <div><h3>O espelho responde primeiro</h3><p>Rotina de pele instalada, barba com contorno definido, cabelo finalizado todos os dias. Você já não sai de casa "de qualquer jeito".</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-day">30<small>DIAS</small></div>
+        <div><h3>As pessoas começam a comentar</h3><p>Pele visivelmente mais uniforme, guarda-roupa reorganizado, postura corrigida. O "você mudou alguma coisa?" vira rotina.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-day">90<small>DIAS</small></div>
+        <div><h3>Vira identidade, não esforço</h3><p>O protocolo roda no automático em 15 minutos por dia. A imagem que você projeta finalmente corresponde ao homem que você é.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPOIMENTOS ============ -->
+<section class="quotes">
+  <div class="wrap reveal">
+    <div class="center">
+      <span class="eyebrow rule" style="justify-content:center">Quem já aplicou</span>
+      <h2>Resultados de quem <em>executou.</em></h2>
+    </div>
+    <div class="quotes-grid">
+      <article class="quote">
+        <div class="quote-stars" aria-label="5 estrelas">★★★★★</div>
+        <p>"Em três semanas minha pele mudou tanto que minha namorada pediu para usar minha rotina. O módulo de barba sozinho já valia o preço."</p>
+        <footer><b>Rafael, 27</b>Engenheiro — São Paulo</footer>
+      </article>
+      <article class="quote">
+        <div class="quote-stars" aria-label="5 estrelas">★★★★★</div>
+        <p>"Sempre achei que estilo era caro. O módulo do guarda-roupa cápsula me fez gastar menos e me vestir dez vezes melhor."</p>
+        <footer><b>Diego, 33</b>Comercial — Belo Horizonte</footer>
+      </article>
+      <article class="quote">
+        <div class="quote-stars" aria-label="5 estrelas">★★★★★</div>
+        <p>"O que mais mudou foi a postura. Entrei na reunião de segunda diferente — e as pessoas tratam você diferente quando você se trata diferente."</p>
+        <footer><b>Lucas, 24</b>Estudante — Curitiba</footer>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFERTA ============ -->
+<section id="oferta">
+  <div class="wrap reveal">
+    <div class="center">
+      <span class="eyebrow rule" style="justify-content:center">Acesso completo</span>
+      <h2>Tudo isso. <em>Hoje.</em></h2>
+    </div>
+    <div class="offer-card">
+      <div class="offer-head"><span class="eyebrow">Homem de Valor — Edição Completa</span></div>
+      <div class="offer-body">
+        <ul class="offer-list">
+          <li><strong>10 módulos completos</strong> — da pele à postura, passo a passo</li>
+          <li><strong>100+ técnicas aplicáveis</strong> desde o primeiro dia</li>
+          <li><strong>Protocolo diário de 15 minutos</strong> pronto para seguir</li>
+          <li><strong>Acesso vitalício</strong> + todas as atualizações futuras</li>
+          <li class="bonus"><strong>Bônus: Checklist de Primeira Impressão</strong> — o que revisar antes de qualquer encontro, entrevista ou reunião</li>
+          <li class="bonus"><strong>Bônus: Guia de Compras Inteligente</strong> — o que comprar (e o que nunca comprar) em cada faixa de preço</li>
+        </ul>
+        <div class="offer-price">
+          <div class="price-old">De R$ 297 por apenas</div>
+          <div class="price-now"><sup>R$</sup> 97</div>
+          <div class="price-terms">ou 12x de R$ 9,73 · pagamento único · sem mensalidade</div>
+        </div>
+        <a class="btn btn-gold" href="#" id="cta-oferta">Quero minha transformação →</a>
+        <p class="btn-note center">🔒 Compra segura · Acesso imediato por e-mail</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GARANTIA ============ -->
+<section>
+  <div class="wrap reveal">
+    <div class="guarantee">
+      <div class="g-seal"><div><div class="g-num">7</div><div class="g-lab">dias de<br>garantia</div></div></div>
+      <div>
+        <h2 style="margin-top:0">O risco é <em>meu.</em> A decisão é sua.</h2>
+        <p class="lead">Entre, aplique o primeiro módulo, teste o protocolo. Se em até 7 dias você achar que não é para você — por qualquer motivo — devolvemos 100% do valor. Sem perguntas, sem burocracia, sem ressentimento. Você só fica se ficar convencido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="wrap reveal">
+    <div class="center">
+      <span class="eyebrow rule" style="justify-content:center">Perguntas frequentes</span>
+      <h2>O que você quer saber<br>antes de <em>decidir.</em></h2>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>Preciso gastar muito com produtos para aplicar o método?</summary>
+        <div class="a">Não. O método foi construído para funcionar com produtos acessíveis de farmácia e barbearia. O Guia de Compras Inteligente mostra exatamente o que vale o investimento em cada faixa de preço — e o que é puro marketing.</div>
+      </details>
+      <details>
+        <summary>Funciona para quem está começando do absoluto zero?</summary>
+        <div class="a">É exatamente para quem está no zero que o método foi desenhado. Os módulos seguem uma ordem: fundamentos primeiro, refinamento depois. Você nunca fica perdido sobre qual é o próximo passo.</div>
+      </details>
+      <details>
+        <summary>Quanto tempo por dia preciso dedicar?</summary>
+        <div class="a">O protocolo diário completo leva cerca de 15 minutos. A leitura dos módulos você faz no seu ritmo — o acesso é vitalício, sem prazo para concluir.</div>
+      </details>
+      <details>
+        <summary>Como recebo o acesso?</summary>
+        <div class="a">Imediatamente após a confirmação do pagamento, você recebe o acesso completo por e-mail. Dá para começar o Módulo I hoje mesmo.</div>
+      </details>
+      <details>
+        <summary>E se eu não gostar?</summary>
+        <div class="a">Você tem 7 dias de garantia incondicional. Pediu, devolvemos 100% — sem justificativa e sem burocracia. O risco da decisão é todo nosso.</div>
+      </details>
+      <details>
+        <summary>Serve para qualquer idade e tipo de pele?</summary>
+        <div class="a">Sim. O método ensina princípios e como adaptá-los ao seu contexto: tipo de pele, formato de rosto, estilo de vida e orçamento. Não é receita única — é sistema.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="final">
+  <div class="wrap reveal">
+    <span class="eyebrow rule" style="justify-content:center">Última chamada</span>
+    <h2>Daqui a 90 dias você vai se olhar no espelho.<br>A pergunta é: <em>vendo o quê?</em></h2>
+    <p class="lead">O mesmo reflexo de sempre — ou o homem que decidiu se levar a sério. O método está pronto. Os 10 módulos estão te esperando. Falta só a decisão.</p>
+    <a class="btn btn-gold" href="#oferta">Começar minha transformação →</a>
+    <p class="btn-note">Acesso imediato · Garantia de 7 dias · R$ 97 ou 12x de R$ 9,73</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <a class="logo" href="#topo" aria-label="Homem de Valor">
+      <span class="logo-mark" aria-hidden="true"><span>HV</span></span>
+      <span class="logo-name">Homem <b>de Valor</b></span>
+    </a>
+    <p>© 2026 Homem de Valor. Todos os direitos reservados.<br>Este produto não substitui acompanhamento dermatológico profissional.</p>
+  </div>
+</footer>
+
+<!-- CTA fixa no mobile -->
+<div class="sticky-cta" id="stickyCta">
+  <a class="btn btn-gold" href="#oferta">Começar agora → R$ 97</a>
+</div>
+
+<script>
+  // Revelação ao rolar
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // CTA fixa aparece depois da hero e some na seção de oferta
+  const sticky = document.getElementById('stickyCta');
+  const hero = document.querySelector('.hero');
+  const oferta = document.getElementById('oferta');
+  let pastHero = false, onOffer = false;
+  new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; update(); }, { threshold: .15 }).observe(hero);
+  new IntersectionObserver(([e]) => { onOffer = e.isIntersecting; update(); }, { threshold: .2 }).observe(oferta);
+  function update(){ sticky.classList.toggle('show', pastHero && !onOffer); }
+</script>
+</body>
+</html>
