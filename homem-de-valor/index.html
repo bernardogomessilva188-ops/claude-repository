@@ -7,7 +7,8 @@
 <meta name="description" content="Skincare, barba, cabelo, estilo e postura em um sistema passo a passo. 10 módulos, 100+ técnicas aplicáveis, acesso vitalício. Garantia incondicional de 7 dias.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..450;1,9..144,300..450&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0B0A08">
 <style>
   :root{
     --ink:#0B0A08;          /* fundo principal — preto quente */
@@ -57,6 +58,7 @@
 
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
   .reveal.on{opacity:1;transform:none}
+  .cv{content-visibility:auto;contain-intrinsic-size:auto 700px}
 
   /* ---------- botões ---------- */
   .btn{
@@ -442,30 +444,17 @@
   </div>
 </section>
 
-<!-- ============ DEPOIMENTOS ============ -->
-<section class="quotes">
+<!-- ============ DEPOIMENTOS ============
+     Esta seção só aparece quando houver depoimentos REAIS cadastrados
+     no bloco CONFIG no final da página. Nunca publique depoimentos
+     inventados: além de antiético, viola o Código de Defesa do Consumidor. -->
+<section class="quotes cv" id="depoimentos" hidden>
   <div class="wrap reveal">
     <div class="center">
       <span class="eyebrow rule" style="justify-content:center">Quem já aplicou</span>
       <h2>Resultados de quem <em>executou.</em></h2>
     </div>
-    <div class="quotes-grid">
-      <article class="quote">
-        <div class="quote-stars" aria-label="5 estrelas">★★★★★</div>
-        <p>"Em três semanas minha pele mudou tanto que minha namorada pediu para usar minha rotina. O módulo de barba sozinho já valia o preço."</p>
-        <footer><b>Rafael, 27</b>Engenheiro — São Paulo</footer>
-      </article>
-      <article class="quote">
-        <div class="quote-stars" aria-label="5 estrelas">★★★★★</div>
-        <p>"Sempre achei que estilo era caro. O módulo do guarda-roupa cápsula me fez gastar menos e me vestir dez vezes melhor."</p>
-        <footer><b>Diego, 33</b>Comercial — Belo Horizonte</footer>
-      </article>
-      <article class="quote">
-        <div class="quote-stars" aria-label="5 estrelas">★★★★★</div>
-        <p>"O que mais mudou foi a postura. Entrei na reunião de segunda diferente — e as pessoas tratam você diferente quando você se trata diferente."</p>
-        <footer><b>Lucas, 24</b>Estudante — Curitiba</footer>
-      </article>
-    </div>
+    <div class="quotes-grid" id="quotesGrid"></div>
   </div>
 </section>
 
@@ -488,11 +477,11 @@
           <li class="bonus"><strong>Bônus: Guia de Compras Inteligente</strong> — o que comprar (e o que nunca comprar) em cada faixa de preço</li>
         </ul>
         <div class="offer-price">
-          <div class="price-old">De R$ 297 por apenas</div>
-          <div class="price-now"><sup>R$</sup> 97</div>
-          <div class="price-terms">ou 12x de R$ 9,73 · pagamento único · sem mensalidade</div>
+          <div class="price-old">De <span class="js-price-old">R$ 297</span> por apenas</div>
+          <div class="price-now"><sup>R$</sup> <span class="js-price-now">97</span></div>
+          <div class="price-terms js-price-terms">ou 12x de R$ 9,73 · pagamento único · sem mensalidade</div>
         </div>
-        <a class="btn btn-gold" href="#" id="cta-oferta">Quero minha transformação →</a>
+        <a class="btn btn-gold js-checkout" href="#oferta" id="cta-oferta">Quero minha transformação →</a>
         <p class="btn-note center">🔒 Compra segura · Acesso imediato por e-mail</p>
       </div>
     </div>
@@ -500,7 +489,7 @@
 </section>
 
 <!-- ============ GARANTIA ============ -->
-<section>
+<section class="cv">
   <div class="wrap reveal">
     <div class="guarantee">
       <div class="g-seal"><div><div class="g-num">7</div><div class="g-lab">dias de<br>garantia</div></div></div>
@@ -555,7 +544,7 @@
     <h2>Daqui a 90 dias você vai se olhar no espelho.<br>A pergunta é: <em>vendo o quê?</em></h2>
     <p class="lead">O mesmo reflexo de sempre — ou o homem que decidiu se levar a sério. O método está pronto. Os 10 módulos estão te esperando. Falta só a decisão.</p>
     <a class="btn btn-gold" href="#oferta">Começar minha transformação →</a>
-    <p class="btn-note">Acesso imediato · Garantia de 7 dias · R$ 97 ou 12x de R$ 9,73</p>
+    <p class="btn-note">Acesso imediato · Garantia de 7 dias · <span class="js-price-summary">R$ 97 ou 12x de R$ 9,73</span></p>
   </div>
 </section>
 
@@ -571,10 +560,50 @@
 
 <!-- CTA fixa no mobile -->
 <div class="sticky-cta" id="stickyCta">
-  <a class="btn btn-gold" href="#oferta">Começar agora → R$ 97</a>
+  <a class="btn btn-gold" href="#oferta">Começar agora → <span class="js-price-badge">R$ 97</span></a>
 </div>
 
 <script>
+  /* =====================================================================
+     CONFIGURAÇÃO DO PRODUTO — edite APENAS aqui.
+     Preço, parcelamento e link de checkout se atualizam na página inteira.
+     ===================================================================== */
+  const CONFIG = {
+    checkoutUrl: "#oferta",            // TODO: cole aqui o link real do checkout (Kiwify/Hotmart/etc.)
+    priceOld:    "R$ 297",             // preço ancorado ("De ...")
+    priceNow:    "97",                 // preço atual, sem o "R$"
+    priceTerms:  "ou 12x de R$ 9,73 · pagamento único · sem mensalidade",
+    priceShort:  "R$ 97",              // usado na barra fixa do mobile
+    priceSummary:"R$ 97 ou 12x de R$ 9,73",
+
+    // Depoimentos REAIS de alunos (com autorização de uso).
+    // A seção de depoimentos fica OCULTA enquanto esta lista estiver vazia.
+    // Formato: { text: "…", name: "Nome, idade", role: "Profissão — Cidade" }
+    testimonials: []
+  };
+
+  // Aplica preço e checkout
+  const setText = (sel, val) => document.querySelectorAll(sel).forEach(el => el.textContent = val);
+  setText('.js-price-old', CONFIG.priceOld);
+  setText('.js-price-now', CONFIG.priceNow);
+  setText('.js-price-terms', CONFIG.priceTerms);
+  setText('.js-price-badge', CONFIG.priceShort);
+  setText('.js-price-summary', CONFIG.priceSummary);
+  document.querySelectorAll('.js-checkout').forEach(a => a.href = CONFIG.checkoutUrl);
+
+  // Renderiza depoimentos apenas se houver reais cadastrados
+  const quotesSection = document.getElementById('depoimentos');
+  if (CONFIG.testimonials.length) {
+    const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    document.getElementById('quotesGrid').innerHTML = CONFIG.testimonials.map(t => `
+      <article class="quote">
+        <div class="quote-stars" aria-label="5 estrelas">★★★★★</div>
+        <p>"${esc(t.text)}"</p>
+        <footer><b>${esc(t.name)}</b>${esc(t.role || '')}</footer>
+      </article>`).join('');
+    quotesSection.hidden = false;
+  }
+
   // Revelação ao rolar
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });

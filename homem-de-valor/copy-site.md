@@ -2,10 +2,11 @@
 
 Copy reescrita para a landing page, seção por seção, com justificativa das escolhas e alternativas para teste A/B.
 
-> ⚠️ **Importante antes de publicar:**
-> - Os **depoimentos são exemplos ilustrativos** — substitua por depoimentos reais de alunos (com autorização). Depoimentos inventados geram risco jurídico (CDC) e destroem confiança.
-> - O **preço (R$ 97 / de R$ 297)** é um placeholder — ajuste para o preço real do produto.
-> - Os **nomes dos 10 módulos** foram criados com base no posicionamento do produto — ajuste para os títulos reais do guia.
+> ✅ **Itens de compliance já resolvidos no `index.html`:**
+> - **Depoimentos:** a página não contém mais depoimentos fictícios. A seção fica **oculta automaticamente** até você cadastrar depoimentos reais (com autorização dos alunos) no bloco `CONFIG` no final do `index.html` — basta preencher a lista `testimonials` e a seção aparece sozinha.
+> - **Preço e checkout:** editáveis em **um único lugar** — o mesmo bloco `CONFIG` (`priceNow`, `priceOld`, `priceTerms`, `checkoutUrl`). Alterou lá, atualiza na oferta, no CTA final e na barra fixa do mobile de uma vez. Troque o `checkoutUrl` pelo link real (Kiwify/Hotmart etc.) antes de publicar.
+>
+> ⚠️ Ainda por sua conta: os **nomes dos 10 módulos** foram criados com base no posicionamento do produto — ajuste para os títulos reais do guia.
 
 ---
 
@@ -113,10 +114,18 @@ Copy reescrita para a landing page, seção por seção, com justificativa das e
 
 ---
 
-## 6. DEPOIMENTOS *(substituir por reais)*
+## 6. DEPOIMENTOS *(seção oculta até haver depoimentos reais)*
 
 Formato: ★★★★★ + citação em itálico + nome, idade, profissão, cidade.
 A citação ideal menciona **um módulo específico + um resultado específico** (ex.: "o módulo de barba sozinho já valia o preço").
+
+Para ativar: preencha `CONFIG.testimonials` no final do `index.html`:
+
+```js
+testimonials: [
+  { text: "Citação real do aluno...", name: "Nome, idade", role: "Profissão — Cidade" },
+]
+```
 
 ---
 

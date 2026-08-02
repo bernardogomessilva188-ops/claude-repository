@@ -49,7 +49,7 @@ Título: "A transformação tem *cronograma*." Timeline vertical com círculos d
 - 90 dias — "Vira identidade, não esforço" (protocolo automático de 15 min/dia)
 
 ### Depoimentos
-3 cards com 5 estrelas douradas, citação em serif itálico, nome + idade + profissão + cidade. (Usar depoimentos reais.)
+Cards com 5 estrelas douradas, citação em serif itálico, nome + idade + profissão + cidade. **Importante:** não gerar depoimentos fictícios — criar a seção lendo de uma lista de depoimentos configurável e **esconder a seção inteira enquanto a lista estiver vazia**. Vou adicionar os depoimentos reais depois.
 
 ### Oferta (card central destacado)
 Card com borda dourada e glow, header "HOMEM DE VALOR — EDIÇÃO COMPLETA". Lista com ◆ dourados: 10 módulos, 100+ técnicas, protocolo de 15 min, acesso vitalício + atualizações, e 2 bônus em dourado (Checklist de Primeira Impressão; Guia de Compras Inteligente). Preço ancorado: "De R$ 297 por apenas **R$ 97**" em serif grande dourado, "ou 12x de R$ 9,73 · pagamento único · sem mensalidade". Botão full-width "QUERO MINHA TRANSFORMAÇÃO →" + "🔒 Compra segura · Acesso imediato por e-mail". (Ajustar preço real.)
@@ -65,6 +65,16 @@ Fundo com brilho radial dourado vindo de baixo. Título: "Daqui a 90 dias você 
 
 ### Footer + mobile
 Footer minimalista com logo e disclaimer dermatológico. No mobile: barra fixa inferior com botão dourado "Começar agora → R$ 97" que aparece após rolar a hero e some na seção de oferta; botões nunca quebram linha; H1 com quebras controladas (nunca cortar palavra no meio como "VALO/R").
+
+### Preço e checkout centralizados
+Criar um único arquivo/objeto de configuração (ex.: `src/config/product.ts`) com `priceNow`, `priceOld`, `priceTerms`, `checkoutUrl` e `testimonials[]`. Todos os lugares que mostram preço (oferta, CTA final, barra fixa do mobile) devem ler dessa configuração — nunca hardcoded em cada componente.
+
+### Performance (carregamento)
+- **Fontes:** carregar só os pesos usados (Fraunces 300–450 + itálico; Manrope 400/600/700/800), com `display=swap` e `<link rel="preconnect">` para fonts.googleapis.com e fonts.gstatic.com.
+- **Imagens:** se adicionar imagens, usar WebP/AVIF, largura máxima real de exibição, `loading="lazy"` em tudo abaixo da dobra e `fetchpriority="high"` apenas no elemento LCP da hero. Hero sem imagem pesada — o fundo é CSS (gradientes), que carrega instantâneo.
+- **Code splitting:** lazy-load (React.lazy/dynamic import) das seções abaixo da dobra (depoimentos, FAQ, oferta) e de qualquer biblioteca pesada; nada de bibliotecas de animação — usar CSS + IntersectionObserver nativo.
+- **Render:** aplicar `content-visibility: auto` com `contain-intrinsic-size` nas seções abaixo da dobra.
+- **Geral:** sem fontes de ícones (usar SVG inline ou caracteres), minificar/comprimir assets, meta `theme-color` #0B0A08. Meta de LCP: abaixo de 2,5s em 4G.
 
 ### SEO
 Title: "Homem de Valor — O Método Completo de Imagem e Presença Masculina". Meta description: "Skincare, barba, cabelo, estilo e postura em um sistema passo a passo. 10 módulos, 100+ técnicas aplicáveis, acesso vitalício. Garantia incondicional de 7 dias."
