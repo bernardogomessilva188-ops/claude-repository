@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# prévia de arquivo único (gerada por npm run preview:single)
+mens-helper-preview.html

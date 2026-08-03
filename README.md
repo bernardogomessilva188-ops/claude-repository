@@ -14,15 +14,20 @@ Requisitos: **Node.js 20+** e npm.
 
 ```bash
 npm install     # instala as dependências
-npm run dev     # servidor de desenvolvimento em http://localhost:5173
+npm start       # servidor de desenvolvimento em http://localhost:5173
 ```
+
+(`npm run dev` faz o mesmo que `npm start`.)
 
 Outros comandos:
 
 ```bash
-npm run build     # gera a build de produção em dist/
-npm run preview   # serve a build de produção localmente
-npm run lint      # roda o oxlint
+npm run build            # gera a build de produção em dist/
+npm run preview          # serve a build de produção localmente
+npm run preview:single   # gera mens-helper-preview.html: a página inteira num
+                         # arquivo só (CSS, JS e imagens embutidos), que abre
+                         # offline com dois cliques — bom para mandar para alguém
+npm run lint             # roda o oxlint
 ```
 
 ---
