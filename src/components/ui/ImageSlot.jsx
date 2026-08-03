@@ -1,49 +1,52 @@
 import { IMAGES } from '../../config'
 
 /**
- * Espaço de imagem padronizado das seções.
+ * Espaço de imagem (BRANDBOOK §6 e §10).
  *
- * Busca a imagem pelo nome no registro `IMAGES` (src/config.js) — trocar a
- * foto é sobrescrever o arquivo em `public/images/`, sem tocar em código.
- *
- * O que ele já resolve:
- * - `width`/`height` declarados → zero layout shift;
+ * Retângulo cheio, sem raio de canto — foto é página de revista, não balão.
+ * O que o componente resolve sozinho:
+ * - `width`/`height` declarados → zero salto de layout;
  * - `loading="lazy"` → só baixa quando está chegando na tela;
- * - moldura deslocada em verde-claro (frame) para a foto não "boiar" no
- *   fundo branco — desligável com `framed={false}`;
- * - entra com a revelação ao rolar como o resto da página.
+ * - entrada com corte que abre de baixo para cima (data-reveal-image);
+ * - hover: a imagem avança de leve dentro da moldura.
+ *
+ * Trocar a foto é sobrescrever o arquivo em `public/images/` — o registro fica
+ * em `IMAGES` (src/config.js).
  */
 export default function ImageSlot({
   name,
-  framed = true,
+  tone = 'dark',
   className = '',
   imgClassName = '',
   revealDelay,
+  caption,
 }) {
   const image = IMAGES[name]
   if (!image) return null
 
+  const border = tone === 'paper' ? 'border-sand-300' : 'border-ember-600'
+  const captionColor = tone === 'paper' ? 'text-slate-500' : 'text-fog-500'
+
   return (
     <figure
-      data-reveal
+      data-reveal-image
       style={revealDelay ? { '--reveal-delay': revealDelay } : undefined}
-      className={`relative ${className}`}
+      className={className}
     >
-      {framed ? (
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-sage-200/60"
+      <div className={`reveal-mask group relative overflow-hidden border ${border}`}>
+        <img
+          src={image.src}
+          alt={image.alt}
+          width={image.w}
+          height={image.h}
+          loading="lazy"
+          decoding="async"
+          className={`block h-auto w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] ${imgClassName}`}
         />
+      </div>
+      {caption ? (
+        <figcaption className={`label-mono mt-4 ${captionColor}`}>{caption}</figcaption>
       ) : null}
-      <img
-        src={image.src}
-        alt={image.alt}
-        width={image.w}
-        height={image.h}
-        loading="lazy"
-        decoding="async"
-        className={`card-shadow relative h-auto w-full rounded-2xl border border-line-200 object-cover ${imgClassName}`}
-      />
     </figure>
   )
 }

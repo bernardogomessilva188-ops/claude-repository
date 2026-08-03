@@ -40,18 +40,21 @@ npm run lint             # roda o oxlint
 | UI | React 19 (JavaScript, sem TypeScript) |
 | Estilos | Tailwind CSS 4 (plugin oficial do Vite, sem `tailwind.config.js`) |
 | Scroll | [Lenis](https://github.com/darkroomengineering/lenis) — rolagem suave da página inteira |
-| Movimento | Ken Burns + parallax no herói, revelação ao rolar, contadores animados, marquee |
+| Movimento | Ken Burns + parallax no herói, máscaras de entrada, contadores, marquee |
 | Ícones | SVG inline, escritos à mão (`src/components/ui/Icons.jsx`) |
-| Fontes | Archivo (títulos) + Inter (texto), via Google Fonts com `display=swap` |
+| Fontes | Bodoni Moda (display) + IBM Plex Sans (texto) + IBM Plex Mono (etiquetas) |
 
-Os tokens de design (cores, fontes, animações) ficam em `src/index.css`, dentro do bloco
-`@theme` — é de lá que o Tailwind 4 gera as utilidades `bg-paper-50`, `text-sage-600`
-e companhia.
+**O sistema de design está no [`BRANDBOOK.md`](BRANDBOOK.md)** — paleta, tipografia,
+espaçamento, botões, movimento e o elemento assinatura. Leia antes de criar tela nova.
 
-A paleta é clara, no clima de marca de grooming premium: brancos quentes (`paper`),
-tinta verde-grafite (`ink`), verde-eucalipto nos CTAs e destaques (`sage`), terracota
-apenas para urgência (`clay`) e areia nos detalhes (`sand`). O único bloco escuro da
-página é o CTA final — o contraste é proposital, para o fechamento pesar mais.
+Os tokens vivem em `src/index.css`, dentro de `@theme`: é de lá que o Tailwind 4 gera
+`bg-espresso-950`, `text-brass-500`, `label-mono` e companhia. Mudou lá, mudou na página
+inteira.
+
+Resumo da direção: **revista masculina encontra manual técnico**. Fundo espresso (preto
+quente), papel bone nos capítulos claros, latão como único acento, serifa de alto
+contraste nos títulos e monoespaçada nas etiquetas. Cantos de 2px, fios de 1px, sem
+sombra difusa.
 
 ---
 
@@ -70,6 +73,7 @@ src/
 │   └── useReveal.js        revelação ao rolar (um IntersectionObserver p/ tudo)
 └── components/
     ├── Header.jsx          header fixo + menu mobile + CTA
+    ├── ChapterRail.jsx     trilho de capítulos (elemento assinatura)
     ├── Hero.jsx            headline, CTA principal e prova social rápida
     ├── MarqueeStrip.jsx    faixa de palavras em movimento contínuo
     ├── PainPoints.jsx      as dores do público
@@ -83,7 +87,7 @@ src/
     ├── Footer.jsx          institucional, redes sociais, avisos legais
     ├── StickyMobileCta.jsx barra de CTA fixa no mobile
     └── ui/                 peças reutilizáveis (Section, CtaButton, Logo, Icons,
-                            HeroBackground, AnimatedNumber)
+                            HeroBackground, ImageSlot, RevealLines, AnimatedNumber)
 ```
 
 O texto de cada seção mora dentro do próprio componente — para reescrever uma headline,
@@ -106,7 +110,7 @@ Com `prefers-reduced-motion: reduce`, tudo isso desliga e fica a primeira imagem
 
 ### ⚠️ As imagens atuais são placeholders
 
-Os arquivos em `public/hero/` **não são fotos**: são texturas claras geradas
+Os arquivos em `public/hero/` **não são fotos**: são texturas escuras geradas
 proceduralmente, só para o efeito ficar visível. Troque pelas fotos reais sobrescrevendo
 os arquivos com os mesmos nomes — nenhuma linha de código precisa mudar.
 
@@ -115,8 +119,9 @@ servido no celular via `<picture>`).
 
 O que as fotos precisam ter para funcionar bem:
 
-- **claras e bem iluminadas** (luz natural, fundo neutro) — o tema é branco e o texto
-  escuro fica sobre um véu branco à esquerda;
+- **luz dura e direcional, sombra marcada** — combina com o contraste da tipografia;
+- **escuras o suficiente** para o texto bone ficar legível por cima, com o assunto
+  respirando à direita;
 - **retrato masculino nítido** (rosto/ombros), com o assunto **à direita** do
   enquadramento — a coluna da esquerda é ocupada pelo texto;
 - clima de autocuidado real: toalha no ombro, skincare, barbearia, espelho de banheiro —
@@ -184,30 +189,28 @@ revelação ao rolar; `framed={false}` desliga a moldura.
 
 ## Interatividade e movimento
 
-Além do fundo do herói e do Lenis:
+Regras e durações estão no [`BRANDBOOK.md` §8](BRANDBOOK.md). Na prática:
 
-- **Revelação ao rolar** — elementos com `data-reveal` sobem e aparecem quando entram na
-  tela (`src/hooks/useReveal.js` + CSS em `index.css`). Cascatas usam
-  `style={{ '--reveal-delay': '120ms' }}`. Um único `IntersectionObserver` cuida da
-  página toda, e cada elemento é esquecido depois de revelado.
-- **Fade-in lento palavra por palavra** — os títulos surgem uma palavra de cada vez
-  (~1,2s por palavra, com leve subida e desfoque saindo), via
-  `src/components/ui/RevealWords.jsx`. O `SectionTitle` já usa por padrão; para aplicar
-  em outro texto, envolva com `<RevealWords as="h2" step={110}>...</RevealWords>` —
-  JSX no meio (destaques, `<br/>`) é preservado.
-- **Contadores animados** — os números de prova social contam de 0 até o valor quando
-  ficam visíveis (`src/components/ui/AnimatedNumber.jsx`), respeitando o formato
-  brasileiro ("2.400", "4,8").
-- **Marquee** — faixa de palavras em movimento contínuo separando o herói do resto
-  (`src/components/MarqueeStrip.jsx`).
-- **Formas em deriva** — círculos desfocados que flutuam devagar ao fundo de algumas
-  seções (`DriftShape` em `src/components/ui/Section.jsx`).
-- **FAQ** — abre e fecha com transição de altura sem medir nada (truque do
-  `grid-template-rows: 0fr → 1fr`).
-- Hover com elevação e sombra nos cards, ícones que invertem a cor, CTA que "acende".
+- **Máscara linha a linha** nos títulos (`RevealLines`): cada linha sobe por trás de um
+  recorte. Você declara as linhas — o corte é decisão de composição, não da quebra
+  automática do navegador.
+- **Fio que se desenha** na abertura de cada capítulo (`data-reveal-rule`).
+- **Imagem com corte** que abre de baixo para cima (`data-reveal-image`).
+  ⚠️ O recorte fica num filho `.reveal-mask`, nunca no elemento observado: o
+  `IntersectionObserver` considera o clip, e um elemento com `clip-path: inset(100%)`
+  tem área de interseção zero — ou seja, nunca dispararia e a imagem ficaria invisível
+  para sempre.
+- **Blocos** que sobem e aparecem (`data-reveal`), com cascata via `--reveal-delay`.
+- **Trilho de capítulos** com o capítulo atual e o progresso da leitura.
+- **Foco que segue o cursor** no herói (só em telas com mouse).
+- **Hover:** varredura de latão no CTA, fio que cresce no topo dos cards, sublinhado que
+  se desenha nos links, imagem que avança de leve na moldura, avatar que sai do
+  preto e branco.
+- **Contadores** que contam de 0 até o valor, no formato brasileiro.
 
-Tudo respeita `prefers-reduced-motion`: a regra global zera animações e transições, e o
-conteúdo com `data-reveal` aparece direto.
+Um `IntersectionObserver` só cuida da página inteira, e cada elemento é esquecido depois
+de revelado. Tudo respeita `prefers-reduced-motion`: sem Lenis, sem máscara, sem
+parallax — e o conteúdo aparece inteiro, sem atraso.
 
 ---
 

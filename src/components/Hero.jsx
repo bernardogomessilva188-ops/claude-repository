@@ -1,125 +1,155 @@
+import { useEffect, useRef } from 'react'
 import { PLACEHOLDER } from '../config'
 import AnimatedNumber from './ui/AnimatedNumber'
 import CtaButton from './ui/CtaButton'
 import HeroBackground from './ui/HeroBackground'
-import RevealWords from './ui/RevealWords'
-import { IconBolt, IconCheck, IconClock, IconDroplet, IconStar } from './ui/Icons'
+import RevealLines from './ui/RevealLines'
 
-const quickWins = ['10 minutos por dia', 'Com o que você já tem', 'Zero enrolação']
-
-const proofChips = [
-  { icon: IconClock, label: 'Rotina pronta, é só seguir' },
-  { icon: IconDroplet, label: 'Pele em ordem na 2ª semana' },
-  { icon: IconBolt, label: 'Mais energia em 30 dias' },
+const specs = [
+  { label: 'Duração', value: '10 min/dia' },
+  { label: 'Formato', value: 'Guia digital' },
+  { label: 'Acesso', value: 'Imediato' },
 ]
 
 export default function Hero() {
+  const spotRef = useRef(null)
+
+  /**
+   * Foco que segue o cursor (BRANDBOOK §8).
+   * Um halo de latão bem fraco acompanha o mouse sobre o fundo escuro — a
+   * sensação é de luz passando por vidro âmbar. Só `transform`, sem custo de
+   * layout, e desligado em telas de toque e em prefers-reduced-motion.
+   */
+  useEffect(() => {
+    const spot = spotRef.current
+    if (!spot) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
+
+    let frame = 0
+    let x = 0
+    let y = 0
+
+    const draw = () => {
+      frame = 0
+      spot.style.transform = `translate3d(${x}px, ${y}px, 0)`
+    }
+
+    const onMove = (event) => {
+      const rect = spot.parentElement.getBoundingClientRect()
+      x = event.clientX - rect.left
+      y = event.clientY - rect.top
+      if (!frame) frame = requestAnimationFrame(draw)
+    }
+
+    const parent = spot.parentElement
+    parent.addEventListener('pointermove', onMove)
+    spot.style.opacity = '1'
+    return () => {
+      parent.removeEventListener('pointermove', onMove)
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [])
+
   return (
     <section
       id="inicio"
-      className="relative isolate flex min-h-[92svh] items-center overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28"
+      data-chapter="ABERTURA" data-chapter-number="00"
+      className="relative isolate flex min-h-[94svh] items-end overflow-hidden bg-espresso-950 pt-36 pb-16 md:pt-44 md:pb-20"
     >
-      {/* fotos de fundo com zoom lento, cross-fade e parallax */}
       <HeroBackground />
 
+      {/* foco que segue o cursor */}
+      <div
+        ref={spotRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-0 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-700"
+        style={{
+          marginLeft: '-18rem',
+          marginTop: '-18rem',
+          background:
+            'radial-gradient(circle, rgba(200,149,80,0.16) 0%, rgba(200,149,80,0.05) 35%, transparent 68%)',
+        }}
+      />
+
       <div className="shell">
-        <div className="max-w-2xl">
-          <span
-            data-reveal
-            className="inline-flex items-center gap-2 rounded-full border border-sage-200 bg-paper-0/80 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-sage-800 backdrop-blur-sm"
-          >
-            <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-sage-600" />
-            Guia digital · Acesso imediato
-          </span>
+        <div className="grid gap-16 lg:grid-cols-[1.35fr_0.65fr] lg:items-end">
+          <div>
+            <div data-reveal className="flex items-center gap-4">
+              <span className="label-mono text-brass-500">Nº 00</span>
+              <span
+                data-reveal-rule
+                className="rule-x max-w-16 flex-1 text-ember-600"
+                style={{ '--reveal-delay': '120ms' }}
+              />
+              <span className="label-mono text-fog-400">Edição 2026</span>
+            </div>
 
-          <RevealWords
-            as="h1"
-            step={110}
-            delay={150}
-            className="mt-6 text-4xl leading-[1.03] font-extrabold sm:text-5xl lg:text-6xl"
-          >
-            Pele em ordem. Corpo ativo. Cabeça no lugar.
-            <span className="mt-2 block text-sage-600">10 minutos por dia. Só isso.</span>
-          </RevealWords>
-
-          <p
-            data-reveal
-            style={{ '--reveal-delay': '160ms' }}
-            className="mt-6 max-w-xl text-lg leading-relaxed text-ink-700"
-          >
-            O Mens Helper organiza seu autocuidado do zero: o que fazer, em que ordem e com o
-            que você já tem em casa. Sem rotina de 14 passos, sem produto de R$ 300, sem papo
-            furado.
-          </p>
-
-          <ul
-            data-reveal
-            style={{ '--reveal-delay': '240ms' }}
-            className="mt-7 flex flex-wrap gap-x-6 gap-y-3"
-          >
-            {quickWins.map((item) => (
-              <li key={item} className="flex items-center gap-2 text-sm font-semibold text-ink-900">
-                <IconCheck className="h-4 w-4 shrink-0 text-sage-600" />
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          <div data-reveal style={{ '--reveal-delay': '320ms' }} className="mt-9">
-            <CtaButton
-              className="w-full sm:w-auto"
-              microcopy="Acesso imediato · 7 dias de garantia · Pagamento único"
+            <RevealLines
+              as="h1"
+              delay={220}
+              step={120}
+              className="mt-10 font-display text-[3rem] leading-[0.98] font-medium tracking-[-0.025em] text-bone-100 sm:text-[4.25rem] lg:text-[5.75rem]"
             >
-              Quero começar hoje
-            </CtaButton>
-          </div>
+              <>O manual que</>
+              <>deveria ter vindo</>
+              <>
+                <em className="font-normal italic text-brass-500">junto com você.</em>
+              </>
+            </RevealLines>
 
-          {/* Prova social rápida — ⚠️ números de exemplo, ver src/config.js */}
-          <div
-            data-reveal
-            style={{ '--reveal-delay': '400ms' }}
-            className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line-200 pt-6"
-          >
-            <div className="flex -space-x-2.5" aria-hidden="true">
-              {['R', 'M', 'L', 'D'].map((initial) => (
-                <span
-                  key={initial}
-                  className="grid h-9 w-9 place-items-center rounded-full border-2 border-paper-0 bg-sage-100 font-display text-xs font-bold text-sage-800"
-                >
-                  {initial}
-                </span>
-              ))}
-            </div>
-            <div>
-              <div className="flex items-center gap-1 text-sand-400">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <IconStar key={i} className="h-3.5 w-3.5" />
-                ))}
-                <span className="ml-1.5 text-xs font-semibold text-ink-900">
-                  <AnimatedNumber value={PLACEHOLDER.rating} />
-                  /5
-                </span>
-              </div>
-              <p className="mt-0.5 text-xs text-ink-500">
-                +<AnimatedNumber value={PLACEHOLDER.studentsCount} /> homens já seguem a rotina
-              </p>
-            </div>
-          </div>
+            <p
+              data-reveal
+              style={{ '--reveal-delay': '620ms' }}
+              className="mt-10 max-w-[52ch] text-lg leading-[1.7] text-fog-400 md:text-xl"
+            >
+              Pele, barba, corpo e cabeça — organizados em protocolos de dez minutos.
+              Ninguém te ensinou isso. Agora está escrito.
+            </p>
 
-          {/* chips de resultado — no desktop encostam na foto, do lado direito */}
-          <ul className="mt-10 flex flex-wrap gap-3 lg:absolute lg:right-8 lg:bottom-24 lg:mt-0 lg:max-w-[16rem] lg:flex-col xl:right-16">
-            {proofChips.map(({ icon: Icon, label }, index) => (
-              <li
-                key={label}
-                data-reveal
-                style={{ '--reveal-delay': `${480 + index * 120}ms` }}
-                className="card-shadow flex items-center gap-2 rounded-xl border border-line-200 bg-paper-0/90 px-3 py-2 text-xs font-semibold text-ink-900 backdrop-blur-sm sm:text-sm"
+            <div
+              data-reveal
+              style={{ '--reveal-delay': '760ms' }}
+              className="mt-12 flex flex-col items-start gap-8 sm:flex-row sm:items-center"
+            >
+              <CtaButton microcopy="Acesso imediato · 7 dias de garantia">
+                Quero meu manual
+              </CtaButton>
+
+              <a
+                href="#beneficios"
+                className="label-mono link-draw text-fog-400 transition-colors duration-300 hover:text-bone-100"
               >
-                <Icon className="h-4 w-4 shrink-0 text-sage-600" />
-                {label}
-              </li>
+                Ver o que tem dentro
+              </a>
+            </div>
+          </div>
+
+          {/* Ficha técnica: o produto descrito como um manual descreveria a si mesmo */}
+          <dl
+            data-reveal
+            style={{ '--reveal-delay': '900ms' }}
+            className="grid grid-cols-3 gap-px border-y border-ember-600 lg:grid-cols-1 lg:border-x-0 lg:border-b-0"
+          >
+            {specs.map((spec) => (
+              <div
+                key={spec.label}
+                className="py-5 lg:border-b lg:border-ember-600 lg:py-6"
+              >
+                <dt className="label-mono text-fog-500">{spec.label}</dt>
+                <dd className="mt-2 font-display text-2xl font-medium text-bone-100 lg:text-[1.75rem]">
+                  {spec.value}
+                </dd>
+              </div>
             ))}
-          </ul>
+            <div className="col-span-3 border-t border-ember-600 py-5 lg:col-span-1 lg:border-t-0 lg:border-b lg:py-6">
+              <dt className="label-mono text-fog-500">Já seguem</dt>
+              <dd className="mt-2 font-display text-2xl font-medium text-bone-100 lg:text-[1.75rem]">
+                {/* ⚠️ número de exemplo — ver PLACEHOLDER em src/config.js */}
+                <AnimatedNumber value={PLACEHOLDER.studentsCount} /> homens
+              </dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>

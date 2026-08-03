@@ -1,6 +1,6 @@
-import Section, { DriftShape, SectionLead, SectionTag, SectionTitle } from './ui/Section'
 import CtaButton from './ui/CtaButton'
 import ImageSlot from './ui/ImageSlot'
+import Section, { ChapterLead, ChapterMark, ChapterTitle } from './ui/Section'
 import {
   IconBrain,
   IconCalendarCheck,
@@ -10,84 +10,102 @@ import {
   IconShirt,
 } from './ui/Icons'
 
-const benefits = [
+/** As seis frentes do manual. Cada uma vira um módulo, com o tempo que custa. */
+const modules = [
   {
     icon: IconDroplet,
-    title: 'Pele em ordem',
-    text: 'Quatro passos, 5 minutos de manhã e 5 à noite. Serve pra pele oleosa, seca ou mista — o diagnóstico te mostra a sua em 5 perguntas.',
+    title: 'Pele',
+    time: '10 min/dia',
+    text: 'Quatro passos, cinco de manhã e cinco à noite. Oleosa, seca ou mista — o diagnóstico aponta a sua em cinco perguntas.',
   },
   {
     icon: IconRazor,
-    title: 'Barba e cabelo com padrão',
-    text: 'O corte certo pro formato do seu rosto, como pedir no barbeiro em uma frase e o que fazer entre uma visita e outra.',
+    title: 'Barba e cabelo',
+    time: '1x por mês',
+    text: 'O corte certo para o formato do seu rosto, como pedir no barbeiro em uma frase e o que fazer entre uma visita e outra.',
   },
   {
     icon: IconDumbbell,
-    title: 'Corpo que acompanha você',
-    text: 'Treino de 20 minutos que cabe em qualquer semana, com ou sem academia. Progressão clara, sem inventar moda.',
+    title: 'Corpo',
+    time: '20 min, 3x',
+    text: 'Treino que cabe em qualquer semana, com ou sem academia. Progressão clara, sem inventar moda.',
   },
   {
     icon: IconBrain,
-    title: 'Cabeça no lugar',
-    text: 'Sono, estresse e foco tratados como hábito, não como sermão de autoajuda. O que funciona e o que é perda de tempo.',
+    title: 'Sono e cabeça',
+    time: '7 dias',
+    text: 'Sono, estresse e foco tratados como hábito, não como sermão. O que funciona e o que é perda de tempo.',
   },
   {
     icon: IconShirt,
-    title: 'Estilo sem esforço',
-    text: 'Um guarda-roupa enxuto que resolve 90% das situações: trabalho, encontro, fim de semana. Menos peça, mais acerto.',
+    title: 'Estilo',
+    time: '18 peças',
+    text: 'Um guarda-roupa enxuto que resolve 90% das situações: trabalho, encontro, fim de semana.',
   },
   {
     icon: IconCalendarCheck,
-    title: 'Constância de verdade',
-    text: 'Checklists diários e semanais pra rotina se sustentar sozinha depois dos 30 dias — mesmo na semana corrida.',
+    title: 'Constância',
+    time: 'Contínuo',
+    text: 'Checklists diários e semanais para a rotina se sustentar sozinha depois dos 30 dias.',
   },
 ]
 
 export default function Benefits() {
   return (
-    <Section id="beneficios" className="overflow-hidden">
-      <DriftShape className="-top-16 -left-24 h-80 w-80 bg-sage-50 [animation-delay:-4s]" />
-
-      <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-        <div data-reveal className="max-w-3xl">
-          <SectionTag>A solução</SectionTag>
-          <SectionTitle>
-            Seis frentes. Um plano só.{' '}
-            <span className="text-sage-600">Dez minutos por dia.</span>
-          </SectionTitle>
-          <SectionLead>
-            O Mens Helper reúne o que realmente muda sua aparência, sua saúde e sua confiança —
-            em linguagem de gente, com o passo a passo já montado. Você só executa.
-          </SectionLead>
-        </div>
+    <Section id="beneficios" chapter="OS MÓDULOS" chapterNumber="02" tone="dark">
+      <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-24">
         {/* espaço de imagem — troque public/images/beneficios.webp */}
-        <ImageSlot name="beneficios" revealDelay="150ms" />
+        <ImageSlot
+          name="beneficios"
+          className="order-2 lg:order-1"
+          caption="Fig. 01 — o essencial, sem gaveta cheia"
+        />
+
+        <div className="order-1 lg:order-2">
+          <ChapterMark number="02" name="Os módulos" />
+          <ChapterTitle>
+            <>Seis frentes.</>
+            <>
+              Um plano <em className="font-normal italic text-brass-500">só</em>.
+            </>
+          </ChapterTitle>
+          <ChapterLead>
+            O manual reúne o que realmente muda sua aparência, sua saúde e sua confiança —
+            com o passo a passo já montado. Você só executa.
+          </ChapterLead>
+        </div>
       </div>
 
-      <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {benefits.map(({ icon: Icon, title, text }, index) => (
+      <div className="mt-24 grid gap-px border-t border-ember-600 md:grid-cols-2 lg:grid-cols-3">
+        {modules.map(({ icon: Icon, title, time, text }, index) => (
           <article
             key={title}
             data-reveal
-            style={{ '--reveal-delay': `${(index % 3) * 100}ms` }}
-            className="group card-shadow relative overflow-hidden rounded-2xl border border-line-200 bg-paper-0 p-7 transition-all duration-300 hover:-translate-y-1 hover:card-shadow-hover"
+            style={{ '--reveal-delay': `${(index % 3) * 90}ms` }}
+            className="group relative border-b border-ember-600 bg-espresso-950 px-1 py-10 transition-colors duration-500 hover:bg-espresso-900 sm:px-7"
           >
+            {/* fio de latão que cresce no topo do card no hover */}
             <span
               aria-hidden="true"
-              className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-sage-100/0 blur-2xl transition-colors duration-300 group-hover:bg-sage-100"
+              className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brass-500 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-7"
             />
-            <span className="grid h-12 w-12 place-items-center rounded-xl bg-sage-50 text-sage-700 transition-colors duration-300 group-hover:bg-sage-600 group-hover:text-paper-0">
-              <Icon className="h-6 w-6" />
-            </span>
-            <h3 className="mt-5 text-xl font-bold">{title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-500">{text}</p>
+            <div className="flex items-center justify-between gap-4">
+              <Icon className="h-7 w-7 text-brass-500" />
+              <span className="label-mono text-fog-500">{time}</span>
+            </div>
+            <h3 className="mt-8 font-display text-[1.75rem] leading-none font-medium text-bone-100">
+              {title}
+            </h3>
+            <p className="mt-4 max-w-[38ch] text-[0.95rem] leading-relaxed text-fog-400">
+              {text}
+            </p>
           </article>
         ))}
       </div>
 
-      <div data-reveal className="mt-14 flex justify-center">
-        <CtaButton microcopy="Leva você direto para a oferta — sem cadastro">
-          Ver o que vem no guia
+      <div data-reveal className="mt-20">
+        <CtaButton variant="outline" href="#oferta">
+          Ver o manual completo
         </CtaButton>
       </div>
     </Section>

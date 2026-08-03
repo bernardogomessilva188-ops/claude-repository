@@ -1,67 +1,89 @@
-import RevealWords from './RevealWords'
+import RevealLines from './RevealLines'
 
 /**
- * Casca padrão das seções: cuida do espaçamento vertical e da largura máxima,
- * para que os componentes de conteúdo não repitam isso o tempo todo.
+ * Capítulo do manual (BRANDBOOK §5 e §9).
+ *
+ * Cada seção é um capítulo numerado. A troca de fundo (espresso ↔ bone) é o
+ * que separa os assuntos — não existe divisória decorativa entre seções.
+ *
+ * `tone` escolhe o par de cores; os componentes filhos herdam via as classes
+ * de texto que este componente já aplica.
  */
+
+const tones = {
+  dark: 'bg-espresso-950 text-fog-400',
+  darker: 'bg-espresso-900 text-fog-400',
+  paper: 'bg-bone-100 text-slate-500',
+}
+
 export default function Section({
   id,
+  chapter,
+  chapterNumber,
   children,
+  tone = 'dark',
   className = '',
   containerClassName = '',
   as: Tag = 'section',
 }) {
   return (
-    // a folga do header fixo ao chegar por âncora vem do `scroll-padding-top`
-    // do <html> (src/index.css) — repetir com `scroll-mt` aqui somaria os dois
-    <Tag id={id} className={`relative py-20 md:py-28 ${className}`}>
+    <Tag
+      id={id}
+      data-chapter={chapter}
+      data-chapter-number={chapterNumber}
+      className={`relative py-24 md:py-32 lg:py-40 ${tones[tone]} ${className}`}
+    >
       <div className={`shell ${containerClassName}`}>{children}</div>
     </Tag>
   )
 }
 
-/** Etiqueta pequena que abre as seções (kicker). */
-export function SectionTag({ children }) {
+/**
+ * Abertura de capítulo: número em mono, fio que se desenha e o nome.
+ * A numeração carrega informação de verdade — a página é um manual, e os
+ * capítulos são uma sequência que o leitor percorre em ordem.
+ */
+export function ChapterMark({ number, name, tone = 'dark' }) {
+  const rule = tone === 'paper' ? 'text-sand-400' : 'text-ember-600'
+  const numberColor = 'text-brass-500'
+  const nameColor = tone === 'paper' ? 'text-slate-500' : 'text-fog-400'
+
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-sage-200 bg-sage-50 px-3.5 py-1.5 font-display text-[0.7rem] font-bold tracking-[0.18em] text-sage-700 uppercase">
-      <span className="h-1.5 w-1.5 rounded-full bg-sage-600" />
-      {children}
-    </span>
+    <div data-reveal className="flex items-center gap-4">
+      <span className={`label-mono ${numberColor}`}>Nº {number}</span>
+      <span
+        data-reveal-rule
+        className={`rule-x max-w-16 flex-1 ${rule}`}
+        style={{ '--reveal-delay': '120ms' }}
+      />
+      <span className={`label-mono ${nameColor}`}>{name}</span>
+    </div>
   )
 }
 
-/** Título de seção com o mesmo ritmo tipográfico em toda a página.
-    As palavras surgem uma a uma em fade-in lento (RevealWords). */
-export function SectionTitle({ children, className = '' }) {
+/** Título de capítulo: Bodoni grande, subindo linha a linha. */
+export function ChapterTitle({ children, className = '', delay = 200 }) {
   return (
-    <RevealWords
+    <RevealLines
       as="h2"
-      className={`mt-5 text-3xl leading-[1.05] font-extrabold sm:text-4xl md:text-5xl ${className}`}
+      delay={delay}
+      className={`mt-8 font-display text-[2.5rem] leading-[1.02] font-medium tracking-[-0.02em] text-bone-100 sm:text-5xl lg:text-[4rem] ${className}`}
     >
       {children}
-    </RevealWords>
+    </RevealLines>
   )
 }
 
-/** Texto de apoio abaixo do título. */
-export function SectionLead({ children, className = '' }) {
+/** Texto de apoio abaixo do título. Medida de leitura curta (§4). */
+export function ChapterLead({ children, className = '', tone = 'dark' }) {
+  const color = tone === 'paper' ? 'text-slate-500' : 'text-fog-400'
   return (
-    <p className={`mt-5 max-w-2xl text-base leading-relaxed text-ink-500 md:text-lg ${className}`}>
+    <p
+      data-reveal
+      style={{ '--reveal-delay': '260ms' }}
+      className={`mt-7 max-w-[46ch] text-lg leading-[1.65] ${color} ${className}`}
+    >
       {children}
     </p>
-  )
-}
-
-/**
- * Forma decorativa que flutua devagar ao fundo da seção.
- * Puro CSS (blur + animação de transform) — custa quase nada e dá vida ao
- * fundo branco sem virar poluição.
- */
-export function DriftShape({ className = '' }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={`pointer-events-none absolute -z-10 animate-drift rounded-full blur-3xl ${className}`}
-    />
   )
 }

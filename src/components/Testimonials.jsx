@@ -1,34 +1,33 @@
 import { IMAGES, PLACEHOLDER } from '../config'
 import AnimatedNumber from './ui/AnimatedNumber'
-import Section, { SectionLead, SectionTag, SectionTitle } from './ui/Section'
-import { IconStar } from './ui/Icons'
+import Section, { ChapterLead, ChapterMark, ChapterTitle } from './ui/Section'
 
 /**
  * ⚠️ DEPOIMENTOS DE EXEMPLO (PLACEHOLDER)
  *
  * Nada aqui é real. Antes de publicar, substitua por depoimentos verdadeiros
- * (de preferência com autorização por escrito e print/vídeo do cliente) ou
- * remova a seção inteira. Depoimento inventado é propaganda enganosa — dá
- * problema com o CDC e derruba conta de anúncio no Meta/TikTok.
+ * (com autorização por escrito e print/vídeo do cliente) ou remova a seção
+ * inteira. Depoimento inventado é propaganda enganosa — dá problema com o CDC
+ * e derruba conta de anúncio no Meta/TikTok.
  */
 const testimonials = [
   {
     name: 'Rafael M. [EXEMPLO]',
-    role: '31 anos · São Paulo, SP',
+    role: '31 anos · São Paulo',
     quote:
-      'Eu achava que isso não era pra mim. Comecei pela rotina de pele porque leva 5 minutos, e em duas semanas o pessoal do trabalho já perguntou se eu tinha tirado férias.',
+      'Achava que isso não era pra mim. Comecei pela rotina de pele porque leva cinco minutos, e em duas semanas o pessoal do trabalho perguntou se eu tinha tirado férias.',
     highlight: 'A parte do sono foi a que mais mudou meu dia.',
   },
   {
     name: 'Diego S. [EXEMPLO]',
-    role: '38 anos · Belo Horizonte, MG',
+    role: '38 anos · Belo Horizonte',
     quote:
-      'O que me pegou foi o passo a passo. Eu não preciso decidir nada, só seguir. Sou pai de dois, se dependesse de motivação eu não teria feito nem o primeiro dia.',
-    highlight: 'Guia de compras me economizou uns R$ 300 em produto errado.',
+      'O que me pegou foi o passo a passo. Não preciso decidir nada, só seguir. Sou pai de dois: se dependesse de motivação, eu não teria feito nem o primeiro dia.',
+    highlight: 'O guia de compras me poupou uns R$ 300 em produto errado.',
   },
   {
     name: 'Lucas A. [EXEMPLO]',
-    role: '26 anos · Curitiba, PR',
+    role: '26 anos · Curitiba',
     quote:
       'Sem papo de coach, sem terminologia de revista. É homem falando com homem sobre o que dá resultado. Terminei os 30 dias e continuo usando os checklists.',
     highlight: 'Cheguei no barbeiro sabendo exatamente o que pedir.',
@@ -37,61 +36,63 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <Section id="depoimentos">
-      <div data-reveal className="max-w-3xl">
-        <SectionTag>Prova social</SectionTag>
-        <SectionTitle>Quem começou não voltou atrás</SectionTitle>
-        <SectionLead>
-          Homens comuns, com rotina apertada, que só precisavam de um caminho claro para seguir.
-        </SectionLead>
-      </div>
-
-      <div
-        data-reveal
-        className="card-shadow mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 rounded-2xl border border-line-200 bg-paper-0 px-7 py-5"
-      >
-        <div className="flex items-center gap-2">
-          <div className="flex text-sand-400">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <IconStar key={i} className="h-4 w-4" />
-            ))}
-          </div>
-          <span className="font-display text-lg font-extrabold text-ink-900">
-            <AnimatedNumber value={PLACEHOLDER.rating} />
-          </span>
-          <span className="text-sm text-ink-400">
-            em {PLACEHOLDER.reviewsCount} avaliações
-          </span>
+    <Section id="depoimentos" chapter="OS RELATOS" chapterNumber="04" tone="dark">
+      <div className="grid gap-16 lg:grid-cols-[1fr_0.9fr] lg:items-end lg:gap-24">
+        <div>
+          <ChapterMark number="04" name="Os relatos" />
+          <ChapterTitle>
+            <>Quem começou</>
+            <>não voltou atrás.</>
+          </ChapterTitle>
+          <ChapterLead>
+            Homens comuns, com rotina apertada, que só precisavam de um caminho claro.
+          </ChapterLead>
         </div>
-        <span className="hidden h-6 w-px bg-line-200 sm:block" />
-        <p className="text-sm text-ink-500">
-          <strong className="font-semibold text-ink-900">
-            +<AnimatedNumber value={PLACEHOLDER.studentsCount} /> homens
-          </strong>{' '}
-          já rodaram o plano de 30 dias
-        </p>
+
+        {/* Números: mono grande, como leitura de instrumento.
+            ⚠️ valores de exemplo — ver PLACEHOLDER em src/config.js */}
+        <dl data-reveal className="grid grid-cols-2 gap-px border-t border-ember-600">
+          <div className="border-b border-ember-600 py-7">
+            <dt className="label-mono text-fog-500">Avaliação média</dt>
+            <dd className="mt-3 font-display text-5xl leading-none font-medium text-bone-100">
+              <AnimatedNumber value={PLACEHOLDER.rating} />
+              <span className="text-2xl text-fog-500">/5</span>
+            </dd>
+            <p className="label-mono mt-3 text-fog-500">
+              {PLACEHOLDER.reviewsCount} avaliações
+            </p>
+          </div>
+          <div className="border-b border-ember-600 py-7 pl-8">
+            <dt className="label-mono text-fog-500">Plano concluído</dt>
+            <dd className="mt-3 font-display text-5xl leading-none font-medium text-bone-100">
+              <AnimatedNumber value={PLACEHOLDER.studentsCount} />
+            </dd>
+            <p className="label-mono mt-3 text-fog-500">homens em 30 dias</p>
+          </div>
+        </dl>
       </div>
 
-      <div className="mt-6 grid gap-5 md:grid-cols-3">
+      <div className="mt-20 grid gap-px border-t border-ember-600 md:grid-cols-3">
         {testimonials.map((t, index) => (
           <figure
             key={t.name}
             data-reveal
-            style={{ '--reveal-delay': `${index * 120}ms` }}
-            className="card-shadow flex flex-col rounded-2xl border border-line-200 bg-paper-0 p-7 transition-shadow duration-300 hover:card-shadow-hover"
+            style={{ '--reveal-delay': `${index * 100}ms` }}
+            className="group flex flex-col border-b border-ember-600 bg-espresso-950 px-1 py-10 transition-colors duration-500 hover:bg-espresso-900 sm:px-7"
           >
-            <div className="flex text-sand-400" aria-label="5 de 5 estrelas">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <IconStar key={i} className="h-3.5 w-3.5" />
-              ))}
-            </div>
-            <blockquote className="mt-4 grow text-[0.95rem] leading-relaxed text-ink-700">
-              “{t.quote}”
+            <span
+              aria-hidden="true"
+              className="font-display text-5xl leading-none text-ember-500 transition-colors duration-500 group-hover:text-brass-500"
+            >
+              “
+            </span>
+            <blockquote className="mt-4 grow text-[0.95rem] leading-[1.7] text-fog-400">
+              {t.quote}
             </blockquote>
-            <p className="mt-4 border-l-2 border-sage-600 pl-3 text-sm font-semibold text-ink-900">
+            <p className="mt-7 font-display text-xl leading-snug font-medium text-bone-100">
               {t.highlight}
             </p>
-            <figcaption className="mt-6 flex items-center gap-3 border-t border-line-200 pt-5">
+            <figcaption className="mt-8 flex items-center gap-4 border-t border-ember-600 pt-6">
               {/* espaço de imagem — troque public/images/depoimento-N.webp
                   (⚠️ foto de cliente real só com autorização por escrito) */}
               <img
@@ -101,24 +102,24 @@ export default function Testimonials() {
                 height={IMAGES.depoimentos[index].h}
                 loading="lazy"
                 decoding="async"
-                className="h-10 w-10 rounded-full border border-line-200 object-cover"
+                className="h-11 w-11 border border-ember-600 object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
               />
               <span>
-                <span className="block text-sm font-semibold text-ink-900">{t.name}</span>
-                <span className="block text-xs text-ink-400">{t.role}</span>
+                <span className="block text-sm font-medium text-bone-100">{t.name}</span>
+                <span className="label-mono mt-1 block text-fog-500">{t.role}</span>
               </span>
             </figcaption>
           </figure>
         ))}
       </div>
 
-      {/* Aviso visível: enquanto os depoimentos forem fictícios, isso precisa estar claro. */}
-      <p className="mt-6 rounded-xl border border-dashed border-clay-500/50 bg-clay-100/50 px-5 py-4 text-xs leading-relaxed text-ink-500">
-        <strong className="font-semibold text-clay-600">Aviso de placeholder:</strong> os
-        depoimentos, a nota e os números acima são <strong>exemplos fictícios</strong>, usados
-        apenas para demonstrar o layout. Substitua por depoimentos reais (com autorização) ou
-        remova a seção antes de publicar — em <code className="text-ink-900">src/config.js</code>{' '}
-        e em <code className="text-ink-900">src/components/Testimonials.jsx</code>.
+      {/* Enquanto os depoimentos forem fictícios, isso precisa estar visível. */}
+      <p className="mt-8 border-l-2 border-oxblood-400 py-1 pl-5 text-xs leading-relaxed text-fog-500">
+        <strong className="font-medium text-oxblood-400">Aviso de placeholder:</strong> os
+        depoimentos, a nota e os números acima são exemplos fictícios, usados para demonstrar
+        o layout. Substitua por depoimentos reais (com autorização) ou remova a seção antes de
+        publicar — em <code className="text-fog-400">src/config.js</code> e em{' '}
+        <code className="text-fog-400">src/components/Testimonials.jsx</code>.
       </p>
     </Section>
   )

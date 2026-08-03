@@ -32,20 +32,20 @@ export default function StickyMobileCta() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line-200 bg-paper-0/95 px-4 py-3 shadow-[0_-8px_24px_-12px_rgba(23,34,31,0.2)] backdrop-blur-md transition-transform duration-300 md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-ember-600 bg-espresso-950/95 px-4 py-3 backdrop-blur-md transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
       aria-hidden={!visible}
     >
       <div className="flex items-center gap-4">
         <div className="shrink-0">
-          <p className="font-display text-xl leading-none font-extrabold text-ink-900">
+          <p className="font-display text-2xl leading-none font-medium text-bone-100">
             {PRODUCT.price}
           </p>
-          <p className="mt-1 text-[0.65rem] text-ink-400">pagamento único</p>
+          <p className="label-mono mt-1.5 text-fog-500">pagamento único</p>
         </div>
-        <CtaButton className="!px-5 !py-3.5 !text-[0.8rem]" fullWidth>
-          Quero meu guia
+        <CtaButton className="!min-h-12 !px-5 !text-[0.625rem]" fullWidth>
+          Quero o manual
         </CtaButton>
       </div>
     </div>

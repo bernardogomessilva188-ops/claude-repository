@@ -2,23 +2,24 @@ import { CHECKOUT_URL } from '../../config'
 import { IconArrowRight } from './Icons'
 
 /**
- * Botão de CTA usado em toda a página.
+ * Botão de CTA (BRANDBOOK §7).
  *
- * Aponta para `CHECKOUT_URL` (hoje a âncora #oferta, amanhã o link do checkout).
- * Se o destino virar um link externo, abre em nova aba automaticamente.
+ * Aponta para `CHECKOUT_URL` — hoje a âncora #oferta, amanhã o link do
+ * checkout. Se virar link externo, abre em nova aba sozinho.
+ *
+ * O hover primário é a varredura: um retângulo de latão claro cresce da
+ * esquerda para a direita por trás do texto (utilitário `btn-sweep` em
+ * index.css), enquanto a seta desliza.
  */
 
 const variants = {
-  // CTA principal: eucalipto profundo sobre o fundo claro — o elemento de maior
-  // contraste da tela, com sombra que "acende" no hover
-  primary:
-    'bg-sage-700 text-paper-0 hover:bg-sage-800 shadow-[0_10px_28px_-10px_rgba(35,87,67,0.55)] hover:shadow-[0_16px_36px_-10px_rgba(35,87,67,0.65)] hover:-translate-y-0.5',
-  // CTA secundário: contorno, para não competir com o principal
+  // Sobre fundo escuro: latão sólido, texto espresso
+  primary: 'btn-sweep bg-brass-500 text-espresso-950',
+  // Sobre papel: espresso sólido, texto bone — o hover troca para latão
+  onPaper: 'btn-sweep bg-espresso-950 text-bone-100 hover:text-espresso-950',
+  // Secundário: só o fio
   outline:
-    'border border-line-300 text-ink-900 hover:border-sage-600 hover:text-sage-700 bg-transparent',
-  // Sobre fundos escuros (seção final): branco sólido, texto eucalipto
-  inverse:
-    'bg-paper-0 text-sage-800 hover:bg-sage-50 shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-0.5',
+    'border border-ember-600 text-bone-100 hover:border-brass-500 hover:text-brass-400 transition-colors duration-300',
 }
 
 export default function CtaButton({
@@ -34,7 +35,7 @@ export default function CtaButton({
   const isExternal = href.startsWith('http')
 
   return (
-    <div className={fullWidth ? 'w-full' : 'inline-flex flex-col items-center'}>
+    <div className={fullWidth ? 'w-full' : 'inline-flex flex-col items-start'}>
       <a
         href={href}
         onClick={onClick}
@@ -43,21 +44,20 @@ export default function CtaButton({
         // ex.: onClick={() => window.fbq?.('track', 'InitiateCheckout')}
         data-cta="primary"
         className={[
-          'group inline-flex items-center justify-center gap-2.5 rounded-xl px-7 py-4',
-          'font-display text-[0.95rem] font-extrabold tracking-wide uppercase',
-          'min-h-[3.25rem] transition-all duration-200 active:scale-[0.98]',
+          'group label-mono inline-flex min-h-14 items-center justify-center gap-3 rounded-[2px] px-8',
+          'text-[0.72rem] transition-colors duration-300',
           fullWidth ? 'w-full' : '',
           variants[variant],
           className,
         ].join(' ')}
       >
         {children}
-        <IconArrowRight className="h-[1.15rem] w-[1.15rem] transition-transform duration-200 group-hover:translate-x-1" />
+        <IconArrowRight className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1.5" />
       </a>
 
       {microcopy ? (
         <p
-          className={`mt-3 text-center text-[0.8rem] leading-relaxed text-ink-400 ${microcopyClassName}`}
+          className={`label-mono mt-4 text-[0.625rem] leading-4 text-fog-500 ${microcopyClassName}`}
         >
           {microcopy}
         </p>

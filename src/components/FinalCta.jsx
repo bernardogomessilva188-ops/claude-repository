@@ -1,20 +1,23 @@
 import { useState } from 'react'
 import { IMAGES, NEWSLETTER_ENDPOINT, PRODUCT } from '../config'
 import CtaButton from './ui/CtaButton'
-import RevealWords from './ui/RevealWords'
+import RevealLines from './ui/RevealLines'
 import { IconCheck } from './ui/Icons'
 
 /**
- * Único bloco escuro da página: o contraste com o resto (todo claro) faz o
- * fechamento pesar mais — padrão clássico de marca premium.
+ * Fechamento: a última página do manual.
+ * Imagem de fundo bem escurecida + tipografia grande. Sem card, sem caixa —
+ * o texto é o objeto.
  */
 export default function FinalCta() {
   return (
-    <section id="comecar" className="relative overflow-hidden bg-sage-900 py-24 md:py-32">
-      <div aria-hidden="true" className="absolute inset-0">
-        {/* espaço de imagem de fundo — troque public/images/final-bg.webp.
-            Fica atrás de um véu verde-escuro, então serve foto de ambiente/textura
-            (bancada, toalha, azulejo) sem precisar de pose. */}
+    <section
+      id="comecar"
+      data-chapter="O COMEÇO" data-chapter-number="08"
+      className="relative isolate overflow-hidden bg-espresso-950 py-28 md:py-40"
+    >
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
+        {/* espaço de imagem — troque public/images/final-bg.webp */}
         <img
           src={IMAGES.finalBg.src}
           alt=""
@@ -22,43 +25,57 @@ export default function FinalCta() {
           height={IMAGES.finalBg.h}
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover opacity-50"
+          className="h-full w-full object-cover opacity-25"
         />
-        <div className="absolute inset-0 bg-sage-900/80" />
-        <div className="absolute -top-32 left-1/4 h-96 w-96 animate-drift rounded-full bg-sage-700/40 blur-3xl" />
-        <div className="absolute -right-24 bottom-0 h-80 w-80 animate-drift rounded-full bg-sage-800/60 blur-3xl [animation-delay:-6s]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-espresso-950 via-espresso-950/85 to-espresso-950/95" />
+        <div className="grain-layer absolute inset-0 opacity-70" />
       </div>
 
-      <div className="shell relative text-center">
-        <RevealWords
-          as="h2"
-          step={110}
-          className="mx-auto max-w-3xl text-4xl leading-[1.05] font-extrabold text-paper-0 sm:text-5xl md:text-6xl"
-        >
-          Daqui a 30 dias você vai estar
-          <span className="block text-sage-200">no mesmo lugar ou bem melhor.</span>
-        </RevealWords>
-        <p
-          data-reveal
-          style={{ '--reveal-delay': '120ms' }}
-          className="mx-auto mt-6 max-w-xl leading-relaxed text-sage-200/90"
-        >
-          A diferença entre os dois cenários são 10 minutos por dia e a decisão de começar hoje.
-          Você já sabe qual dos dois quer.
-        </p>
+      <div className="shell">
+        <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-24">
+          <div>
+            <div data-reveal className="flex items-center gap-4">
+              <span className="label-mono text-brass-500">Nº 08</span>
+              <span
+                data-reveal-rule
+                className="rule-x max-w-16 flex-1 text-ember-600"
+                style={{ '--reveal-delay': '120ms' }}
+              />
+              <span className="label-mono text-fog-400">O começo</span>
+            </div>
 
-        <div data-reveal style={{ '--reveal-delay': '240ms' }} className="mt-10 flex justify-center">
-          <CtaButton
-            variant="inverse"
-            className="text-base sm:px-10"
-            microcopy={`${PRODUCT.price} · pagamento único · ${PRODUCT.guaranteeDays} dias de garantia`}
-            microcopyClassName="text-sage-200/80"
-          >
-            Quero meu guia agora
-          </CtaButton>
+            <RevealLines
+              as="h2"
+              delay={200}
+              className="mt-10 font-display text-[2.75rem] leading-[1.0] font-medium tracking-[-0.02em] text-bone-100 sm:text-[3.5rem] lg:text-[4.5rem]"
+            >
+              <>Daqui a 30 dias</>
+              <>você estará no mesmo</>
+              <>
+                lugar — ou <em className="font-normal italic text-brass-500">bem melhor</em>.
+              </>
+            </RevealLines>
+
+            <p
+              data-reveal
+              style={{ '--reveal-delay': '520ms' }}
+              className="mt-10 max-w-[46ch] text-lg leading-[1.7] text-fog-400"
+            >
+              A diferença entre os dois cenários são dez minutos por dia e a decisão de
+              começar hoje. Você já sabe qual dos dois quer.
+            </p>
+
+            <div data-reveal style={{ '--reveal-delay': '640ms' }} className="mt-12">
+              <CtaButton
+                microcopy={`${PRODUCT.price} · pagamento único · ${PRODUCT.guaranteeDays} dias de garantia`}
+              >
+                Quero meu manual
+              </CtaButton>
+            </div>
+          </div>
+
+          <LeadForm />
         </div>
-
-        <LeadForm />
       </div>
     </section>
   )
@@ -87,7 +104,6 @@ function LeadForm() {
     setStatus('loading')
 
     if (!NEWSLETTER_ENDPOINT) {
-      // modo demonstração — trocar assim que a integração existir
       setStatus('success')
       return
     }
@@ -106,33 +122,28 @@ function LeadForm() {
 
   if (status === 'success') {
     return (
-      <div className="mx-auto mt-14 flex max-w-md items-center justify-center gap-3 rounded-2xl border border-sage-500/60 bg-sage-800/60 px-6 py-5">
-        <IconCheck className="h-5 w-5 shrink-0 text-sage-200" />
-        <p className="text-left text-sm text-sage-100">
-          Pronto. Enviamos a amostra grátis para{' '}
-          <strong className="text-paper-0">{email}</strong>. Dá uma olhada na caixa de spam se
-          não chegar em 5 minutos.
+      <div className="flex items-start gap-4 border-t border-ember-600 pt-8">
+        <IconCheck className="mt-1 h-5 w-5 shrink-0 text-brass-500" />
+        <p className="text-[0.95rem] leading-relaxed text-fog-400">
+          Enviado para <strong className="font-medium text-bone-100">{email}</strong>. Dá uma
+          olhada na caixa de spam se não chegar em cinco minutos.
         </p>
       </div>
     )
   }
 
   return (
-    <div
-      data-reveal
-      style={{ '--reveal-delay': '360ms' }}
-      className="mx-auto mt-16 max-w-xl rounded-2xl border border-sage-700 bg-sage-800/70 p-7 text-left backdrop-blur-sm"
-    >
-      <h3 className="font-display text-lg font-bold text-paper-0">
-        Ainda na dúvida? Leve um pedaço de graça.
+    <div data-reveal style={{ '--reveal-delay': '760ms' }} className="border-t border-ember-600 pt-10">
+      <span className="label-mono text-brass-500">Amostra grátis</span>
+      <h3 className="mt-5 font-display text-2xl leading-snug font-medium text-bone-100">
+        Ainda na dúvida? Leve o primeiro anexo.
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-sage-200/90">
-        Deixe seu e-mail e receba o{' '}
-        <strong className="text-paper-0">Checklist da Rotina de 10 Minutos</strong> — o mesmo
-        que vem no guia. Sem custo, sem pegadinha.
+      <p className="mt-4 max-w-[42ch] text-[0.95rem] leading-relaxed text-fog-400">
+        Deixe seu e-mail e receba o Checklist da Rotina de 10 Minutos — o mesmo que vem no
+        manual. Sem custo, sem pegadinha.
       </p>
 
-      <form onSubmit={handleSubmit} noValidate className="mt-5 flex flex-col gap-3 sm:flex-row">
+      <form onSubmit={handleSubmit} noValidate className="mt-8 flex flex-col gap-3 sm:flex-row">
         <label htmlFor="email-lead" className="sr-only">
           Seu melhor e-mail
         </label>
@@ -150,26 +161,28 @@ function LeadForm() {
           }}
           aria-invalid={status === 'error'}
           aria-describedby={status === 'error' ? 'email-erro' : undefined}
-          className={`min-h-[3.25rem] w-full rounded-xl border bg-sage-900/70 px-4 text-base text-paper-0 placeholder:text-sage-200/50 focus:outline-none ${
-            status === 'error' ? 'border-clay-500' : 'border-sage-700 focus:border-sage-200'
+          className={`min-h-14 w-full rounded-[2px] border bg-espresso-900 px-5 text-base text-bone-100 transition-colors duration-300 placeholder:text-fog-500 focus:outline-none ${
+            status === 'error'
+              ? 'border-oxblood-400'
+              : 'border-ember-600 focus:border-brass-500'
           }`}
         />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="min-h-[3.25rem] shrink-0 rounded-xl bg-paper-0 px-6 font-display text-sm font-extrabold tracking-wide text-sage-800 uppercase transition-all duration-200 hover:bg-sage-50 active:scale-[0.98] disabled:opacity-60"
+          className="btn-sweep label-mono min-h-14 shrink-0 rounded-[2px] bg-bone-100 px-7 text-[0.72rem] text-espresso-950 transition-colors duration-300 disabled:opacity-60"
         >
-          {status === 'loading' ? 'Enviando...' : 'Receber grátis'}
+          {status === 'loading' ? 'Enviando' : 'Receber'}
         </button>
       </form>
 
       {status === 'error' ? (
-        <p id="email-erro" role="alert" className="mt-3 text-sm text-clay-500">
+        <p id="email-erro" role="alert" className="mt-4 text-sm text-oxblood-400">
           Confere o e-mail — parece que faltou alguma coisa.
         </p>
       ) : (
-        <p className="mt-3 text-xs text-sage-200/70">
-          Sem spam. Você sai da lista quando quiser, em um clique.
+        <p className="label-mono mt-4 text-fog-500">
+          Sem spam · saia da lista em um clique
         </p>
       )}
     </div>

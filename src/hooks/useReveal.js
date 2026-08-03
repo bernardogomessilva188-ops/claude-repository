@@ -15,10 +15,20 @@ import { useEffect } from 'react'
  */
 export default function useReveal() {
   useEffect(() => {
-    // data-reveal: bloco inteiro sobe e aparece
-    // data-reveal-words: as palavras internas surgem uma a uma (RevealWords)
+    // Quatro tratamentos de entrada (BRANDBOOK §8), todos com o mesmo gatilho:
+    //   data-reveal        bloco sobe e aparece
+    //   data-reveal-lines  título sobe linha a linha por trás de uma máscara
+    //   data-reveal-rule   fio se desenha da esquerda para a direita
+    //   data-reveal-image  imagem abre com corte, com o zoom saindo junto
     const targets = document.querySelectorAll(
-      '[data-reveal]:not(.is-revealed), [data-reveal-words]:not(.is-revealed)',
+      [
+        '[data-reveal]',
+        '[data-reveal-lines]',
+        '[data-reveal-rule]',
+        '[data-reveal-image]',
+      ]
+        .map((selector) => `${selector}:not(.is-revealed)`)
+        .join(', '),
     )
     if (!targets.length) return
 

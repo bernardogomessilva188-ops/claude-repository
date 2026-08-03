@@ -1,52 +1,55 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   Design tokens — Mens Helper
-   Tema claro: branco quente + verde-eucalipto, com terracota só na urgência.
-   A cara é de marca de grooming premium: muito respiro, pouco ruído.
+   Mens Helper — tokens de design
+   Implementa o BRANDBOOK.md. Toda cor, fonte, espaço e curva de animação da
+   página sai daqui. Mudou aqui, mudou na página inteira.
    ========================================================================== */
 @theme {
-  --font-display: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* --- Tipografia (§4 do brandbook) ---------------------------------------
+     Os fallbacks preservam o caráter: sem a Bodoni, cai em outra serifa de
+     alto contraste; sem a Plex Mono, em monoespaçada de sistema. A página
+     nunca desaba para "tudo Arial". */
+  --font-display: 'Bodoni Moda', 'Didot', 'Bodoni MT', 'Playfair Display', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
-  /* Base clara — brancos quentes, nunca #fff estéril em área grande */
-  --color-paper-0: #fdfdfb;
-  --color-paper-50: #f8f7f3;
-  --color-paper-100: #f1efe9;
-  --color-paper-200: #e9e7de;
+  /* --- Cores (§3) --------------------------------------------------------- */
+  /* Escuro: preto quente, nunca azulado */
+  --color-espresso-950: #14110e;
+  --color-espresso-900: #1a1613;
+  --color-espresso-800: #211c18;
+  --color-espresso-700: #2a241e;
+  --color-ember-600: #332b24;
+  --color-ember-500: #443a30;
 
-  /* Linhas e divisores */
-  --color-line-200: #e3e1d7;
-  --color-line-300: #d2cfc2;
+  /* Claro: o "papel" do manual */
+  --color-bone-50: #f7f3ec;
+  --color-bone-100: #f1ebe0;
+  --color-bone-200: #e7dfd2;
+  --color-sand-300: #ded4c4;
+  --color-sand-400: #c9bda8;
 
-  /* Tinta — verde-grafite, mais acolhedor que preto puro */
-  --color-ink-900: #17221f;
-  --color-ink-700: #3a4744;
-  --color-ink-500: #66736f;
-  --color-ink-400: #8b948f;
+  /* Acento único */
+  --color-brass-300: #e0bd85;
+  --color-brass-400: #d4a768;
+  --color-brass-500: #c89550;
+  --color-brass-600: #a97a3c;
 
-  /* Eucalipto — a cor do autocuidado. CTAs e destaques. */
-  --color-sage-900: #14332a;
-  --color-sage-800: #1b4536;
-  --color-sage-700: #235743;
-  --color-sage-600: #2e6b52;
-  --color-sage-500: #3f8265;
-  --color-sage-200: #cfe3d6;
-  --color-sage-100: #e4efe7;
-  --color-sage-50: #f0f6f1;
+  /* Alarme — só escassez e erro */
+  --color-oxblood-500: #7e2b24;
+  --color-oxblood-400: #a03c33;
 
-  /* Terracota — apenas urgência/escassez e avisos */
-  --color-clay-600: #b45336;
-  --color-clay-500: #c96f4a;
-  --color-clay-100: #f6e5dc;
+  /* Texto secundário */
+  --color-fog-400: #a79b8b; /* sobre escuro */
+  --color-fog-500: #857a6c;
+  --color-slate-500: #5c544a; /* sobre claro */
+  --color-slate-600: #453f37;
 
-  /* Areia — toque quente em selos e detalhes */
-  --color-sand-400: #cbb27f;
-  --color-sand-100: #f3ecdc;
-
-  --animate-marquee: marquee 32s linear infinite;
-  --animate-pulse-soft: pulse-soft 2.6s ease-in-out infinite;
-  --animate-drift: drift 14s ease-in-out infinite alternate;
+  /* --- Movimento (§8) ----------------------------------------------------- */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
 }
 
 @keyframes marquee {
@@ -64,28 +67,17 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.55;
+    opacity: 0.4;
   }
 }
 
-/* Formas decorativas que flutuam devagar ao fundo das seções */
-@keyframes drift {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(2.5rem, -1.5rem, 0) scale(1.06);
-  }
-}
-
-/* Zoom lento das imagens de fundo do herói (efeito Ken Burns).
-   O ponto de convergência vem do `transform-origin` definido por imagem. */
+/* Zoom lento das imagens de fundo do herói (Ken Burns) */
 @keyframes hero-kenburns {
   from {
-    transform: scale(1.04);
+    transform: scale(1.03);
   }
   to {
-    transform: scale(1.17);
+    transform: scale(1.14);
   }
 }
 
@@ -94,31 +86,31 @@
    ========================================================================== */
 @layer base {
   html {
-    /* Fallback para quando o Lenis não está ativo (reduced motion ou JS ainda
-       carregando). Com o Lenis ligado, o `lenis.css` desliga isso e a rolagem
-       fica por conta dele — ver src/hooks/useSmoothScroll.js. */
+    /* Fallback para quando o Lenis não está ativo (reduced motion, ou o JS
+       ainda carregando). Com o Lenis ligado, o lenis.css desliga isso. */
     scroll-behavior: smooth;
-    /* compensa o header fixo ao navegar por âncoras */
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6rem;
   }
 
   body {
     margin: 0;
-    background-color: var(--color-paper-0);
-    color: var(--color-ink-700);
+    background-color: var(--color-espresso-950);
+    color: var(--color-fog-400);
     font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
+  /* Bodoni só grande (§4): abaixo de 24px ela fica frágil, então os títulos
+     pequenos usam Plex Sans — quem decide é a classe, não o elemento. */
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-display);
-    color: var(--color-ink-900);
-    letter-spacing: -0.02em;
+    color: var(--color-bone-100);
     text-wrap: balance;
   }
 
@@ -127,14 +119,14 @@
   }
 
   ::selection {
-    background-color: var(--color-sage-600);
-    color: var(--color-paper-0);
+    background-color: var(--color-brass-500);
+    color: var(--color-espresso-950);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-sage-600);
+    outline: 2px solid var(--color-brass-400);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 2px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -148,26 +140,26 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-      /* sem isso, os atrasos em cascata (reveal e palavras) continuariam
-         segurando o conteúdo mesmo com as transições zeradas */
+      /* sem zerar o atraso, as cascatas continuariam segurando o conteúdo */
       transition-delay: 0ms !important;
     }
   }
 }
 
 /* ==========================================================================
-   Revelação ao rolar (useReveal)
-   O hook marca o elemento com [data-reveal] e adiciona .is-revealed quando
-   ele entra na tela. Com reduced motion, o bloco acima zera a transição e
-   o conteúdo aparece direto.
+   Movimento de entrada (§8)
+   O hook useReveal marca os elementos com .is-revealed quando eles entram na
+   tela. Três tratamentos: bloco, título (máscara linha a linha) e imagem
+   (corte + zoom saindo).
    ========================================================================== */
 @layer components {
+  /* Bloco: sobe e aparece */
   [data-reveal] {
     opacity: 0;
-    transform: translateY(1.5rem);
+    transform: translateY(1.25rem);
     transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.9s var(--ease-brand),
+      transform 0.9s var(--ease-brand);
     transition-delay: var(--reveal-delay, 0ms);
   }
 
@@ -176,79 +168,165 @@
     transform: none;
   }
 
+  /* Título: cada linha sobe por trás de uma máscara */
+  [data-reveal-lines] .line {
+    display: block;
+    overflow: hidden;
+  }
+
+  [data-reveal-lines] .line > span {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 0.9s var(--ease-brand);
+    transition-delay: var(--line-delay, 0ms);
+  }
+
+  [data-reveal-lines].is-revealed .line > span {
+    transform: none;
+  }
+
+  /* Fio que se desenha na abertura do capítulo */
+  [data-reveal-rule] {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.8s var(--ease-brand);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal-rule].is-revealed {
+    transform: none;
+  }
+
+  /* Imagem: corte que abre de baixo para cima.
+     Atenção: o corte fica no filho .reveal-mask, nunca no elemento observado.
+     O IntersectionObserver leva o clip em conta — um elemento com
+     `clip-path: inset(100%)` tem área de interseção zero e nunca dispara,
+     ou seja, a imagem ficaria invisível para sempre. */
+  [data-reveal-image] .reveal-mask {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1.2s var(--ease-brand);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal-image].is-revealed .reveal-mask {
+    clip-path: inset(0 0 0 0);
+  }
+
   /* JS desligado ou falhou: nada pode ficar invisível */
-  html.no-js [data-reveal] {
+  html.no-js [data-reveal],
+  html.no-js [data-reveal-rule],
+  html.no-js [data-reveal-image] {
     opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+
+  html.no-js [data-reveal-lines] .line > span {
     transform: none;
   }
 
-  /* ------------------------------------------------------------------
-     Fade-in lento palavra por palavra (RevealWords)
-     Cada palavra sobe de leve e sai do desfoque no seu próprio tempo
-     (--word-delay). O gatilho é o mesmo .is-revealed do useReveal.
-     ------------------------------------------------------------------ */
-  [data-reveal-words] .word {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(0.35em);
-    filter: blur(8px);
-    transition:
-      opacity 1.2s ease-out,
-      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-      filter 1.2s ease-out;
-    transition-delay: var(--word-delay, 0ms);
-  }
-
-  [data-reveal-words].is-revealed .word,
-  html.no-js [data-reveal-words] .word {
-    opacity: 1;
-    transform: none;
-    filter: none;
+  html.no-js [data-reveal-image] .reveal-mask {
+    clip-path: none;
   }
 }
 
 /* ==========================================================================
-   Utilitários próprios
+   Utilitários da marca
    ========================================================================== */
 
-/* Largura padrão de conteúdo, usada por todas as seções */
+/* Largura de conteúdo e margens laterais (§5) */
 @utility shell {
   width: 100%;
-  max-width: 78rem;
+  max-width: 80rem;
   margin-inline: auto;
-  padding-inline: 1.25rem;
+  padding-inline: 1.5rem;
 
   @media (width >= 48rem) {
-    padding-inline: 2rem;
+    padding-inline: 2.5rem;
+  }
+
+  @media (width >= 80rem) {
+    padding-inline: 4rem;
   }
 }
 
-/* Textura sutil de grade — quase invisível no claro, só dá corpo ao fundo */
-@utility grid-texture {
-  background-image:
-    linear-gradient(to right, rgba(23, 34, 31, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(23, 34, 31, 0.04) 1px, transparent 1px);
-  background-size: 64px 64px;
+/* Etiqueta em monoespaçada: caixa alta com espaçamento, sempre (§4) */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
-/* Sombra macia padrão dos cards — substitui as bordas duras do tema escuro */
-@utility card-shadow {
-  box-shadow:
-    0 1px 2px rgba(23, 34, 31, 0.05),
-    0 8px 24px -8px rgba(23, 34, 31, 0.1);
+/* Textura de papel/grão — dá matéria ao fundo sem virar ruído visível */
+@utility grain {
+  position: relative;
 }
 
-@utility card-shadow-hover {
-  box-shadow:
-    0 2px 4px rgba(23, 34, 31, 0.06),
-    0 20px 40px -12px rgba(23, 34, 31, 0.18);
+@utility grain-layer {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(241, 235, 224, 0.045) 1px,
+    transparent 0
+  );
+  background-size: 4px 4px;
 }
 
-/* Número gigante em marca d'água (passo a passo) */
-@utility step-number {
-  font-family: var(--font-display);
-  font-weight: 900;
-  line-height: 0.8;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--color-line-300);
+/* Fio de 1px padrão da marca, horizontal */
+@utility rule-x {
+  height: 1px;
+  width: 100%;
+  border: 0;
+  background-color: currentColor;
+  opacity: 0.5;
+}
+
+/* Botão primário: varredura de latão no hover (§7).
+   O ::after cresce da esquerda para a direita por trás do texto. */
+@utility btn-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--color-brass-300);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.4s var(--ease-brand);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Link com sublinhado que se desenha no hover */
+@utility link-draw {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.4s var(--ease-brand);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
 }

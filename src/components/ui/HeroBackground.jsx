@@ -90,12 +90,12 @@ export default function HeroBackground() {
                 loading={index === 0 ? 'eager' : 'lazy'}
                 fetchPriority={index === 0 ? 'high' : 'low'}
                 decoding="async"
-                className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[1600ms] ease-out"
+                className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-[1800ms] ease-out"
                 style={{
                   opacity: isActive ? 1 : 0,
                   transformOrigin: image.origin,
                   animation:
-                    animate && isActive ? 'hero-kenburns 14s ease-out forwards' : 'none',
+                    animate && isActive ? 'hero-kenburns 16s ease-out forwards' : 'none',
                 }}
               />
             </picture>
@@ -103,11 +103,11 @@ export default function HeroBackground() {
         })}
       </div>
 
-      {/* Scrims claros: véu branco sob a coluna de texto, transparente sobre a
-          foto, e uma emenda suave com o topo e com a próxima seção. */}
-      <div className="absolute inset-0 bg-gradient-to-r from-paper-0 via-paper-0/85 to-paper-0/20 md:via-paper-0/70 md:to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-paper-0/60 via-transparent to-paper-0" />
-      <div className="grid-texture absolute inset-0 opacity-40" />
+      {/* Véus (BRANDBOOK §3): escurecem o suficiente para o texto bone ficar
+          legível sobre a foto, mantendo a imagem viva à direita. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-espresso-950 via-espresso-950/85 to-espresso-950/40 md:via-espresso-950/70 md:to-espresso-950/15" />
+      <div className="absolute inset-0 bg-gradient-to-b from-espresso-950/80 via-transparent to-espresso-950" />
+      <div className="grain-layer absolute inset-0 opacity-70" />
     </div>
   )
 }

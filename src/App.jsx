@@ -1,6 +1,7 @@
 import useSmoothScroll from './hooks/useSmoothScroll'
 import useReveal from './hooks/useReveal'
 import Header from './components/Header'
+import ChapterRail from './components/ChapterRail'
 import Hero from './components/Hero'
 import MarqueeStrip from './components/MarqueeStrip'
 import PainPoints from './components/PainPoints'
@@ -17,19 +18,20 @@ import StickyMobileCta from './components/StickyMobileCta'
 export default function App() {
   // scroll suave da página inteira (Lenis) — desligado em prefers-reduced-motion
   useSmoothScroll()
-  // revelação ao rolar de tudo que tem data-reveal
+  // revelação ao rolar: blocos, títulos com máscara, fios e imagens
   useReveal()
 
   return (
     <>
       <a
         href="#inicio"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-sage-700 focus:px-4 focus:py-2 focus:font-bold focus:text-paper-0"
+        className="label-mono sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-brass-500 focus:px-5 focus:py-3 focus:text-espresso-950"
       >
         Pular para o conteúdo
       </a>
 
       <Header />
+      <ChapterRail />
 
       <main>
         <Hero />
