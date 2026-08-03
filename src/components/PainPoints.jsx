@@ -1,4 +1,4 @@
-import Section, { SectionLead, SectionTag, SectionTitle } from './ui/Section'
+import Section, { DriftShape, SectionLead, SectionTag, SectionTitle } from './ui/Section'
 
 /** Seção de dor: nomear o problema exatamente como o cara descreveria. */
 const pains = [
@@ -30,13 +30,16 @@ const pains = [
 
 export default function PainPoints() {
   return (
-    <Section id="problema" className="border-y border-carbon-800 bg-carbon-900">
-      <div className="max-w-3xl">
+    <Section id="problema" className="overflow-hidden border-y border-line-200 bg-paper-50">
+      <DriftShape className="top-10 -right-24 h-80 w-80 bg-sage-100/80" />
+      <DriftShape className="-bottom-24 -left-28 h-72 w-72 bg-sand-100/90 [animation-delay:-7s]" />
+
+      <div data-reveal className="max-w-3xl">
         <SectionTag>O problema real</SectionTag>
         <SectionTitle>
-          Você não é preguiçoso.
+          Você não é relaxado.
           <br />
-          Você nunca teve um <span className="text-acid-400">sistema</span>.
+          Você nunca teve um <span className="text-sage-600">sistema</span>.
         </SectionTitle>
         <SectionLead>
           Ninguém sentou com você pra explicar o básico. Aí vira aquilo: você sabe que devia
@@ -44,21 +47,29 @@ export default function PainPoints() {
         </SectionLead>
       </div>
 
-      <ul className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-carbon-700 bg-carbon-700 sm:grid-cols-2 lg:grid-cols-3">
-        {pains.map((pain) => (
-          <li key={pain.title} className="bg-carbon-900 p-7 transition-colors hover:bg-carbon-850">
-            <span className="font-display text-sm font-bold text-ember-500" aria-hidden="true">
+      <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {pains.map((pain, index) => (
+          <li
+            key={pain.title}
+            data-reveal
+            style={{ '--reveal-delay': `${(index % 3) * 100}ms` }}
+            className="card-shadow rounded-2xl border border-line-200 bg-paper-0 p-7 transition-shadow duration-300 hover:card-shadow-hover"
+          >
+            <span className="font-display text-sm font-bold text-clay-600" aria-hidden="true">
               ✕
             </span>
             <h3 className="mt-3 text-lg font-bold">{pain.title}</h3>
-            <p className="mt-2.5 text-sm leading-relaxed text-fog-400">{pain.text}</p>
+            <p className="mt-2.5 text-sm leading-relaxed text-ink-500">{pain.text}</p>
           </li>
         ))}
       </ul>
 
-      <p className="mt-12 max-w-2xl font-display text-xl leading-snug font-bold text-fog-50 md:text-2xl">
+      <p
+        data-reveal
+        className="mt-12 max-w-2xl font-display text-xl leading-snug font-bold text-ink-900 md:text-2xl"
+      >
         Se você leu isso e pensou{' '}
-        <span className="text-acid-400">“é exatamente o meu caso”</span> — o problema tem
+        <span className="text-sage-600">“é exatamente o meu caso”</span> — o problema tem
         conserto, e é mais simples do que parece.
       </p>
     </Section>

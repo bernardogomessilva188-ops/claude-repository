@@ -25,8 +25,8 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <Section id="como-funciona" className="border-y border-carbon-800 bg-carbon-900">
-      <div className="max-w-3xl">
+    <Section id="como-funciona" className="border-y border-line-200 bg-sage-50">
+      <div data-reveal className="max-w-3xl">
         <SectionTag>Como funciona</SectionTag>
         <SectionTitle>Do zero à rotina rodando em 4 passos</SectionTitle>
         <SectionLead>
@@ -39,19 +39,21 @@ export default function HowItWorks() {
         {steps.map((step, index) => (
           <li
             key={step.title}
-            className="relative overflow-hidden rounded-2xl border border-carbon-700 bg-carbon-850 p-7"
+            data-reveal
+            style={{ '--reveal-delay': `${index * 120}ms` }}
+            className="card-shadow relative overflow-hidden rounded-2xl border border-line-200 bg-paper-0 p-7"
           >
             <span
               aria-hidden="true"
-              className="step-number absolute -top-2 right-3 text-[5.5rem] opacity-70"
+              className="step-number absolute -top-2 right-3 text-[5.5rem] opacity-80"
             >
               {index + 1}
             </span>
-            <span className="relative inline-flex rounded-md bg-carbon-800 px-2.5 py-1 font-display text-[0.7rem] font-bold tracking-widest text-acid-400 uppercase">
+            <span className="relative inline-flex rounded-md bg-sage-100 px-2.5 py-1 font-display text-[0.7rem] font-bold tracking-widest text-sage-800 uppercase">
               {step.time}
             </span>
             <h3 className="relative mt-4 text-lg font-bold">{step.title}</h3>
-            <p className="relative mt-2.5 text-sm leading-relaxed text-fog-400">{step.text}</p>
+            <p className="relative mt-2.5 text-sm leading-relaxed text-ink-500">{step.text}</p>
           </li>
         ))}
       </ol>

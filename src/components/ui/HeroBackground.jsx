@@ -103,12 +103,11 @@ export default function HeroBackground() {
         })}
       </div>
 
-      {/* Scrims: sem isso o texto branco some em cima da foto.
-          Um gradiente lateral (para a coluna de texto) + um vertical (para o
-          header e para a emenda com a próxima seção). */}
-      <div className="absolute inset-0 bg-gradient-to-r from-carbon-950 via-carbon-950/80 to-carbon-950/25 md:via-carbon-950/70 md:to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-carbon-950/70 via-transparent to-carbon-950" />
-      <div className="grid-texture absolute inset-0 opacity-30" />
+      {/* Scrims claros: véu branco sob a coluna de texto, transparente sobre a
+          foto, e uma emenda suave com o topo e com a próxima seção. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-paper-0 via-paper-0/85 to-paper-0/20 md:via-paper-0/70 md:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-paper-0/60 via-transparent to-paper-0" />
+      <div className="grid-texture absolute inset-0 opacity-40" />
     </div>
   )
 }

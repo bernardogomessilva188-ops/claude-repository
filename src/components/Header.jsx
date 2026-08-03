@@ -29,9 +29,9 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled || open
-          ? 'border-b border-carbon-700 bg-carbon-950/90 backdrop-blur-md'
+          ? 'border-b border-line-200 bg-paper-0/85 shadow-[0_4px_20px_-8px_rgba(23,34,31,0.1)] backdrop-blur-md'
           : 'border-b border-transparent'
       }`}
     >
@@ -45,7 +45,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-fog-400 transition-colors hover:text-fog-50"
+              className="text-sm font-medium text-ink-500 transition-colors hover:text-ink-900"
             >
               {link.label}
             </a>
@@ -55,7 +55,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <div className="hidden sm:block">
             <CtaButton className="!px-5 !py-3 !text-[0.8rem] whitespace-nowrap">
-              Quero começar
+              Começar agora
             </CtaButton>
           </div>
 
@@ -65,7 +65,7 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? 'Fechar menu' : 'Abrir menu'}
-            className="flex h-11 w-11 items-center justify-center rounded-lg border border-carbon-700 text-fog-50 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-lg border border-line-300 bg-paper-0 text-ink-900 lg:hidden"
           >
             {open ? <IconClose className="h-5 w-5" /> : <IconMenu className="h-5 w-5" />}
           </button>
@@ -76,7 +76,7 @@ export default function Header() {
       <div
         id="menu-mobile"
         hidden={!open}
-        className="border-t border-carbon-800 bg-carbon-950 shadow-2xl shadow-black/60 lg:hidden"
+        className="border-t border-line-200 bg-paper-0 shadow-xl shadow-ink-900/10 lg:hidden"
       >
         <nav aria-label="Navegação principal (mobile)" className="shell flex flex-col py-4">
           {NAV_LINKS.map((link) => (
@@ -84,7 +84,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="border-b border-carbon-800 py-4 font-display text-lg font-bold text-fog-50"
+              className="border-b border-line-200 py-4 font-display text-lg font-bold text-ink-900"
             >
               {link.label}
             </a>

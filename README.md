@@ -35,12 +35,18 @@ npm run lint      # roda o oxlint
 | UI | React 19 (JavaScript, sem TypeScript) |
 | Estilos | Tailwind CSS 4 (plugin oficial do Vite, sem `tailwind.config.js`) |
 | Scroll | [Lenis](https://github.com/darkroomengineering/lenis) — rolagem suave da página inteira |
+| Movimento | Ken Burns + parallax no herói, revelação ao rolar, contadores animados, marquee |
 | Ícones | SVG inline, escritos à mão (`src/components/ui/Icons.jsx`) |
 | Fontes | Archivo (títulos) + Inter (texto), via Google Fonts com `display=swap` |
 
 Os tokens de design (cores, fontes, animações) ficam em `src/index.css`, dentro do bloco
-`@theme` — é de lá que o Tailwind 4 gera as utilidades `bg-carbon-900`, `text-acid-400`
+`@theme` — é de lá que o Tailwind 4 gera as utilidades `bg-paper-50`, `text-sage-600`
 e companhia.
+
+A paleta é clara, no clima de marca de grooming premium: brancos quentes (`paper`),
+tinta verde-grafite (`ink`), verde-eucalipto nos CTAs e destaques (`sage`), terracota
+apenas para urgência (`clay`) e areia nos detalhes (`sand`). O único bloco escuro da
+página é o CTA final — o contraste é proposital, para o fechamento pesar mais.
 
 ---
 
@@ -55,10 +61,12 @@ src/
 ├── index.css               tokens de design + estilos base
 ├── config.js               checkout, preço, imagens do herói, placeholders, menu
 ├── hooks/
-│   └── useSmoothScroll.js  Lenis + interceptação dos links de âncora
+│   ├── useSmoothScroll.js  Lenis + interceptação dos links de âncora
+│   └── useReveal.js        revelação ao rolar (um IntersectionObserver p/ tudo)
 └── components/
     ├── Header.jsx          header fixo + menu mobile + CTA
     ├── Hero.jsx            headline, CTA principal e prova social rápida
+    ├── MarqueeStrip.jsx    faixa de palavras em movimento contínuo
     ├── PainPoints.jsx      as dores do público
     ├── Benefits.jsx        os 6 blocos de benefício
     ├── HowItWorks.jsx      passo a passo em 4 etapas
@@ -70,7 +78,7 @@ src/
     ├── Footer.jsx          institucional, redes sociais, avisos legais
     ├── StickyMobileCta.jsx barra de CTA fixa no mobile
     └── ui/                 peças reutilizáveis (Section, CtaButton, Logo, Icons,
-                            HeroBackground)
+                            HeroBackground, AnimatedNumber)
 ```
 
 O texto de cada seção mora dentro do próprio componente — para reescrever uma headline,
@@ -93,7 +101,7 @@ Com `prefers-reduced-motion: reduce`, tudo isso desliga e fica a primeira imagem
 
 ### ⚠️ As imagens atuais são placeholders
 
-Os arquivos em `public/hero/` **não são fotos**: são texturas escuras geradas
+Os arquivos em `public/hero/` **não são fotos**: são texturas claras geradas
 proceduralmente, só para o efeito ficar visível. Troque pelas fotos reais sobrescrevendo
 os arquivos com os mesmos nomes — nenhuma linha de código precisa mudar.
 
@@ -102,11 +110,16 @@ servido no celular via `<picture>`).
 
 O que as fotos precisam ter para funcionar bem:
 
-- **escuras e contrastadas** — o texto branco fica por cima delas;
-- **assunto à direita do enquadramento** — a coluna da esquerda é ocupada pelo texto;
+- **claras e bem iluminadas** (luz natural, fundo neutro) — o tema é branco e o texto
+  escuro fica sobre um véu branco à esquerda;
+- **retrato masculino nítido** (rosto/ombros), com o assunto **à direita** do
+  enquadramento — a coluna da esquerda é ocupada pelo texto;
+- clima de autocuidado real: toalha no ombro, skincare, barbearia, espelho de banheiro —
+  nada de banco de imagem genérico de terno;
 - **até ~250 KB cada**, em WebP ou AVIF;
-- **direito de uso comercial**: banco de imagem pago, Unsplash/Pexels ou ensaio próprio.
-  Foto sem licença clara em página de venda é risco jurídico à toa.
+- **direito de uso comercial e cessão de imagem do modelo**: banco de imagem pago,
+  Unsplash/Pexels ou ensaio próprio. Rosto de pessoa real em página de venda sem
+  licença é risco jurídico sério.
 
 Para converter e redimensionar os originais sem instalar nada no projeto:
 
@@ -137,6 +150,30 @@ Se trocar o nome do primeiro arquivo, atualize também o `<link rel="preload">` 
 
 No touch o scroll continua nativo (`syncTouch: false`): é mais previsível no celular e
 não briga com o "puxar para atualizar" nem com a barra do navegador.
+
+---
+
+## Interatividade e movimento
+
+Além do fundo do herói e do Lenis:
+
+- **Revelação ao rolar** — elementos com `data-reveal` sobem e aparecem quando entram na
+  tela (`src/hooks/useReveal.js` + CSS em `index.css`). Cascatas usam
+  `style={{ '--reveal-delay': '120ms' }}`. Um único `IntersectionObserver` cuida da
+  página toda, e cada elemento é esquecido depois de revelado.
+- **Contadores animados** — os números de prova social contam de 0 até o valor quando
+  ficam visíveis (`src/components/ui/AnimatedNumber.jsx`), respeitando o formato
+  brasileiro ("2.400", "4,8").
+- **Marquee** — faixa de palavras em movimento contínuo separando o herói do resto
+  (`src/components/MarqueeStrip.jsx`).
+- **Formas em deriva** — círculos desfocados que flutuam devagar ao fundo de algumas
+  seções (`DriftShape` em `src/components/ui/Section.jsx`).
+- **FAQ** — abre e fecha com transição de altura sem medir nada (truque do
+  `grid-template-rows: 0fr → 1fr`).
+- Hover com elevação e sombra nos cards, ícones que invertem a cor, CTA que "acende".
+
+Tudo respeita `prefers-reduced-motion`: a regra global zera animações e transições, e o
+conteúdo com `data-reveal` aparece direto.
 
 ---
 

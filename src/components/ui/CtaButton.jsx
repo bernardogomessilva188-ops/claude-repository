@@ -9,12 +9,16 @@ import { IconArrowRight } from './Icons'
  */
 
 const variants = {
-  // CTA principal: acento ácido sobre texto escuro — o elemento mais visível da tela
+  // CTA principal: eucalipto profundo sobre o fundo claro — o elemento de maior
+  // contraste da tela, com sombra que "acende" no hover
   primary:
-    'bg-acid-400 text-carbon-950 hover:bg-acid-300 shadow-[0_0_0_0_rgba(200,247,79,0.5)] hover:shadow-[0_0_32px_-4px_rgba(200,247,79,0.55)]',
+    'bg-sage-700 text-paper-0 hover:bg-sage-800 shadow-[0_10px_28px_-10px_rgba(35,87,67,0.55)] hover:shadow-[0_16px_36px_-10px_rgba(35,87,67,0.65)] hover:-translate-y-0.5',
   // CTA secundário: contorno, para não competir com o principal
   outline:
-    'border border-carbon-600 text-fog-50 hover:border-acid-400 hover:text-acid-400 bg-transparent',
+    'border border-line-300 text-ink-900 hover:border-sage-600 hover:text-sage-700 bg-transparent',
+  // Sobre fundos escuros (seção final): branco sólido, texto eucalipto
+  inverse:
+    'bg-paper-0 text-sage-800 hover:bg-sage-50 shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-0.5',
 }
 
 export default function CtaButton({
@@ -22,6 +26,7 @@ export default function CtaButton({
   href = CHECKOUT_URL,
   variant = 'primary',
   microcopy,
+  microcopyClassName = '',
   fullWidth = false,
   className = '',
   onClick,
@@ -51,7 +56,9 @@ export default function CtaButton({
       </a>
 
       {microcopy ? (
-        <p className="mt-3 text-center text-[0.8rem] leading-relaxed text-fog-500">
+        <p
+          className={`mt-3 text-center text-[0.8rem] leading-relaxed text-ink-400 ${microcopyClassName}`}
+        >
           {microcopy}
         </p>
       ) : null}

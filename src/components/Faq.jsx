@@ -38,9 +38,9 @@ export default function Faq() {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <Section id="faq" className="border-y border-carbon-800 bg-carbon-900">
+    <Section id="faq" className="border-y border-line-200 bg-paper-50">
       <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-        <div className="lg:sticky lg:top-24 lg:self-start">
+        <div data-reveal className="lg:sticky lg:top-24 lg:self-start">
           <SectionTag>Dúvidas</SectionTag>
           <SectionTitle>Perguntas que todo mundo faz antes de comprar</SectionTitle>
           <SectionLead>
@@ -48,7 +48,7 @@ export default function Faq() {
           </SectionLead>
         </div>
 
-        <div className="divide-y divide-carbon-700 border-y border-carbon-700">
+        <div data-reveal className="divide-y divide-line-200 border-y border-line-200">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index
             return (
@@ -60,30 +60,40 @@ export default function Faq() {
                     aria-expanded={isOpen}
                     aria-controls={`faq-painel-${index}`}
                     id={`faq-botao-${index}`}
-                    className="flex w-full items-center justify-between gap-5 py-6 text-left"
+                    className="group flex w-full items-center justify-between gap-5 py-6 text-left"
                   >
-                    <span className="font-display text-base font-bold text-fog-50 md:text-lg">
+                    <span
+                      className={`font-display text-base font-bold transition-colors duration-200 md:text-lg ${
+                        isOpen ? 'text-sage-700' : 'text-ink-900 group-hover:text-sage-700'
+                      }`}
+                    >
                       {faq.q}
                     </span>
                     <span
                       className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border transition-all duration-300 ${
                         isOpen
-                          ? 'rotate-45 border-acid-400 text-acid-400'
-                          : 'border-carbon-600 text-fog-400'
+                          ? 'rotate-45 border-sage-600 bg-sage-600 text-paper-0'
+                          : 'border-line-300 text-ink-500 group-hover:border-sage-600 group-hover:text-sage-700'
                       }`}
                     >
                       <IconPlus className="h-4 w-4" />
                     </span>
                   </button>
                 </h3>
+                {/* transição de altura sem medir nada: grid-rows 0fr -> 1fr */}
                 <div
                   id={`faq-painel-${index}`}
                   role="region"
                   aria-labelledby={`faq-botao-${index}`}
-                  hidden={!isOpen}
-                  className="pb-6"
+                  className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                    isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                  }`}
                 >
-                  <p className="max-w-2xl text-[0.95rem] leading-relaxed text-fog-400">{faq.a}</p>
+                  <div className="overflow-hidden">
+                    <p className="max-w-2xl pb-6 text-[0.95rem] leading-relaxed text-ink-500">
+                      {faq.a}
+                    </p>
+                  </div>
                 </div>
               </div>
             )

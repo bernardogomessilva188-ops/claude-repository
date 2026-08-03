@@ -1,4 +1,5 @@
 import { PLACEHOLDER } from '../config'
+import AnimatedNumber from './ui/AnimatedNumber'
 import Section, { SectionLead, SectionTag, SectionTitle } from './ui/Section'
 import { IconStar } from './ui/Icons'
 
@@ -37,7 +38,7 @@ const testimonials = [
 export default function Testimonials() {
   return (
     <Section id="depoimentos">
-      <div className="max-w-3xl">
+      <div data-reveal className="max-w-3xl">
         <SectionTag>Prova social</SectionTag>
         <SectionTitle>Quem começou não voltou atrás</SectionTitle>
         <SectionLead>
@@ -45,53 +46,58 @@ export default function Testimonials() {
         </SectionLead>
       </div>
 
-      <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 rounded-2xl border border-carbon-700 bg-carbon-900 px-7 py-5">
+      <div
+        data-reveal
+        className="card-shadow mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 rounded-2xl border border-line-200 bg-paper-0 px-7 py-5"
+      >
         <div className="flex items-center gap-2">
-          <div className="flex text-acid-400">
+          <div className="flex text-sand-400">
             {[0, 1, 2, 3, 4].map((i) => (
               <IconStar key={i} className="h-4 w-4" />
             ))}
           </div>
-          <span className="font-display text-lg font-extrabold text-fog-50">
-            {PLACEHOLDER.rating}
+          <span className="font-display text-lg font-extrabold text-ink-900">
+            <AnimatedNumber value={PLACEHOLDER.rating} />
           </span>
-          <span className="text-sm text-fog-500">
+          <span className="text-sm text-ink-400">
             em {PLACEHOLDER.reviewsCount} avaliações
           </span>
         </div>
-        <span className="hidden h-6 w-px bg-carbon-700 sm:block" />
-        <p className="text-sm text-fog-400">
-          <strong className="font-semibold text-fog-50">
-            +{PLACEHOLDER.studentsCount} homens
+        <span className="hidden h-6 w-px bg-line-200 sm:block" />
+        <p className="text-sm text-ink-500">
+          <strong className="font-semibold text-ink-900">
+            +<AnimatedNumber value={PLACEHOLDER.studentsCount} /> homens
           </strong>{' '}
           já rodaram o plano de 30 dias
         </p>
       </div>
 
       <div className="mt-6 grid gap-5 md:grid-cols-3">
-        {testimonials.map((t) => (
+        {testimonials.map((t, index) => (
           <figure
             key={t.name}
-            className="flex flex-col rounded-2xl border border-carbon-700 bg-carbon-900 p-7"
+            data-reveal
+            style={{ '--reveal-delay': `${index * 120}ms` }}
+            className="card-shadow flex flex-col rounded-2xl border border-line-200 bg-paper-0 p-7 transition-shadow duration-300 hover:card-shadow-hover"
           >
-            <div className="flex text-acid-400" aria-label="5 de 5 estrelas">
+            <div className="flex text-sand-400" aria-label="5 de 5 estrelas">
               {[0, 1, 2, 3, 4].map((i) => (
                 <IconStar key={i} className="h-3.5 w-3.5" />
               ))}
             </div>
-            <blockquote className="mt-4 grow text-[0.95rem] leading-relaxed text-fog-200">
+            <blockquote className="mt-4 grow text-[0.95rem] leading-relaxed text-ink-700">
               “{t.quote}”
             </blockquote>
-            <p className="mt-4 border-l-2 border-acid-400 pl-3 text-sm font-semibold text-fog-50">
+            <p className="mt-4 border-l-2 border-sage-600 pl-3 text-sm font-semibold text-ink-900">
               {t.highlight}
             </p>
-            <figcaption className="mt-6 flex items-center gap-3 border-t border-carbon-800 pt-5">
-              <span className="grid h-10 w-10 place-items-center rounded-full bg-carbon-700 font-display font-bold text-fog-200">
+            <figcaption className="mt-6 flex items-center gap-3 border-t border-line-200 pt-5">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-sage-100 font-display font-bold text-sage-800">
                 {t.name.charAt(0)}
               </span>
               <span>
-                <span className="block text-sm font-semibold text-fog-50">{t.name}</span>
-                <span className="block text-xs text-fog-500">{t.role}</span>
+                <span className="block text-sm font-semibold text-ink-900">{t.name}</span>
+                <span className="block text-xs text-ink-400">{t.role}</span>
               </span>
             </figcaption>
           </figure>
@@ -99,12 +105,12 @@ export default function Testimonials() {
       </div>
 
       {/* Aviso visível: enquanto os depoimentos forem fictícios, isso precisa estar claro. */}
-      <p className="mt-6 rounded-xl border border-dashed border-ember-500/40 bg-ember-500/5 px-5 py-4 text-xs leading-relaxed text-fog-400">
-        <strong className="font-semibold text-ember-500">Aviso de placeholder:</strong> os
+      <p className="mt-6 rounded-xl border border-dashed border-clay-500/50 bg-clay-100/50 px-5 py-4 text-xs leading-relaxed text-ink-500">
+        <strong className="font-semibold text-clay-600">Aviso de placeholder:</strong> os
         depoimentos, a nota e os números acima são <strong>exemplos fictícios</strong>, usados
         apenas para demonstrar o layout. Substitua por depoimentos reais (com autorização) ou
-        remova a seção antes de publicar — em <code className="text-fog-200">src/config.js</code>{' '}
-        e em <code className="text-fog-200">src/components/Testimonials.jsx</code>.
+        remova a seção antes de publicar — em <code className="text-ink-900">src/config.js</code>{' '}
+        e em <code className="text-ink-900">src/components/Testimonials.jsx</code>.
       </p>
     </Section>
   )

@@ -67,11 +67,16 @@ export const PLACEHOLDER = {
  * celular) e sobrescrever os arquivos — nenhum código precisa mudar.
  *
  * Como as fotos devem ser, para funcionar bem aqui:
- * · escuras e com bastante contraste (o texto branco fica por cima delas);
- * · com o "assunto" à direita do enquadramento — a coluna da esquerda é o texto;
+ * · CLARAS e bem iluminadas (luz natural, fundo neutro) — o tema do site é
+ *   branco e o texto escuro fica por cima de um véu branco à esquerda;
+ * · retrato masculino nítido (rosto/ombros), com o assunto à DIREITA do
+ *   enquadramento — a coluna da esquerda é ocupada pelo texto;
+ * · clima de autocuidado real: toalha no ombro, skincare, barbearia, espelho
+ *   de banheiro — nada de banco de imagem genérico de terno apertando mão;
  * · até ~250 KB cada uma, em WebP ou AVIF;
- * · com direito de uso comercial (banco de imagem pago, Unsplash/Pexels ou
- *   ensaio próprio). Foto sem licença em página de venda dá dor de cabeça.
+ * · com direito de uso comercial E cessão de imagem do modelo (banco de
+ *   imagem pago, Unsplash/Pexels ou ensaio próprio). Rosto de pessoa real em
+ *   página de venda sem licença é processo na certa.
  *
  * `origin` é o ponto para onde o zoom converge (`transform-origin`): aponte
  * para o assunto da foto, senão o rosto sai do quadro durante a animação.

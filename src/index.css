@@ -2,44 +2,51 @@
 
 /* ==========================================================================
    Design tokens — Mens Helper
-   Paleta sóbria: carvão + azul-petróleo, com acento ácido nos CTAs.
+   Tema claro: branco quente + verde-eucalipto, com terracota só na urgência.
+   A cara é de marca de grooming premium: muito respiro, pouco ruído.
    ========================================================================== */
 @theme {
   --font-display: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  /* Base escura */
-  --color-carbon-950: #07090a;
-  --color-carbon-900: #0c1112;
-  --color-carbon-850: #10171a;
-  --color-carbon-800: #151e21;
-  --color-carbon-700: #1d292d;
-  --color-carbon-600: #2a393e;
+  /* Base clara — brancos quentes, nunca #fff estéril em área grande */
+  --color-paper-0: #fdfdfb;
+  --color-paper-50: #f8f7f3;
+  --color-paper-100: #f1efe9;
+  --color-paper-200: #e9e7de;
 
-  /* Azul-petróleo (profundidade, seções alternadas) */
-  --color-petrol-900: #08282b;
-  --color-petrol-700: #0e4145;
-  --color-petrol-500: #16646a;
-  --color-petrol-300: #2b9096;
+  /* Linhas e divisores */
+  --color-line-200: #e3e1d7;
+  --color-line-300: #d2cfc2;
 
-  /* Acento ácido — reservado para CTA e destaques. Usar com parcimônia. */
-  --color-acid-300: #ddff8a;
-  --color-acid-400: #c8f74f;
-  --color-acid-500: #b2e81f;
-  --color-acid-600: #8fbd14;
+  /* Tinta — verde-grafite, mais acolhedor que preto puro */
+  --color-ink-900: #17221f;
+  --color-ink-700: #3a4744;
+  --color-ink-500: #66736f;
+  --color-ink-400: #8b948f;
 
-  /* Laranja queimado — apenas urgência/escassez */
-  --color-ember-500: #e2703a;
-  --color-ember-600: #c25a29;
+  /* Eucalipto — a cor do autocuidado. CTAs e destaques. */
+  --color-sage-900: #14332a;
+  --color-sage-800: #1b4536;
+  --color-sage-700: #235743;
+  --color-sage-600: #2e6b52;
+  --color-sage-500: #3f8265;
+  --color-sage-200: #cfe3d6;
+  --color-sage-100: #e4efe7;
+  --color-sage-50: #f0f6f1;
 
-  /* Neutros de texto */
-  --color-fog-50: #f2f6f5;
-  --color-fog-200: #cbd6d5;
-  --color-fog-400: #93a3a3;
-  --color-fog-500: #748484;
+  /* Terracota — apenas urgência/escassez e avisos */
+  --color-clay-600: #b45336;
+  --color-clay-500: #c96f4a;
+  --color-clay-100: #f6e5dc;
 
-  --animate-marquee: marquee 38s linear infinite;
+  /* Areia — toque quente em selos e detalhes */
+  --color-sand-400: #cbb27f;
+  --color-sand-100: #f3ecdc;
+
+  --animate-marquee: marquee 32s linear infinite;
   --animate-pulse-soft: pulse-soft 2.6s ease-in-out infinite;
+  --animate-drift: drift 14s ease-in-out infinite alternate;
 }
 
 @keyframes marquee {
@@ -58,6 +65,16 @@
   }
   50% {
     opacity: 0.55;
+  }
+}
+
+/* Formas decorativas que flutuam devagar ao fundo das seções */
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2.5rem, -1.5rem, 0) scale(1.06);
   }
 }
 
@@ -87,8 +104,8 @@
 
   body {
     margin: 0;
-    background-color: var(--color-carbon-950);
-    color: var(--color-fog-200);
+    background-color: var(--color-paper-0);
+    color: var(--color-ink-700);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -100,7 +117,7 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    color: var(--color-fog-50);
+    color: var(--color-ink-900);
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
@@ -110,12 +127,12 @@
   }
 
   ::selection {
-    background-color: var(--color-acid-400);
-    color: var(--color-carbon-950);
+    background-color: var(--color-sage-600);
+    color: var(--color-paper-0);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-acid-400);
+    outline: 2px solid var(--color-sage-600);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -136,6 +153,34 @@
 }
 
 /* ==========================================================================
+   Revelação ao rolar (useReveal)
+   O hook marca o elemento com [data-reveal] e adiciona .is-revealed quando
+   ele entra na tela. Com reduced motion, o bloco acima zera a transição e
+   o conteúdo aparece direto.
+   ========================================================================== */
+@layer components {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* JS desligado ou falhou: nada pode ficar invisível */
+  html.no-js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
    Utilitários próprios
    ========================================================================== */
 
@@ -151,12 +196,25 @@
   }
 }
 
-/* Textura sutil de grade — dá peso à seção sem poluir */
+/* Textura sutil de grade — quase invisível no claro, só dá corpo ao fundo */
 @utility grid-texture {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(23, 34, 31, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 34, 31, 0.04) 1px, transparent 1px);
   background-size: 64px 64px;
+}
+
+/* Sombra macia padrão dos cards — substitui as bordas duras do tema escuro */
+@utility card-shadow {
+  box-shadow:
+    0 1px 2px rgba(23, 34, 31, 0.05),
+    0 8px 24px -8px rgba(23, 34, 31, 0.1);
+}
+
+@utility card-shadow-hover {
+  box-shadow:
+    0 2px 4px rgba(23, 34, 31, 0.06),
+    0 20px 40px -12px rgba(23, 34, 31, 0.18);
 }
 
 /* Número gigante em marca d'água (passo a passo) */
@@ -165,5 +223,5 @@
   font-weight: 900;
   line-height: 0.8;
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--color-carbon-600);
+  -webkit-text-stroke: 1.5px var(--color-line-300);
 }
