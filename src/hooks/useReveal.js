@@ -37,18 +37,53 @@ export default function useReveal() {
       return
     }
 
+    const reveal = (el) => {
+      el.classList.add('is-revealed')
+      observer.unobserve(el)
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue
-          entry.target.classList.add('is-revealed')
-          observer.unobserve(entry.target)
+          if (entry.isIntersecting) reveal(entry.target)
         }
       },
       { rootMargin: '0px 0px -8% 0px', threshold: 0.15 },
     )
 
     targets.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
+
+    /**
+     * Rede de segurança para a rolagem muito rápida.
+     *
+     * O IntersectionObserver compara o estado entre frames: se um salto grande
+     * (Ctrl+End, arrastar a barra, rolar com força no trackpad) faz o elemento
+     * atravessar a tela inteira dentro de um frame, ele nunca chega a
+     * "intersectar" e o callback não dispara — o conteúdo ficaria invisível até
+     * o leitor rolar de volta.
+     *
+     * Aqui, a cada quadro de rolagem, qualquer alvo que já tenha passado do
+     * topo da tela é revelado na marra.
+     */
+    let frame = 0
+    const sweep = () => {
+      frame = 0
+      for (const el of targets) {
+        if (el.classList.contains('is-revealed')) continue
+        if (el.getBoundingClientRect().top < window.innerHeight) reveal(el)
+      }
+    }
+
+    const onScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(sweep)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (frame) cancelAnimationFrame(frame)
+      observer.disconnect()
+    }
   }, [])
 }
