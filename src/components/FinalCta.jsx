@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { IMAGES, NEWSLETTER_ENDPOINT, PRODUCT } from '../config'
 import CtaButton from './ui/CtaButton'
+import RevealWords from './ui/RevealWords'
 import { IconCheck } from './ui/Icons'
 
 /**
@@ -29,13 +30,14 @@ export default function FinalCta() {
       </div>
 
       <div className="shell relative text-center">
-        <h2
-          data-reveal
+        <RevealWords
+          as="h2"
+          step={110}
           className="mx-auto max-w-3xl text-4xl leading-[1.05] font-extrabold text-paper-0 sm:text-5xl md:text-6xl"
         >
           Daqui a 30 dias você vai estar
           <span className="block text-sage-200">no mesmo lugar ou bem melhor.</span>
-        </h2>
+        </RevealWords>
         <p
           data-reveal
           style={{ '--reveal-delay': '120ms' }}

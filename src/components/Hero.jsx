@@ -2,6 +2,7 @@ import { PLACEHOLDER } from '../config'
 import AnimatedNumber from './ui/AnimatedNumber'
 import CtaButton from './ui/CtaButton'
 import HeroBackground from './ui/HeroBackground'
+import RevealWords from './ui/RevealWords'
 import { IconBolt, IconCheck, IconClock, IconDroplet, IconStar } from './ui/Icons'
 
 const quickWins = ['10 minutos por dia', 'Com o que você já tem', 'Zero enrolação']
@@ -31,14 +32,15 @@ export default function Hero() {
             Guia digital · Acesso imediato
           </span>
 
-          <h1
-            data-reveal
-            style={{ '--reveal-delay': '80ms' }}
+          <RevealWords
+            as="h1"
+            step={110}
+            delay={150}
             className="mt-6 text-4xl leading-[1.03] font-extrabold sm:text-5xl lg:text-6xl"
           >
             Pele em ordem. Corpo ativo. Cabeça no lugar.
             <span className="mt-2 block text-sage-600">10 minutos por dia. Só isso.</span>
-          </h1>
+          </RevealWords>
 
           <p
             data-reveal

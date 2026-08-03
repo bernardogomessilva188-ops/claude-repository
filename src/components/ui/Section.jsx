@@ -1,3 +1,5 @@
+import RevealWords from './RevealWords'
+
 /**
  * Casca padrão das seções: cuida do espaçamento vertical e da largura máxima,
  * para que os componentes de conteúdo não repitam isso o tempo todo.
@@ -28,14 +30,16 @@ export function SectionTag({ children }) {
   )
 }
 
-/** Título de seção com o mesmo ritmo tipográfico em toda a página. */
+/** Título de seção com o mesmo ritmo tipográfico em toda a página.
+    As palavras surgem uma a uma em fade-in lento (RevealWords). */
 export function SectionTitle({ children, className = '' }) {
   return (
-    <h2
+    <RevealWords
+      as="h2"
       className={`mt-5 text-3xl leading-[1.05] font-extrabold sm:text-4xl md:text-5xl ${className}`}
     >
       {children}
-    </h2>
+    </RevealWords>
   )
 }
 

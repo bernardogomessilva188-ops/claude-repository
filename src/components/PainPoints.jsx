@@ -1,4 +1,5 @@
 import ImageSlot from './ui/ImageSlot'
+import RevealWords from './ui/RevealWords'
 import Section, { DriftShape, SectionLead, SectionTag, SectionTitle } from './ui/Section'
 
 /** Seção de dor: nomear o problema exatamente como o cara descreveria. */
@@ -68,15 +69,15 @@ export default function PainPoints() {
       <div className="mt-14 grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
         {/* espaço de imagem — troque public/images/problema.webp */}
         <ImageSlot name="problema" />
-        <p
-          data-reveal
-          style={{ '--reveal-delay': '120ms' }}
+        <RevealWords
+          as="p"
+          step={60}
           className="max-w-2xl font-display text-xl leading-snug font-bold text-ink-900 md:text-2xl"
         >
           Se você leu isso e pensou{' '}
           <span className="text-sage-600">“é exatamente o meu caso”</span> — o problema tem
           conserto, e é mais simples do que parece.
-        </p>
+        </RevealWords>
       </div>
     </Section>
   )

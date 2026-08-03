@@ -1,6 +1,7 @@
 import { PRODUCT } from '../config'
 import { IconShield } from './ui/Icons'
 import ImageSlot from './ui/ImageSlot'
+import RevealWords from './ui/RevealWords'
 import Section, { DriftShape } from './ui/Section'
 
 export default function Guarantee() {
@@ -30,9 +31,9 @@ export default function Guarantee() {
         </div>
 
         <div>
-          <h2 className="text-3xl leading-tight font-extrabold md:text-4xl">
+          <RevealWords as="h2" className="text-3xl leading-tight font-extrabold md:text-4xl">
             Testa. Se não for pra você, o dinheiro volta.
-          </h2>
+          </RevealWords>
           <p className="mt-5 max-w-2xl leading-relaxed text-ink-500">
             Você tem {PRODUCT.guaranteeDays} dias para abrir o guia, fazer o diagnóstico e rodar a
             primeira semana. Se achar que não serve pra você, manda um e-mail e devolvemos 100% do

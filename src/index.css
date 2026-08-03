@@ -148,6 +148,9 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      /* sem isso, os atrasos em cascata (reveal e palavras) continuariam
+         segurando o conteúdo mesmo com as transições zeradas */
+      transition-delay: 0ms !important;
     }
   }
 }
@@ -177,6 +180,30 @@
   html.no-js [data-reveal] {
     opacity: 1;
     transform: none;
+  }
+
+  /* ------------------------------------------------------------------
+     Fade-in lento palavra por palavra (RevealWords)
+     Cada palavra sobe de leve e sai do desfoque no seu próprio tempo
+     (--word-delay). O gatilho é o mesmo .is-revealed do useReveal.
+     ------------------------------------------------------------------ */
+  [data-reveal-words] .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.35em);
+    filter: blur(8px);
+    transition:
+      opacity 1.2s ease-out,
+      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1.2s ease-out;
+    transition-delay: var(--word-delay, 0ms);
+  }
+
+  [data-reveal-words].is-revealed .word,
+  html.no-js [data-reveal-words] .word {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
 

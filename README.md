@@ -190,6 +190,11 @@ Além do fundo do herói e do Lenis:
   tela (`src/hooks/useReveal.js` + CSS em `index.css`). Cascatas usam
   `style={{ '--reveal-delay': '120ms' }}`. Um único `IntersectionObserver` cuida da
   página toda, e cada elemento é esquecido depois de revelado.
+- **Fade-in lento palavra por palavra** — os títulos surgem uma palavra de cada vez
+  (~1,2s por palavra, com leve subida e desfoque saindo), via
+  `src/components/ui/RevealWords.jsx`. O `SectionTitle` já usa por padrão; para aplicar
+  em outro texto, envolva com `<RevealWords as="h2" step={110}>...</RevealWords>` —
+  JSX no meio (destaques, `<br/>`) é preservado.
 - **Contadores animados** — os números de prova social contam de 0 até o valor quando
   ficam visíveis (`src/components/ui/AnimatedNumber.jsx`), respeitando o formato
   brasileiro ("2.400", "4,8").

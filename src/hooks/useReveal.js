@@ -15,7 +15,11 @@ import { useEffect } from 'react'
  */
 export default function useReveal() {
   useEffect(() => {
-    const targets = document.querySelectorAll('[data-reveal]:not(.is-revealed)')
+    // data-reveal: bloco inteiro sobe e aparece
+    // data-reveal-words: as palavras internas surgem uma a uma (RevealWords)
+    const targets = document.querySelectorAll(
+      '[data-reveal]:not(.is-revealed), [data-reveal-words]:not(.is-revealed)',
+    )
     if (!targets.length) return
 
     if (!('IntersectionObserver' in window)) {
