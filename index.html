@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- A classe no-js é o seguro do arranque: enquanto ela existir, o CSS mostra
+     tudo que tem data-reveal (nada nasce invisível). O script logo abaixo a
+     remove assim que o JavaScript roda — aí a revelação ao rolar assume. -->
+<html lang="pt-BR" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <script>document.documentElement.classList.remove('no-js')</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#14110E" />
+
+    <title>Mens Helper — O manual do homem que se cuida</title>
+    <meta
+      name="description"
+      content="O manual que deveria ter vindo junto com você: pele, barba, corpo e cabeça em protocolos simples de 10 minutos por dia. Guia digital, acesso imediato."
+    />
+
+    <!-- Open Graph / compartilhamento -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Mens Helper" />
+    <meta property="og:title" content="Mens Helper — O manual do homem que se cuida" />
+    <meta
+      property="og:description"
+      content="Instruções claras, na ordem certa. Pele, barba, corpo e cabeça em 10 minutos por dia."
+    />
+    <!-- TODO: trocar pela URL final do site e por uma imagem 1200x630 real -->
+    <meta property="og:image" content="/og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Primeira imagem do fundo do herói: é o maior elemento acima da dobra,
+         então vale pedir cedo. As outras duas do slideshow entram depois. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/hero/hero-1.webp"
+      imagesrcset="/hero/hero-1-960.webp 960w, /hero/hero-1.webp 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+
+    <!-- Fontes da marca (BRANDBOOK §4): Bodoni Moda (display), IBM Plex Sans
+         (texto) e IBM Plex Mono (etiquetas). display=swap para o texto não
+         esperar o download. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      ============================================================
+      PONTOS DE INTEGRAÇÃO — PIXELS E ANALYTICS
+      ============================================================
+      Cole aqui, logo abaixo deste comentário, os snippets de:
+
+      · Meta Pixel (Facebook / Instagram Ads) — pixel base + PageView
+        https://www.facebook.com/business/help/952192354843755
+      · TikTok Pixel — pixel base + PageView
+      · Google Analytics 4 / Google Tag Manager
+
+      Importante: o evento de compra (Purchase) deve ser disparado na
+      página de obrigado do checkout, nunca nesta página. O evento de
+      início de checkout (InitiateCheckout) fica no clique do CTA — veja
+      src/components/ui/CtaButton.jsx.
+
+      Não escreva tags de fechamento de head/body dentro de comentários
+      no index.html: o Vite injeta os assets no primeiro fechamento de
+      head que encontrar, mesmo comentado.
+    -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
