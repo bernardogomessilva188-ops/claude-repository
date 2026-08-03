@@ -1,0 +1,155 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Design tokens — Mens Helper
+   Paleta sóbria: carvão + azul-petróleo, com acento ácido nos CTAs.
+   ========================================================================== */
+@theme {
+  --font-display: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Base escura */
+  --color-carbon-950: #07090a;
+  --color-carbon-900: #0c1112;
+  --color-carbon-850: #10171a;
+  --color-carbon-800: #151e21;
+  --color-carbon-700: #1d292d;
+  --color-carbon-600: #2a393e;
+
+  /* Azul-petróleo (profundidade, seções alternadas) */
+  --color-petrol-900: #08282b;
+  --color-petrol-700: #0e4145;
+  --color-petrol-500: #16646a;
+  --color-petrol-300: #2b9096;
+
+  /* Acento ácido — reservado para CTA e destaques. Usar com parcimônia. */
+  --color-acid-300: #ddff8a;
+  --color-acid-400: #c8f74f;
+  --color-acid-500: #b2e81f;
+  --color-acid-600: #8fbd14;
+
+  /* Laranja queimado — apenas urgência/escassez */
+  --color-ember-500: #e2703a;
+  --color-ember-600: #c25a29;
+
+  /* Neutros de texto */
+  --color-fog-50: #f2f6f5;
+  --color-fog-200: #cbd6d5;
+  --color-fog-400: #93a3a3;
+  --color-fog-500: #748484;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-pulse-soft: pulse-soft 2.6s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* compensa o header fixo ao navegar por âncoras */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-carbon-950);
+    color: var(--color-fog-200);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-fog-50);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-acid-400);
+    color: var(--color-carbon-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-acid-400);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   Utilitários próprios
+   ========================================================================== */
+
+/* Largura padrão de conteúdo, usada por todas as seções */
+@utility shell {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Textura sutil de grade — dá peso à seção sem poluir */
+@utility grid-texture {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Número gigante em marca d'água (passo a passo) */
+@utility step-number {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-carbon-600);
+}

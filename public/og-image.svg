@@ -1,0 +1,50 @@
+<!-- Imagem de compartilhamento (Open Graph). Placeholder em SVG: alguns
+     scrapers não renderizam SVG — antes de publicar, exporte um PNG/JPG
+     1200x630 e troque a meta tag og:image no index.html. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07090a"/>
+      <stop offset="100%" stop-color="#08282b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="1">
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="472" x2="1200" y2="472"/>
+  </g>
+
+  <g transform="translate(90,86)">
+    <rect width="46" height="46" rx="10" fill="#c8f74f"/>
+    <path d="M11 34V13l7.5 9L23 17.2l4.5 4.8L35 13v21"
+          fill="none" stroke="#07090a" stroke-width="3.4"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="62" y="32" font-family="Archivo, Arial, sans-serif" font-size="26" font-weight="800" fill="#f2f6f5">
+      Mens<tspan fill="#c8f74f">Helper</tspan>
+    </text>
+  </g>
+
+  <text x="90" y="300" font-family="Archivo, Arial, sans-serif" font-size="72" font-weight="900" fill="#f2f6f5">
+    Pareça melhor,
+  </text>
+  <text x="90" y="380" font-family="Archivo, Arial, sans-serif" font-size="72" font-weight="900" fill="#f2f6f5">
+    sinta-se melhor.
+  </text>
+  <text x="90" y="460" font-family="Archivo, Arial, sans-serif" font-size="72" font-weight="900" fill="#c8f74f">
+    Em 10 minutos por dia.
+  </text>
+
+  <text x="90" y="530" font-family="Inter, Arial, sans-serif" font-size="26" fill="#93a3a3">
+    Autocuidado masculino sem frescura · Guia digital
+  </text>
+
+  <rect x="0" y="614" width="1200" height="16" fill="#c8f74f"/>
+</svg>
