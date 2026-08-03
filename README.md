@@ -34,6 +34,7 @@ npm run lint      # roda o oxlint
 | Build | Vite 8 |
 | UI | React 19 (JavaScript, sem TypeScript) |
 | Estilos | Tailwind CSS 4 (plugin oficial do Vite, sem `tailwind.config.js`) |
+| Scroll | [Lenis](https://github.com/darkroomengineering/lenis) — rolagem suave da página inteira |
 | Ícones | SVG inline, escritos à mão (`src/components/ui/Icons.jsx`) |
 | Fontes | Archivo (títulos) + Inter (texto), via Google Fonts com `display=swap` |
 
@@ -46,12 +47,15 @@ e companhia.
 ## Estrutura
 
 ```
-index.html                  meta tags, fontes e o espaço para os pixels de anúncio
+index.html                  meta tags, fontes, preload do fundo e pixels de anúncio
+public/hero/                imagens de fundo do herói (⚠️ placeholders)
 src/
 ├── main.jsx                ponto de entrada
 ├── App.jsx                 ordem das seções da página
 ├── index.css               tokens de design + estilos base
-├── config.js               checkout, preço, dados de placeholder, menu
+├── config.js               checkout, preço, imagens do herói, placeholders, menu
+├── hooks/
+│   └── useSmoothScroll.js  Lenis + interceptação dos links de âncora
 └── components/
     ├── Header.jsx          header fixo + menu mobile + CTA
     ├── Hero.jsx            headline, CTA principal e prova social rápida
@@ -65,11 +69,74 @@ src/
     ├── FinalCta.jsx        reforço do CTA + captura de e-mail
     ├── Footer.jsx          institucional, redes sociais, avisos legais
     ├── StickyMobileCta.jsx barra de CTA fixa no mobile
-    └── ui/                 peças reutilizáveis (Section, CtaButton, Logo, Icons, HeroVisual)
+    └── ui/                 peças reutilizáveis (Section, CtaButton, Logo, Icons,
+                            HeroBackground)
 ```
 
 O texto de cada seção mora dentro do próprio componente — para reescrever uma headline,
 abra o arquivo da seção e edite ali.
+
+---
+
+## Fundo animado do herói
+
+O herói tem um slideshow de três imagens em `public/hero/`, com três camadas de
+movimento — todas só de `transform` e `opacity`, que o navegador resolve na GPU sem
+recalcular layout:
+
+1. **Ken Burns** — a imagem ativa dá um zoom lento e contínuo (14s), convergindo para o
+   ponto definido em `origin`.
+2. **Cross-fade** — troca de imagem a cada 7s, com 1,6s de transição.
+3. **Parallax** — o bloco de imagem sobe a 28% da velocidade do scroll.
+
+Com `prefers-reduced-motion: reduce`, tudo isso desliga e fica a primeira imagem parada.
+
+### ⚠️ As imagens atuais são placeholders
+
+Os arquivos em `public/hero/` **não são fotos**: são texturas escuras geradas
+proceduralmente, só para o efeito ficar visível. Troque pelas fotos reais sobrescrevendo
+os arquivos com os mesmos nomes — nenhuma linha de código precisa mudar.
+
+Cada cena tem dois arquivos: `hero-N.webp` (1920px, desktop) e `hero-N-960.webp` (960px,
+servido no celular via `<picture>`).
+
+O que as fotos precisam ter para funcionar bem:
+
+- **escuras e contrastadas** — o texto branco fica por cima delas;
+- **assunto à direita do enquadramento** — a coluna da esquerda é ocupada pelo texto;
+- **até ~250 KB cada**, em WebP ou AVIF;
+- **direito de uso comercial**: banco de imagem pago, Unsplash/Pexels ou ensaio próprio.
+  Foto sem licença clara em página de venda é risco jurídico à toa.
+
+Para converter e redimensionar os originais sem instalar nada no projeto:
+
+```bash
+npx sharp-cli --input foto.jpg --output public/hero/hero-1.webp resize 1920
+npx sharp-cli --input foto.jpg --output public/hero/hero-1-960.webp resize 960
+```
+
+Ajuste o `origin` de cada imagem em `HERO_BACKGROUNDS` (`src/config.js`) para o ponto do
+assunto, senão o rosto sai do quadro durante o zoom. Se quiser mais ou menos cenas, é só
+mexer na lista — o componente se adapta (com uma imagem só, o slideshow não roda).
+
+Se trocar o nome do primeiro arquivo, atualize também o `<link rel="preload">` no
+`index.html` — ele é o que faz a imagem do topo chegar cedo.
+
+---
+
+## Scroll suave (Lenis)
+
+`src/hooks/useSmoothScroll.js` inicializa o Lenis e cuida de três detalhes:
+
+- **`prefers-reduced-motion`**: o Lenis nem é criado, a rolagem segue nativa.
+- **Links de âncora**: com o Lenis ativo o `scroll-behavior: smooth` do CSS é desligado,
+  então os cliques em `a[href^="#"]` são interceptados e mandados para `lenis.scrollTo`.
+- **Folga do header fixo**: vem do `scroll-padding-top` do `<html>`. Não some `scroll-mt`
+  nas seções nem `offset` no `scrollTo` — os três valores se acumulam e a âncora para
+  longe demais do alvo.
+
+No touch o scroll continua nativo (`syncTouch: false`): é mais previsível no celular e
+não briga com o "puxar para atualizar" nem com a barra do navegador.
 
 ---
 
@@ -81,6 +148,7 @@ demonstração**. Trocar tudo isso é obrigatório:
 | O quê | Onde | Por quê |
 | --- | --- | --- |
 | Depoimentos, nota e número de alunos | `src/components/Testimonials.jsx` e `PLACEHOLDER` em `src/config.js` | Depoimento inventado é propaganda enganosa (CDC) e derruba conta de anúncio no Meta/TikTok |
+| Imagens de fundo do herói | `public/hero/` | Hoje são texturas geradas, não fotos — ver a seção do fundo animado acima |
 | Prazo da oferta / escassez | `PLACEHOLDER.offerDeadline` em `src/config.js` | Só mantenha o bloco se a condição for real |
 | Preço e parcelamento | `PRODUCT` em `src/config.js` | Precisa bater com o checkout |
 | Links institucionais (termos, privacidade, reembolso) e CNPJ | `src/components/Footer.jsx` | Exigência legal para venda online |
@@ -118,14 +186,13 @@ ferramenta (Mailchimp, Brevo, ActiveCampaign, ConvertKit) para ativar o envio re
 
 ## Performance
 
-- Nenhuma imagem raster: a ilustração do herói, a logo, os ícones e a imagem de
-  compartilhamento são SVG. A build fica em ~73 KB de JS e ~7,5 KB de CSS (gzip).
-- Nenhuma biblioteca de ícones, de animação ou de UI — só React.
+- Build em ~78 KB de JS e ~7,8 KB de CSS (gzip). Logo, ícones e imagem de
+  compartilhamento são SVG; as únicas imagens raster são os três fundos do herói.
+- Nenhuma biblioteca de ícones, de animação ou de UI — só React e o Lenis.
+- A primeira imagem do fundo tem `preload` + `fetchPriority="high"`; as outras duas
+  entram com `loading="lazy"`, sem competir com o texto do topo.
+- Todas as imagens têm `width`/`height` declarados, então não há layout shift.
 - Fontes com `preconnect` + `display=swap`, então o texto aparece antes delas carregarem.
-- Se trocar a ilustração por foto: exporte em WebP/AVIF com menos de 200 KB, defina
-  `width`/`height` para não causar layout shift, use `loading="lazy"` nas imagens abaixo da
-  dobra e `fetchPriority="high"` (sem lazy) na do herói. Há um exemplo comentado em
-  `src/components/ui/HeroVisual.jsx`.
 
 ---
 
@@ -138,4 +205,7 @@ O layout é mobile-first — a maior parte do tráfego vem de anúncio no Instag
   disso o iOS dá zoom sozinho).
 - Accordion do FAQ com `aria-expanded`/`aria-controls`, menu mobile com `aria-controls`,
   link de "pular para o conteúdo" e foco visível em tudo que é navegável por teclado.
-- `prefers-reduced-motion` respeitado: as animações são desligadas.
+- `prefers-reduced-motion` respeitado de ponta a ponta: sem Lenis, sem Ken Burns, sem
+  cross-fade, sem parallax e sem transições.
+- As imagens de fundo são decorativas (`alt=""`, `aria-hidden`), então não poluem leitor
+  de tela.

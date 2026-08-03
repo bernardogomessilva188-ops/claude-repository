@@ -61,11 +61,25 @@
   }
 }
 
+/* Zoom lento das imagens de fundo do herói (efeito Ken Burns).
+   O ponto de convergência vem do `transform-origin` definido por imagem. */
+@keyframes hero-kenburns {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1.17);
+  }
+}
+
 /* ==========================================================================
    Base
    ========================================================================== */
 @layer base {
   html {
+    /* Fallback para quando o Lenis não está ativo (reduced motion ou JS ainda
+       carregando). Com o Lenis ligado, o `lenis.css` desliga isso e a rolagem
+       fica por conta dele — ver src/hooks/useSmoothScroll.js. */
     scroll-behavior: smooth;
     /* compensa o header fixo ao navegar por âncoras */
     scroll-padding-top: 5.5rem;

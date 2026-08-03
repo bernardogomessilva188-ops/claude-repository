@@ -10,10 +10,9 @@ export default function Section({
   as: Tag = 'section',
 }) {
   return (
-    <Tag
-      id={id}
-      className={`scroll-mt-24 py-20 md:py-28 ${className}`}
-    >
+    // a folga do header fixo ao chegar por âncora vem do `scroll-padding-top`
+    // do <html> (src/index.css) — repetir com `scroll-mt` aqui somaria os dois
+    <Tag id={id} className={`py-20 md:py-28 ${className}`}>
       <div className={`shell ${containerClassName}`}>{children}</div>
     </Tag>
   )

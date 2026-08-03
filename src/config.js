@@ -55,6 +55,33 @@ export const PLACEHOLDER = {
   supportEmail: 'contato@menshelper.com.br',
 }
 
+/* --------------------------------------------------------------------------
+ * FUNDO DO HERÓI
+ * --------------------------------------------------------------------------
+ * As imagens ficam em `public/hero/` e giram em slideshow com zoom lento
+ * (Ken Burns) e parallax — ver src/components/ui/HeroBackground.jsx.
+ *
+ * ⚠️ Os arquivos atuais são PLACEHOLDERS: texturas escuras geradas
+ * proceduralmente, não fotos. Para colocar as fotos reais, basta exportar cada
+ * uma em WebP com o mesmo nome (1920px de largura para o desktop e 960px para o
+ * celular) e sobrescrever os arquivos — nenhum código precisa mudar.
+ *
+ * Como as fotos devem ser, para funcionar bem aqui:
+ * · escuras e com bastante contraste (o texto branco fica por cima delas);
+ * · com o "assunto" à direita do enquadramento — a coluna da esquerda é o texto;
+ * · até ~250 KB cada uma, em WebP ou AVIF;
+ * · com direito de uso comercial (banco de imagem pago, Unsplash/Pexels ou
+ *   ensaio próprio). Foto sem licença em página de venda dá dor de cabeça.
+ *
+ * `origin` é o ponto para onde o zoom converge (`transform-origin`): aponte
+ * para o assunto da foto, senão o rosto sai do quadro durante a animação.
+ */
+export const HERO_BACKGROUNDS = [
+  { src: '/hero/hero-1.webp', srcSmall: '/hero/hero-1-960.webp', origin: '65% 40%' },
+  { src: '/hero/hero-2.webp', srcSmall: '/hero/hero-2-960.webp', origin: '40% 55%' },
+  { src: '/hero/hero-3.webp', srcSmall: '/hero/hero-3-960.webp', origin: '70% 60%' },
+]
+
 /* Navegação do header ---------------------------------------------------- */
 export const NAV_LINKS = [
   { label: 'Início', href: '#inicio' },

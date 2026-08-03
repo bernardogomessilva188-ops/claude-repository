@@ -1,23 +1,28 @@
 import { PLACEHOLDER } from '../config'
 import CtaButton from './ui/CtaButton'
-import HeroVisual from './ui/HeroVisual'
-import { IconCheck, IconStar } from './ui/Icons'
+import HeroBackground from './ui/HeroBackground'
+import { IconBolt, IconCheck, IconClock, IconDroplet, IconStar } from './ui/Icons'
 
 const quickWins = ['Rotina de 10 minutos', 'Sem produto caro', 'Passo a passo, sem teoria']
 
+const proofChips = [
+  { icon: IconClock, label: '10 min por dia' },
+  { icon: IconDroplet, label: 'Pele sob controle' },
+  { icon: IconBolt, label: 'Mais energia em 30 dias' },
+]
+
 export default function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden pt-32 pb-16 md:pt-40 md:pb-24">
-      {/* fundo */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="grid-texture absolute inset-0 opacity-60" />
-        <div className="absolute -top-40 left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-petrol-700/25 blur-[120px]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-carbon-950 to-transparent" />
-      </div>
+    <section
+      id="inicio"
+      className="relative isolate flex min-h-[92svh] items-center overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28"
+    >
+      {/* fotos de fundo com zoom lento, cross-fade e parallax */}
+      <HeroBackground />
 
-      <div className="shell grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-        <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-carbon-700 bg-carbon-900/80 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-fog-200">
+      <div className="shell">
+        <div className="max-w-2xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-carbon-700 bg-carbon-900/70 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-fog-200 backdrop-blur-sm">
             <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-acid-400" />
             Guia digital · Acesso imediato
           </span>
@@ -27,7 +32,7 @@ export default function Hero() {
             <span className="mt-2 block text-acid-400">Em 10 minutos por dia.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-fog-400">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-fog-200">
             O guia direto ao ponto para o cara que quer cuidar da pele, do corpo e da cabeça —
             sem frescura, sem gastar uma fortuna em produto e sem precisar virar outra pessoa.
           </p>
@@ -41,17 +46,17 @@ export default function Hero() {
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div className="mt-9">
             <CtaButton
               className="w-full sm:w-auto"
-              microcopy={`Acesso imediato · Garantia de 7 dias · Pagamento único`}
+              microcopy="Acesso imediato · Garantia de 7 dias · Pagamento único"
             >
               Quero meu guia agora
             </CtaButton>
           </div>
 
           {/* Prova social rápida — ⚠️ números de exemplo, ver src/config.js */}
-          <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-carbon-800 pt-6">
+          <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-carbon-700/70 pt-6">
             <div className="flex -space-x-2.5" aria-hidden="true">
               {['R', 'M', 'L', 'D'].map((initial) => (
                 <span
@@ -71,14 +76,25 @@ export default function Hero() {
                   {PLACEHOLDER.rating}/5
                 </span>
               </div>
-              <p className="mt-0.5 text-xs text-fog-500">
+              <p className="mt-0.5 text-xs text-fog-400">
                 +{PLACEHOLDER.studentsCount} homens já começaram a rotina
               </p>
             </div>
           </div>
-        </div>
 
-        <HeroVisual />
+          {/* chips de resultado — no desktop encostam na foto, do lado direito */}
+          <ul className="mt-10 flex flex-wrap gap-3 lg:absolute lg:right-8 lg:bottom-24 lg:mt-0 lg:max-w-[15rem] lg:flex-col xl:right-16">
+            {proofChips.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="flex items-center gap-2 rounded-xl border border-carbon-600/80 bg-carbon-850/80 px-3 py-2 text-xs font-semibold text-fog-200 shadow-lg shadow-black/40 backdrop-blur-sm sm:text-sm"
+              >
+                <Icon className="h-4 w-4 shrink-0 text-acid-400" />
+                {label}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )

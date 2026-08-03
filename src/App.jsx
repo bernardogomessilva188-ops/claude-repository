@@ -1,3 +1,4 @@
+import useSmoothScroll from './hooks/useSmoothScroll'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import PainPoints from './components/PainPoints'
@@ -12,6 +13,9 @@ import Footer from './components/Footer'
 import StickyMobileCta from './components/StickyMobileCta'
 
 export default function App() {
+  // scroll suave da página inteira (Lenis) — desligado em prefers-reduced-motion
+  useSmoothScroll()
+
   return (
     <>
       <a
