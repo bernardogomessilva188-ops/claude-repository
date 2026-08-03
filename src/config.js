@@ -87,6 +87,66 @@ export const HERO_BACKGROUNDS = [
   { src: '/hero/hero-3.webp', srcSmall: '/hero/hero-3-960.webp', origin: '70% 60%' },
 ]
 
+/* --------------------------------------------------------------------------
+ * ESPAÇOS DE IMAGEM DAS SEÇÕES
+ * --------------------------------------------------------------------------
+ * Cada seção tem um espaço de imagem renderizado pelo componente
+ * src/components/ui/ImageSlot.jsx. Os arquivos moram em `public/images/` e,
+ * como no fundo do herói, os atuais são PLACEHOLDERS gerados (cada um leva uma
+ * etiqueta dizendo qual arquivo trocar).
+ *
+ * Para colocar as fotos reais: sobrescreva o arquivo mantendo o nome, em WebP,
+ * na proporção indicada em cada item — nenhum código precisa mudar. O `alt`
+ * descreve a imagem para leitores de tela; atualize junto com a foto.
+ */
+export const IMAGES = {
+  problema: {
+    src: '/images/problema.webp',
+    alt: 'Homem se olhando no espelho do banheiro, decidido a mudar a rotina',
+    w: 1200,
+    h: 900, // proporção 4:3
+  },
+  beneficios: {
+    src: '/images/beneficios.webp',
+    alt: 'Produtos básicos de skincare organizados sobre a pia',
+    w: 1200,
+    h: 900, // 4:3
+  },
+  comoFunciona: {
+    src: '/images/como-funciona.webp',
+    alt: 'Rotina em prática: toalha, relógio e checklist sobre a bancada',
+    w: 1200,
+    h: 750, // 16:10
+  },
+  ofertaMockup: {
+    src: '/images/oferta-mockup.webp',
+    alt: 'Capa do guia Mens Helper aberta na tela de um celular',
+    w: 900,
+    h: 1200, // 3:4 (retrato)
+  },
+  garantia: {
+    src: '/images/garantia.webp',
+    alt: 'Homem tranquilo depois da rotina, sem pressa',
+    w: 900,
+    h: 900, // 1:1
+  },
+  // fundo da seção final — fica atrás de um véu verde-escuro, então pode ser
+  // uma foto com menos "pose": textura, ambiente, detalhe de rotina
+  finalBg: {
+    src: '/images/final-bg.webp',
+    alt: '',
+    w: 1920,
+    h: 900,
+  },
+  // avatares dos depoimentos — ⚠️ mesmos avisos da seção de depoimentos:
+  // foto de pessoa real exige autorização por escrito
+  depoimentos: [
+    { src: '/images/depoimento-1.webp', w: 240, h: 240 },
+    { src: '/images/depoimento-2.webp', w: 240, h: 240 },
+    { src: '/images/depoimento-3.webp', w: 240, h: 240 },
+  ],
+}
+
 /* Navegação do header ---------------------------------------------------- */
 export const NAV_LINKS = [
   { label: 'Início', href: '#inicio' },

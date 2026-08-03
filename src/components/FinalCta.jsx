@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NEWSLETTER_ENDPOINT, PRODUCT } from '../config'
+import { IMAGES, NEWSLETTER_ENDPOINT, PRODUCT } from '../config'
 import CtaButton from './ui/CtaButton'
 import { IconCheck } from './ui/Icons'
 
@@ -11,6 +11,19 @@ export default function FinalCta() {
   return (
     <section id="comecar" className="relative overflow-hidden bg-sage-900 py-24 md:py-32">
       <div aria-hidden="true" className="absolute inset-0">
+        {/* espaço de imagem de fundo — troque public/images/final-bg.webp.
+            Fica atrás de um véu verde-escuro, então serve foto de ambiente/textura
+            (bancada, toalha, azulejo) sem precisar de pose. */}
+        <img
+          src={IMAGES.finalBg.src}
+          alt=""
+          width={IMAGES.finalBg.w}
+          height={IMAGES.finalBg.h}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-sage-900/80" />
         <div className="absolute -top-32 left-1/4 h-96 w-96 animate-drift rounded-full bg-sage-700/40 blur-3xl" />
         <div className="absolute -right-24 bottom-0 h-80 w-80 animate-drift rounded-full bg-sage-800/60 blur-3xl [animation-delay:-6s]" />
       </div>

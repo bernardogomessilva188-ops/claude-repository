@@ -1,4 +1,4 @@
-import { PLACEHOLDER } from '../config'
+import { IMAGES, PLACEHOLDER } from '../config'
 import AnimatedNumber from './ui/AnimatedNumber'
 import Section, { SectionLead, SectionTag, SectionTitle } from './ui/Section'
 import { IconStar } from './ui/Icons'
@@ -92,9 +92,17 @@ export default function Testimonials() {
               {t.highlight}
             </p>
             <figcaption className="mt-6 flex items-center gap-3 border-t border-line-200 pt-5">
-              <span className="grid h-10 w-10 place-items-center rounded-full bg-sage-100 font-display font-bold text-sage-800">
-                {t.name.charAt(0)}
-              </span>
+              {/* espaço de imagem — troque public/images/depoimento-N.webp
+                  (⚠️ foto de cliente real só com autorização por escrito) */}
+              <img
+                src={IMAGES.depoimentos[index].src}
+                alt={`Foto de ${t.name}`}
+                width={IMAGES.depoimentos[index].w}
+                height={IMAGES.depoimentos[index].h}
+                loading="lazy"
+                decoding="async"
+                className="h-10 w-10 rounded-full border border-line-200 object-cover"
+              />
               <span>
                 <span className="block text-sm font-semibold text-ink-900">{t.name}</span>
                 <span className="block text-xs text-ink-400">{t.role}</span>

@@ -1,5 +1,6 @@
 import { PLACEHOLDER, PRODUCT } from '../config'
 import CtaButton from './ui/CtaButton'
+import ImageSlot from './ui/ImageSlot'
 import Section, { SectionTag, SectionTitle } from './ui/Section'
 import { IconCheck, IconClock, IconLock } from './ui/Icons'
 
@@ -64,11 +65,18 @@ export default function Offer() {
             data-reveal
             className="card-shadow rounded-2xl border border-line-200 bg-paper-0 p-7 md:p-9"
           >
-            <h3 className="text-2xl font-extrabold">{PRODUCT.fullName}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-500">
-              Um guia digital direto ao ponto: nada de teoria, nada de enrolação. Você abre no
-              celular e já sabe o que fazer hoje.
-            </p>
+            <div className="grid gap-8 sm:grid-cols-[1fr_11rem] sm:items-start">
+              <div>
+                <h3 className="text-2xl font-extrabold">{PRODUCT.fullName}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-ink-500">
+                  Um guia digital direto ao ponto: nada de teoria, nada de enrolação. Você abre
+                  no celular e já sabe o que fazer hoje.
+                </p>
+              </div>
+              {/* espaço de imagem — troque public/images/oferta-mockup.webp
+                  (mockup do guia: capa no celular, e-book, kit) */}
+              <ImageSlot name="ofertaMockup" className="mx-auto w-36 sm:w-full" />
+            </div>
 
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {included.map((item) => (

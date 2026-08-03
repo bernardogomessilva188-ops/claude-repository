@@ -1,5 +1,6 @@
 import Section, { DriftShape, SectionLead, SectionTag, SectionTitle } from './ui/Section'
 import CtaButton from './ui/CtaButton'
+import ImageSlot from './ui/ImageSlot'
 import {
   IconBrain,
   IconCalendarCheck,
@@ -47,16 +48,20 @@ export default function Benefits() {
     <Section id="beneficios" className="overflow-hidden">
       <DriftShape className="-top-16 -left-24 h-80 w-80 bg-sage-50 [animation-delay:-4s]" />
 
-      <div data-reveal className="max-w-3xl">
-        <SectionTag>A solução</SectionTag>
-        <SectionTitle>
-          Seis frentes. Um plano só.{' '}
-          <span className="text-sage-600">Dez minutos por dia.</span>
-        </SectionTitle>
-        <SectionLead>
-          O Mens Helper reúne o que realmente muda sua aparência, sua saúde e sua confiança — em
-          linguagem de gente, com o passo a passo já montado. Você só executa.
-        </SectionLead>
+      <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <div data-reveal className="max-w-3xl">
+          <SectionTag>A solução</SectionTag>
+          <SectionTitle>
+            Seis frentes. Um plano só.{' '}
+            <span className="text-sage-600">Dez minutos por dia.</span>
+          </SectionTitle>
+          <SectionLead>
+            O Mens Helper reúne o que realmente muda sua aparência, sua saúde e sua confiança —
+            em linguagem de gente, com o passo a passo já montado. Você só executa.
+          </SectionLead>
+        </div>
+        {/* espaço de imagem — troque public/images/beneficios.webp */}
+        <ImageSlot name="beneficios" revealDelay="150ms" />
       </div>
 
       <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">

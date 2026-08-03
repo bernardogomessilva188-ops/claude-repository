@@ -1,5 +1,6 @@
 import { PRODUCT } from '../config'
 import { IconShield } from './ui/Icons'
+import ImageSlot from './ui/ImageSlot'
 import Section, { DriftShape } from './ui/Section'
 
 export default function Guarantee() {
@@ -9,7 +10,7 @@ export default function Guarantee() {
 
       <div
         data-reveal
-        className="card-shadow grid items-center gap-10 rounded-3xl border border-sage-200 bg-gradient-to-br from-sage-50 to-paper-0 p-8 md:grid-cols-[auto_1fr] md:p-12"
+        className="card-shadow grid items-center gap-10 rounded-3xl border border-sage-200 bg-gradient-to-br from-sage-50 to-paper-0 p-8 md:grid-cols-[auto_1fr] md:p-12 xl:grid-cols-[auto_1fr_16rem]"
       >
         {/* selo */}
         <div className="mx-auto md:mx-0">
@@ -41,6 +42,9 @@ export default function Guarantee() {
             O risco é todo nosso. O único jeito de você perder é não tentando.
           </p>
         </div>
+
+        {/* espaço de imagem — troque public/images/garantia.webp */}
+        <ImageSlot name="garantia" framed={false} className="hidden xl:block" />
       </div>
     </Section>
   )

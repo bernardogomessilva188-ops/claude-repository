@@ -1,3 +1,4 @@
+import ImageSlot from './ui/ImageSlot'
 import Section, { SectionLead, SectionTag, SectionTitle } from './ui/Section'
 
 const steps = [
@@ -26,13 +27,17 @@ const steps = [
 export default function HowItWorks() {
   return (
     <Section id="como-funciona" className="border-y border-line-200 bg-sage-50">
-      <div data-reveal className="max-w-3xl">
-        <SectionTag>Como funciona</SectionTag>
-        <SectionTitle>Do zero à rotina rodando em 4 passos</SectionTitle>
-        <SectionLead>
-          Sem curso de 40 horas, sem plataforma complicada, sem grupo de WhatsApp apitando. Você
-          abre, faz, fecha.
-        </SectionLead>
+      <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
+        <div data-reveal className="max-w-3xl">
+          <SectionTag>Como funciona</SectionTag>
+          <SectionTitle>Do zero à rotina rodando em 4 passos</SectionTitle>
+          <SectionLead>
+            Sem curso de 40 horas, sem plataforma complicada, sem grupo de WhatsApp apitando.
+            Você abre, faz, fecha.
+          </SectionLead>
+        </div>
+        {/* espaço de imagem — troque public/images/como-funciona.webp */}
+        <ImageSlot name="comoFunciona" revealDelay="150ms" />
       </div>
 
       <ol className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">

@@ -153,6 +153,30 @@ não briga com o "puxar para atualizar" nem com a barra do navegador.
 
 ---
 
+## Espaços de imagem das seções
+
+Cada seção tem um espaço de imagem, renderizado por
+`src/components/ui/ImageSlot.jsx` e registrado em `IMAGES` (`src/config.js`). Os
+arquivos ficam em `public/images/` e os atuais são **placeholders gerados** — cada um
+leva uma etiqueta no canto dizendo qual arquivo trocar.
+
+| Seção | Arquivo | Proporção | Sugestão de foto |
+| --- | --- | --- | --- |
+| Problema | `problema.webp` | 4:3 | homem se olhando no espelho |
+| Benefícios | `beneficios.webp` | 4:3 | produtos básicos sobre a pia |
+| Como funciona | `como-funciona.webp` | 16:10 | rotina em prática (toalha, relógio, checklist) |
+| Oferta | `oferta-mockup.webp` | 3:4 | mockup do guia (capa no celular/e-book) |
+| Garantia | `garantia.webp` | 1:1 | homem tranquilo pós-rotina (só telas xl+) |
+| CTA final | `final-bg.webp` | 1920×900 | ambiente/textura — fica atrás de véu verde |
+| Depoimentos | `depoimento-1..3.webp` | 1:1 | foto dos clientes (⚠️ só com autorização) |
+
+Trocar é sobrescrever o arquivo mantendo o nome (WebP, na proporção indicada) e ajustar
+o `alt` correspondente em `IMAGES` — nenhum componente muda. O `ImageSlot` já cuida de
+`width`/`height` (zero layout shift), `loading="lazy"`, moldura verde-clara deslocada e
+revelação ao rolar; `framed={false}` desliga a moldura.
+
+---
+
 ## Interatividade e movimento
 
 Além do fundo do herói e do Lenis:
